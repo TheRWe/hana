@@ -20,6 +20,8 @@ jobs:
           node-version: 12
       - name: Install dependencies
         run: yarn install
+      - name: create build
+        run: yarn dist
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
