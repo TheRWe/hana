@@ -1,7 +1,29 @@
 import { execSync } from "child_process";
 import * as fs from "fs";
+import { lstatSync, copyFileSync, existsSync, mkdirSync, readdirSync } from "fs";
 import * as path from "path";
-import { copyRecrusivePreservingFolders } from "../common/utils/fs";
+import { join } from "path";
+
+export const copyRecrusivePreservingFolders = (from: string, to: string, fileReg: RegExp = /.*/) => {
+  if (lstatSync(from).isFile()) {
+    if (fileReg.test(from))
+      copyFileSync(from, to)
+        ;
+    return;
+  }
+
+  if (!existsSync(to))
+    mkdirSync(to)
+      ;
+
+  if (fs.lstatSync(from).isSymbolicLink())
+    return;
+
+  readdirSync(from)
+    .forEach(x => copyRecrusivePreservingFolders(join(from, x), join(to, x), fileReg))
+    ;
+};
+
 
 // used to configure pkg
 const fakePackageJson = {
@@ -28,6 +50,8 @@ const withTemp = (fnc: (temp: string) => void) => {
 };
 
 withTemp((temp) => {
+  console.log("writing temp")
+
   const inTemp = (target: string) => path.join(temp, target);
   [
     { source: "../ui/build/", target: inTemp("ui") },
@@ -37,7 +61,11 @@ withTemp((temp) => {
     .forEach(({ source, target }) => copyRecrusivePreservingFolders(source, target))
     ;
 
+  console.log("writing package json")
   fs.writeFileSync(inTemp("package.json"), JSON.stringify(fakePackageJson));
 
+  console.log("exec yarn")
   execSync("cd .. && yarn pkg ./temp/ --out-dir dist", { windowsHide: true });
 });
+
+console.log("succ")
