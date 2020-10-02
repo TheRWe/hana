@@ -5,7 +5,7 @@
   "scripts": {
     "script": "cd ./scripts/ && ts-node-script",
     "ts-node-script": "ts-node-script",
-    "postinstall": "run-p install:*",
+    "postinstall": "run-s install:*",
     "install:server": "yarn --cwd server install",
     "install:ui": "yarn --cwd ui install",
     "build": "yarn install && run-p build:*",
