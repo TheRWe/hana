@@ -50,8 +50,6 @@ const withTemp = (fnc: (temp: string) => void) => {
 };
 
 withTemp((temp) => {
-  console.log("writing temp")
-
   const inTemp = (target: string) => path.join(temp, target);
   [
     { source: "../ui/build/", target: inTemp("ui") },
@@ -61,11 +59,7 @@ withTemp((temp) => {
     .forEach(({ source, target }) => copyRecrusivePreservingFolders(source, target))
     ;
 
-  console.log("writing package json")
   fs.writeFileSync(inTemp("package.json"), JSON.stringify(fakePackageJson));
 
-  console.log("exec yarn")
   execSync("cd .. && yarn pkg ./temp/ --out-dir dist", { windowsHide: true });
 });
-
-console.log("succ")
