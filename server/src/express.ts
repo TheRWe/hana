@@ -15,6 +15,7 @@ export const startExpressServer = async () => {
   });
 
   app.listen(port, () => {
+    // tslint:disable-next-line: no-console
     console.info(`listening on: http://localhost:${port}`);
   });
 
