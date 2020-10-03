@@ -1,10 +1,10 @@
 import { sleep } from "./common/utils/promise";
 import { startExpressServer } from "./express";
-
+// tslint:disable: no-console
 
 console.info("Server starting...");
 
-(async()=>{
+(async ()=>{
 
   try{
     await startExpressServer();
@@ -12,5 +12,3 @@ console.info("Server starting...");
     console.error(e);
   }
 })();
-
-sleep(10000);
