@@ -1,4 +1,6 @@
 
+All commited code should follow the [contributing](./contributing.md)
+
 ## Building and dev
 
 ### prerequisites
