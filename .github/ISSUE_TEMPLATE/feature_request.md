@@ -1,7 +1,7 @@
 ---
 name: Feature request
 about: Opening a feature request kicks off a discussion
-title: ''
+title: 'feat: '
 labels: feat
 assignees: ''
 
