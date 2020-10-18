@@ -17,7 +17,8 @@
     "dev:server": "yarn --cwd server dev",
     "dev:ui": "yarn --cwd ui dev",
     "semantic-release": "semantic-release",
-    "lint": "tslint -c tslint.json ./{ui,server}/src/**/*.ts{,x}"
+    "lint": "tslint -c tslint.json ./{ui/src,server/src,common}/**/*.ts{,x}",
+    "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
     "@types/node": "^14.11.1",
