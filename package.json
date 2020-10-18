@@ -38,20 +38,6 @@
     "url": "https://github.com/TheRWe/hana.git"
   },
   "release": {
-    "assets": [
-      "dist/*",
-      "./CHANGELOG.md"
-    ],
-    "plugins": [
-      "@semantic-release/commit-analyzer",
-      "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/changelog",
-        {
-          "changelogFile": "./CHANGELOG.md"
-        }
-      ],
-      "@semantic-release/github"
-    ]
+    "assets": "dist/*"
   }
 }
