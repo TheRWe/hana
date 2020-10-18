@@ -21,6 +21,7 @@
     "lint:fix": "yarn lint --fix"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^5.0.1",
     "@types/node": "^14.11.1",
     "npm-run-all": "^4.1.5",
     "pkg": "^4.4.9",
@@ -34,6 +35,12 @@
     "url": "https://github.com/TheRWe/hana.git"
   },
   "release": {
-    "assets": "dist/*"
+    "assets": "dist/*",
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/github"
+    ]
   }
 }
