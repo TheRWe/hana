@@ -11,7 +11,7 @@
     "ci": "yarn install --ignore-scripts --frozen-lockfile & run-p ci:*",
     "ci:server": "yarn --cwd server install --frozen-lockfile",
     "ci:ui": "yarn --cwd ui install --frozen-lockfile",
-    "build": "yarn install && run-p build:*",
+    "build": "yarn ci && run-p build:*",
     "build:ui": "yarn --cwd ui build",
     "build:server": "yarn --cwd server build",
     "dist": "yarn build && yarn script dist",
