@@ -1,6 +1,6 @@
 [![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/therwe/hana?&style=for-the-badge)](https://github.com/TheRWe/hana/releases)
 [![GitHub Workflow Status build](https://img.shields.io/github/workflow/status/therwe/hana/Release?&style=for-the-badge)](https://github.com/TheRWe/hana/releases)
-[![GitHub Workflow Status test](https://img.shields.io/github/workflow/status/therwe/hana/Tests?label=tests?&style=for-the-badge)](https://github.com/TheRWe/hana/actions?query=workflow%3ATests)
+[![GitHub Workflow Status test](https://img.shields.io/github/workflow/status/therwe/hana/Tests?label=tests&style=for-the-badge)](https://github.com/TheRWe/hana/actions?query=workflow%3ATests)
 [![GitHub last commit](https://img.shields.io/github/last-commit/therwe/hana?&style=for-the-badge)](https://github.com/TheRWe/hana/commits/master)
 [![GitHub commit activity](https://img.shields.io/github/commit-activity/m/therwe/hana?&style=for-the-badge)](https://github.com/TheRWe/hana/graphs/commit-activity)
 [![Lines of code](https://img.shields.io/tokei/lines/github/therwe/hana?&style=for-the-badge)](https://github.com/TheRWe/hana/pulse)
