@@ -23,9 +23,7 @@ jobs:
         with:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-      - name: Install dependencies
-        run: yarn ci
-      - name: create build
+      - name: Install dependencies and create dist
         run: yarn dist
       - name: Release
         env:
