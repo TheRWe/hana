@@ -35,7 +35,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TheRWe/hana.git"
+    "url": "https://github.com/sciator/hana.git"
   },
   "release": {
     "assets": "dist/*"
