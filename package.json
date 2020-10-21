@@ -15,7 +15,6 @@
     "build:ui": "yarn --cwd ui build",
     "build:server": "yarn --cwd server build",
     "dist": "yarn ci && run-s build \"script dist\"",
-    "pkg": "pkg",
     "dev": "run-p dev:*",
     "dev:server": "yarn --cwd server dev",
     "dev:ui": "yarn --cwd ui dev",
