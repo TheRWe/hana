@@ -1,5 +1,5 @@
 {
-  "name": "feve-bot-server",
+  "name": "hana-server",
   "private": true,
   "scripts": {
     "script": "cd ./scripts/ && ts-node-script",
