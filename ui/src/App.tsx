@@ -1,8 +1,15 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.scss";
 import { ErrorCode, withFetch } from "./api/core";
 import { TAction } from "./common/interface/common";
+import { MainPage } from "./pages/MainPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import { SecondPage } from "./pages/SecondPage";
 
 type Props = {
 
@@ -54,18 +61,27 @@ const App: React.FC<Props> = () => {
         <div>Send error message
           <button onClick={testError}>Send</button>
         </div>
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <Router>
+          <nav>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/second">SecondPage</Link>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route path="/" exact>
+              <MainPage />
+            </Route>
+            <Route path="/second">
+              <SecondPage />
+            </Route>
+          </Switch>
+        </Router>
       </header>
     </div>
   </>
