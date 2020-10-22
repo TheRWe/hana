@@ -13,7 +13,6 @@ const App: React.FC<Props> = () => {
 
   const testEcho = async () => {
 
-    const getArticle = withFetch<TAction<{ echoMsg: string }, { echoMsg: string }>>({
       route: "test/echo",
       method: "POST",
     });
