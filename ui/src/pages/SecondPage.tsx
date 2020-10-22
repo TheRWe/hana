@@ -4,7 +4,7 @@ type TSecondPageProps = {
 
 };
 
-export const SecondPage: React.FC<TSecondPageProps> = ({ }) => {
+export const SecondPage: React.FC<TSecondPageProps> = () => {
 
   return <>
     this is second page
