@@ -67,7 +67,7 @@ const App: React.FC<Props> = () => {
       <div>
         <button
           onClick={() => setIsCz(!isCz)}
-    style={{position:"fixed", fontSize:"3em", right:0 }}
+          style={{ position: "fixed", fontSize: "3em", right: 0 }}
         >
           <LocText
             cz="cz"
@@ -76,57 +76,70 @@ const App: React.FC<Props> = () => {
         </button>
       </div>
 
-      <div className="App">
-        <header className="App-header">
-          <div>
-            <LocText
-              en="Send echo messagee"
-              cz="Poslat testovací zprávu"
-            />
-            <input value={echoMsg} onChange={e => setEchoMsg(e.target.value)}></input>
-            <button onClick={testEcho}>Send</button>
-          </div>
-          <div>Send error message
-          <button onClick={testError}>Send</button>
-          </div>
-
-          <Router>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/CalendarPage">Calendar Of Events</Link>
-                </li>
-                <li>
-                  <Link to="/StockExchangePage">Stock Exchange</Link>
-                </li>
-                <li>
-                  <Link to="/JobAdsPage">Job Ads</Link>
-                </li>
-              </ul>
-            </nav>
-
-            <Switch>
-              <Route path="/" exact>
-                <MainPage />
-              </Route>
-              <Route path="/CalendarPage">
-                <CalendarPage />
-              </Route>
-              <Route path="/StockExchangePage">
-                <StockExchangePage />
-              </Route>
-              <Route path="/JobAdsPage">
-                <JobAdsPage />
-              </Route>
-            </Switch>
-
-          </Router>
-
-        </header>
+      <div>
+        <LocText
+          en="Send echo messagee"
+          cz="Poslat testovací zprávu"
+        />
+        <input value={echoMsg} onChange={e => setEchoMsg(e.target.value)}></input>
+        <button onClick={testEcho}>Send</button>
       </div>
+      <div>Send error message
+          <button onClick={testError}>Send</button>
+      </div>
+
+      <Router>
+        <section className="section-menu">
+          <section className="language-menu">
+            <ul>
+              <li>
+                <a href="#">
+                  <img src="./images/EN_logo.png" alt="English" />
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <img src="./images/CZ_logo.png" alt="Czech" />
+                </a>
+              </li>
+            </ul>
+          </section>
+          <nav>
+            <Link to="/">
+              <img src="./images/logo.png" alt="logo" />
+            </Link>
+            <ul>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/CalendarPage">Calendar Of Events</Link>
+              </li>
+              <li>
+                <Link to="/StockExchangePage">Stock Exchange</Link>
+              </li>
+              <li>
+                <Link to="/JobAdsPage">Job Ads</Link>
+              </li>
+            </ul>
+            <a href="#">Roman buk</a>
+          </nav>
+        </section>
+        <Switch>
+          <Route path="/" exact>
+            <MainPage />
+          </Route>
+          <Route path="/CalendarPage">
+            <CalendarPage />
+          </Route>
+          <Route path="/StockExchangePage">
+            <StockExchangePage />
+          </Route>
+          <Route path="/JobAdsPage">
+            <JobAdsPage />
+          </Route>
+        </Switch>
+      </Router>
     </ LanguageContext.Provider>
   </>
   );
