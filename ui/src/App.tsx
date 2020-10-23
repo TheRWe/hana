@@ -1,16 +1,24 @@
 import React, { useState } from "react";
-import "./App.scss";
 import { ErrorCode, withFetch } from "./api/core";
 import { TAction } from "./common/interface/common";
-import { ELanguages, LanguageContext, LocText } from "./components/LocText";
-import { MainPage } from "./pages/MainPage";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link
 } from "react-router-dom";
-import { SecondPage } from "./pages/SecondPage";
+
+// Styles
+import "./App.scss";
+
+// Components
+import { ELanguages, LanguageContext, LocText } from "./components/LocText";
+
+// Pages
+import { MainPage } from "./pages/MainPage";
+import { StockExchangePage } from "./pages/StockExchangePage";
+import { CalendarPage } from "./pages/CalendarPage";
+import { JobAdsPage } from "./pages/JobAdsPage";
 
 type Props = {
 
@@ -55,6 +63,7 @@ const App: React.FC<Props> = () => {
 
   return (<>
     <LanguageContext.Provider value={isCz ? ELanguages.cz : ELanguages.en}>
+      {/*Change language icons*/}
       <div>
         <button
           onClick={() => setIsCz(!isCz)}
@@ -66,6 +75,7 @@ const App: React.FC<Props> = () => {
           />
         </button>
       </div>
+
       <div className="App">
         <header className="App-header">
           <div>
@@ -79,6 +89,7 @@ const App: React.FC<Props> = () => {
           <div>Send error message
           <button onClick={testError}>Send</button>
           </div>
+
           <Router>
             <nav>
               <ul>
@@ -86,7 +97,13 @@ const App: React.FC<Props> = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li>
-                  <Link to="/second">SecondPage</Link>
+                  <Link to="/CalendarPage">Calendar Of Events</Link>
+                </li>
+                <li>
+                  <Link to="/StockExchangePage">Stock Exchange</Link>
+                </li>
+                <li>
+                  <Link to="/JobAdsPage">Job Ads</Link>
                 </li>
               </ul>
             </nav>
@@ -95,11 +112,19 @@ const App: React.FC<Props> = () => {
               <Route path="/" exact>
                 <MainPage />
               </Route>
-              <Route path="/second">
-                <SecondPage />
+              <Route path="/CalendarPage">
+                <CalendarPage />
+              </Route>
+              <Route path="/StockExchangePage">
+                <StockExchangePage />
+              </Route>
+              <Route path="/JobAdsPage">
+                <JobAdsPage />
               </Route>
             </Switch>
+
           </Router>
+
         </header>
       </div>
     </ LanguageContext.Provider>
