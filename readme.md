@@ -30,6 +30,10 @@ All commited code should follow the [contributing](./contributing.md)
 
 ## Building and dev
 
+> :warning: windows can have problems with symlinks (when `common` inside `ui/src` or `server/src` is not openable)
+>
+> to fix this in elevated terminal call `yarn script symfix`
+
 ### prerequisites
    - [node](https://nodejs.org/) installed
    - [yarn](https://yarnpkg.com/) installed
