@@ -1,5 +1,4 @@
 import React from "react";
-import { LocText } from "../components/LocText";
 import { EJobAdType, Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 
@@ -10,15 +9,14 @@ type TJobAdsPageProps = {
 export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
 
   return <>
-    <LocText
-      en="this is example homepage"
-      cz="tohle je ukázková stránka"
-    />
-    <FilterMenu
-    filterType={EFilterMenuType.jobAd}
-  >
 
-  </FilterMenu>
+    {/* BEGIN SECTION JOBS ADS */}
+
+    <FilterMenu
+      filterType={EFilterMenuType.jobAd}
+    >
+    </FilterMenu>
+
     {/* <section className="section-filter-menu">
       <header className="section-filter-menu__buttons">
         <h2>display None</h2>
@@ -115,10 +113,12 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
         </div>
       </div>
     </section> */}
+
     <section className="section-sort">
       //sorting options
     </section>
-    <main>
+
+    <section>
       <Tile
         heading="Sekanie trávy"
         text="Posekanie celého pozemku. Kosačka nutnosť."
@@ -141,6 +141,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
         jobAdType={EJobAdType.off}
       >
       </Tile>
+
       {/* <article className="tile">
         <header>
           <h3>Sekanie trávy</h3>
@@ -225,6 +226,8 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
           </div>
         </footer>
       </article> */}
-    </main>
+    </section>
+
+    {/* END SECTION JOBS ADS */}
   </>;
 };
