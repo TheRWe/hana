@@ -23,20 +23,20 @@ export type TTag = {
 
 // Uživatel
 export enum EUserType {
-  Person, 
+  Person,
   Company,
-  CertifiedCompany, 
-  Moderator, 
+  CertifiedCompany,
+  Moderator,
   Administrator,
 }
 
 export type TUser = {
   id: string,
-  name: string, 
-  email: string, 
+  name: string,
+  email: string,
   type: EUserType,
   linkToPhoto: string, // ?
-}
+};
 
 export type TUserGetRequest = {
   id: string,
@@ -61,8 +61,8 @@ export type TDate = {
 export type TPlace = {
   name: string,
   latitude: number,  // jak podle toho budeme filtrovat?
-  longitude: number, 
-}
+  longitude: number,
+};
 
 // Akce
 export type TEvent = {
@@ -79,7 +79,7 @@ export type TEvent = {
   moreInfo: string,
   type: string, // nebo nejaky enum? (budou tam hodnoty jako: pro děti, kulturní)
   tags: TTag[],
-}
+};
 
 export type TEventGetRequest = {
   id: string,
@@ -93,20 +93,20 @@ export type TEventGetAction = TAction<TEventGetRequest, TEventGetResponse>;
 
 // Inzerát
 export enum EAdAndStockExchangeType {
-  Supply, // nabídka 
+  Supply, // nabídka
   Demand, // poptávka
 }
 
 export type TAd = {
-  id: string, 
+  id: string,
   user: TUser,
   name: string,
   linkToPhoto: string,
-  description: string, 
+  description: string,
   type: EAdAndStockExchangeType,
   place: TPlace,
   tags: TTag[],
-}
+};
 
 export type TAdGetRequest = {
   id: string,
@@ -120,16 +120,16 @@ export type TAdGetAction = TAction<TAdGetRequest, TAdGetResponse>;
 
 // Burza
 export type TStockExchange = {
-  id: string, 
+  id: string,
   user: TUser,
-  name: string, 
+  name: string,
   linkToPhoto: string,
-  description: string, 
+  description: string,
   cost: number,
   type: EAdAndStockExchangeType,
   place: TPlace,
   tags: TTag[],
-}
+};
 
 export type TStockExchangeGetRequest = {
   id: string,
