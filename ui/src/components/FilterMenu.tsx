@@ -162,19 +162,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
               <SelectBox
                 labelEng="Type"
                 labelCz="Typ"
-                options={[["Offer", "Nabídka"], ["Inquiry", "Poptávka"]]}></SelectBox>
+                options={[{en:"Offer", cz:"Nabídka"}, {en:"Inquiry", cz:"Poptávka"}]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
                 labelEng="Type of employment"
                 labelCz="Druhy pracovního poměru"
-                options={[["Full time", "Plný úvazek"], ["???", "Živnost"], ["Summer job", "Brigáda"], ["Part time", "Zkrácený úvazek"], ["Internship", "Stáž"]]}></SelectBox>
+                options={[{en:"Full time", cz:"Plný úvazek"}, {en:"???", cz:"Živnost"}, {en:"Summer job", cz:"Brigáda"}, {en:"Part time", cz:"Zkrácený úvazek"}, {en:"Internship", cz:"Stáž"}]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
                 labelEng="Job"
                 labelCz="Pracovní pozice"
-                options={[["IT Analyst", "IT Analytik"], ["Idk", "Idk"]]}></SelectBox>
+                options={[{en:"IT Analyst", cz:"IT Analytik"}, {en:"Idk", cz:"Idk"}]}></SelectBox>
             </div>
           </div>
         </div>
