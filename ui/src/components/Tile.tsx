@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import { LocText } from "../components/LocText";
 
 export enum EJobAdType {
@@ -24,10 +24,10 @@ type TileProps = {
 
 
 export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, heading, text, price, jobAdType }: TileProps) => <>
-  <article className="tile">
+  <article className="card">
     <header>
       {
-        imagePath ? <img src={imagePath} alt="no-image-yet" /> : undefined
+        imagePath ? <img src={imagePath} alt="ntg" /> : undefined
       }
       <h3>{heading}</h3>
       {
