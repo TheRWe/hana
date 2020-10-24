@@ -1,15 +1,18 @@
 import React, { useState } from "react";
-import { ErrorCode, withFetch } from "./api/core";
-import { TAction } from "./common/interface/common";
+
+// Routing
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 
 // Styles
 import "./App.scss";
+
+// Icons
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe, faUser } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import { ELanguages, LanguageContext, LocText } from "./components/LocText";
@@ -25,121 +28,108 @@ type Props = {
 };
 
 const App: React.FC<Props> = () => {
-  const [echoMsg, setEchoMsg] = useState("this should travel to server and back to UI");
+
   const [isCz, setIsCz] = useState(true);
-
-  const testEcho = async () => {
-
-    const getArticle = withFetch<TAction<{ echoMsg: string }, { echoMsg: string }>>({
-      route: "test/echo",
-      method: "POST",
-    });
-
-    try {
-      const test = await getArticle({ echoMsg });
-      alert(`response success ${JSON.stringify(test)}`);
-    } catch (e) {
-      alert(e);
-    }
-  };
-
-  const testError = async () => {
-
-    const getArticle = withFetch<TAction<{ echoMsg: string }, { echoMsg: string }>>({
-      route: "test/error",
-      method: "DELETE",
-    });
-
-    try {
-      const test = await getArticle({ echoMsg });
-      alert(`response success ${JSON.stringify(test)}`);
-    } catch (e) {
-      if (e instanceof ErrorCode)
-        alert(`coded error ${e.code}:\n ${e.message}`);
-      else
-        alert(`error without code:\n ${e.message}`);
-    }
-  };
 
   return (<>
     <LanguageContext.Provider value={isCz ? ELanguages.cz : ELanguages.en}>
-      {/*Change language icons*/}
-      <div>
-        <button
-          onClick={() => setIsCz(!isCz)}
-          style={{ position: "fixed", fontSize: "3em", right: 0 }}
-        >
-          <LocText
-            cz="cz"
-            en="en"
-          />
-        </button>
-      </div>
-
-      <div>
-        <LocText
-          en="Send echo messagee"
-          cz="Poslat testovací zprávu"
-        />
-        <input value={echoMsg} onChange={e => setEchoMsg(e.target.value)}></input>
-        <button onClick={testEcho}>Send</button>
-      </div>
-      <div>Send error message
-          <button onClick={testError}>Send</button>
-      </div>
 
       <Router>
+
+        {/* CHANGE LANGUAGE ICONS */}
+        <ul className="language-menu">
+          <li className="nav-item">
+            <button onClick={() => setIsCz(false)}>
+              <img src="./images/EN_logo.png" alt="English" className="nav-icon" />
+            </button>
+          </li>
+          <li className="nav-item">
+            <button onClick={() => setIsCz(true)}>
+              <img src="./images/CZ_logo.png" alt="Czech" className="nav-icon" />
+            </button>
+          </li>
+        </ul>
+
+        {/* BEGIN MAIN MENU */}
         <section className="section-menu">
-          <section className="language-menu">
-            <ul>
-              <li>
-                <a href="#">
-                  <img src="./images/EN_logo.png" alt="English" />
-                </a>
-              </li>
-              <li>
-                <a href="#">
-                  <img src="./images/CZ_logo.png" alt="Czech" />
-                </a>
-              </li>
-            </ul>
-          </section>
-          <nav>
-            <Link to="/">
+          <nav className="navbar navbar-expand-lg">
+            <a className="navbar-brand" href="/">
               <img src="./images/logo.png" alt="logo" />
-            </Link>
-            <ul>
-              <li>
-                <Link to="/">Home</Link>
-              </li>
-              <li>
-                <Link to="/CalendarPage">Calendar Of Events</Link>
-              </li>
-              <li>
-                <Link to="/StockExchangePage">Stock Exchange</Link>
-              </li>
-              <li>
-                <Link to="/JobAdsPage">Job Ads</Link>
-              </li>
-            </ul>
-            <a href="#">Roman buk</a>
+            </a>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+              <span className="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse">
+              {/* LEFT SIDE */}
+              <ul className="navbar-nav">
+                <li className="nav-item">
+                  <a className="nav-link" href="/CalendarPage">
+                    <LocText
+                      en="Calendar Of Events"
+                      cz="Události"
+                    />
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/StockExchangePage">
+                    <LocText
+                      en="Stock Exchange"
+                      cz="Burza"
+                    />
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/JobAdsPage">
+                    <LocText
+                      en="Job Ads"
+                      cz="Pracovné Inzeráty"
+                    />
+                  </a>
+                </li>
+              </ul>
+              {/* RIGHT SIDE */}
+              <ul className="navbar-nav user-menu">
+                <li className="nav-item">
+                  <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
+                  <a href="/">Roman buk</a>
+                </li>
+              </ul>
+            </div>
+
           </nav>
         </section>
-        <Switch>
-          <Route path="/" exact>
-            <MainPage />
-          </Route>
-          <Route path="/CalendarPage">
-            <CalendarPage />
-          </Route>
-          <Route path="/StockExchangePage">
-            <StockExchangePage />
-          </Route>
-          <Route path="/JobAdsPage">
-            <JobAdsPage />
-          </Route>
-        </Switch>
+        {/* END MAIN MENU */}
+
+        {/* BEGIN BODY */}
+        <main>
+          <Switch>
+            <Route path="/" exact>
+              <MainPage />
+            </Route>
+            <Route path="/CalendarPage">
+              <CalendarPage />
+            </Route>
+            <Route path="/StockExchangePage">
+              <StockExchangePage />
+            </Route>
+            <Route path="/JobAdsPage">
+              <JobAdsPage />
+            </Route>
+          </Switch>
+        </main>
+        {/* END BODY */}
+
+        {/* BEGIN FOOTER */}
+        <footer>
+          <hr />
+          <p>
+            ©2020 | GL <FontAwesomeIcon icon={faGlobe} className="icon-footer" /> BEX
+        </p>
+        </footer>
+        {/* BEGIN FOOTER */}
+
       </Router>
+
     </ LanguageContext.Provider>
   </>
   );
