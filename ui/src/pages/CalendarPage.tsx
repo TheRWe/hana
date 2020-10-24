@@ -1,21 +1,29 @@
 import React from "react";
 import { LocText } from "../components/LocText";
-
+import { EJobAdType, Tile } from "../components/Tile";
+import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 
 type TCalendarPageProps = {
 
 };
 
-export const CalendarPage : React.FC<TCalendarPageProps>  = () => {
+export const CalendarPage: React.FC<TCalendarPageProps> = () => {
 
   return <>
     <LocText
       en="this is example homepage"
       cz="tohle je ukázková stránka"
     />
-    <section className="section-filter-menu">
+
+    <FilterMenu
+      filterType={EFilterMenuType.events}
+    >
+
+    </FilterMenu>
+
+    {/* <section className="section-filter-menu">
       <header className="section-filter-menu__buttons">
-        <h2>/*display None*/</h2>
+        <h2>display None</h2>
         <button>
           <LocText
             en="Search"
@@ -85,12 +93,23 @@ export const CalendarPage : React.FC<TCalendarPageProps>  = () => {
           </input>
         </div>
       </div>
-    </section>
+    </section> */}
     <section className="section-sort">
       //sorting options
     </section>
     <main>
-      <article className="tile">
+      <Tile
+        imagePath="../images/no_image.png"
+        eventRating="4/5"
+        place="Hala někde ve městě"
+        date="5.5.2018 13:00 - 15:00"
+        heading="Tvořivé dílny"
+        text="Program pre žiakov materských škôl, základných a špeciálnych škôl. V tvorivej dielni si deti vyskúšajú rôzne aktivity s použitím niektorých tradičných výrobných postupov a prírodných materiálov."
+        price="30 kč"
+      >
+
+      </Tile>
+      {/* <article className="tile">
         <header>
           <img src="../images/no_image.png" alt="no-image-yet" />
           <h3>Tvořivé dílny</h3>
@@ -124,7 +143,7 @@ export const CalendarPage : React.FC<TCalendarPageProps>  = () => {
             <p>30 kč</p>
           </div>
         </footer>
-      </article>
+      </article> */}
     </main>
   </>;
 };

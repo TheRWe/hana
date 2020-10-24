@@ -1,5 +1,7 @@
 import React from "react";
 import { LocText } from "../components/LocText";
+import { EJobAdType, Tile } from "../components/Tile";
+import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 
 type TStockExchangePageProps = {
 
@@ -8,9 +10,14 @@ type TStockExchangePageProps = {
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
 
   return <>
-    <section className="section-filter-menu">
+  <FilterMenu
+    filterType={EFilterMenuType.stock}
+  >
+
+  </FilterMenu>
+    {/* <section className="section-filter-menu">
       <header className="section-filter-menu__buttons">
-        <h2>/*display None*/</h2>
+        <h2>/*display None</h2>
         <button>
           <LocText
             en="Search"
@@ -68,38 +75,52 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
               cz="Kategorie"
             />
           </label>
-          <input type="radio" name="event-type">
+          <input type="radio" id="toys" name="event-type" value="sssss" />
+          <label htmlFor="toys">
             <LocText
               en="Toys"
               cz="Hračky"
             />
-          </input>
-          <input type="radio" name="event-type">
+          </label>
+          <input type="radio" id="clothes" name="event-type" />
+          <label htmlFor="clothes">
             <LocText
               en="Clothes"
               cz="Oblečení"
             />
-          </input>
-          <input type="radio" name="event-type">
+          </label>
+          <input type="radio" id="books" name="event-type" />
+          <label htmlFor="books">
             <LocText
               en="Books"
               cz="Knihy"
             />
-          </input>
-          <input type="radio" name="event-type">
+          </label>
+          <input type="radio" id="machines" name="event-type" />
+          <label htmlFor="machines">
             <LocText
               en="Machines"
               cz="Stroje"
             />
-          </input>
+          </label>
         </div>
       </div>
-    </section>
+    </section> */}
     <section className="section-sort">
       //sorting options
     </section>
     <main>
-      <article className="tile">
+      <Tile
+        imagePath="../images/no_image.png"
+        heading="Stará váza"
+        text="Stará čínska porcelánová váza, značená, výška 28 cm, priemer v najširšej časti 20 cm, bez poškodení, vitrínový stav."
+        email="stara.vaza@gmail.com"
+        userName="Sam"
+        userRating="4/5"
+        price="30 kč"
+      >
+      </Tile>
+      {/* <article className="tile">
         <header>
           <img src="../images/no_image.png" alt="no-image-yet" />
           <h3>Stará váza</h3>
@@ -133,7 +154,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
             <p>30 kč</p>
           </div>
         </footer>
-      </article>
+      </article> */}
     </main>
   </>;
 };

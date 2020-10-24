@@ -1,5 +1,7 @@
 import React from "react";
 import { LocText } from "../components/LocText";
+import { EJobAdType, Tile } from "../components/Tile";
+import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 
 type TJobAdsPageProps = {
 
@@ -12,9 +14,14 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
       en="this is example homepage"
       cz="tohle je ukázková stránka"
     />
-    <section className="section-filter-menu">
+    <FilterMenu
+    filterType={EFilterMenuType.jobAd}
+  >
+
+  </FilterMenu>
+    {/* <section className="section-filter-menu">
       <header className="section-filter-menu__buttons">
-        <h2>/*display None*/</h2>
+        <h2>display None</h2>
         <button>
           <LocText
             en="Search"
@@ -107,12 +114,34 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
           </div>
         </div>
       </div>
-    </section>
+    </section> */}
     <section className="section-sort">
       //sorting options
     </section>
     <main>
-      <article className="tile">
+      <Tile
+        heading="Sekanie trávy"
+        text="Posekanie celého pozemku. Kosačka nutnosť."
+        pay="120 kc/hod"
+        jobType="Brigáda"
+        userName="Tomáš"
+        userRating="4/5"
+        place="Vrch pod kopcom"
+        jobAdType={EJobAdType.inq}
+      >
+      </Tile>
+      <Tile
+        heading="Tepování koberců"
+        text="Vyčistenie škvŕn z kobercov a obnova farby."
+        pay="200 kc/hod"
+        jobType="Brigáda"
+        userName="Sam"
+        userRating="4/5"
+        place="Za Borinou"
+        jobAdType={EJobAdType.off}
+      >
+      </Tile>
+      {/* <article className="tile">
         <header>
           <h3>Sekanie trávy</h3>
         </header>
@@ -195,7 +224,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
             <p className="ad-type_inquiry">Poptávka</p>
           </div>
         </footer>
-      </article>
+      </article> */}
     </main>
   </>;
 };
