@@ -22,15 +22,15 @@ export const MainPage: React.FC<TMainPageProps> = () => {
     </section>
 
     <section className="section-about container space center">
-      <h5>
+      <p>
         Haná je etnografická oblasť na strednej Morave, približne na území medzi mestami Zábřeh,
         Holešov, Vyškov a Uničov, väčšie centra sa nachádzajú v nížinách okolo riek Moravy
         a Hané (zasahuje tak do Olomouckého, Zlínskeho aj Juhomoravského kraja).
-        </h5>
-      <h5>
+      </p>
+      <p>
         Táto webová stránka je určená pre všetkých, ktorí chcú mať aktuálne informácie o udalostiach
         a pracovných ponukách v regióne Haná. Prípadne majú záujem o inzerciu nijakého produktu, či služby.
-      </h5>
+      </p>
       <header>
         <img src="../images/flower.png" alt="flower-icon" className="icon"></img>
       </header>

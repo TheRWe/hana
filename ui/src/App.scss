@@ -271,6 +271,8 @@ header {
 footer {
   color: rgb(133, 165, 204);
   text-align: center;
+  border-top: 1px solid rgb(133, 165, 204);
+  opacity: 30%;
 }
 
 .icon {
@@ -467,6 +469,13 @@ SCROLLER
 /* ---------------------------------
 SECTIONS (custom style)
 --------------------------------- */
+
+.section-about {
+  margin-bottom: 0.5rem;
+  font-weight: 330;
+  line-height: 1.25rem;
+  color: $COLOR-PINK;
+}
 
 .section-goto {
   background-color: rgba(206, 165, 161, 0.12);

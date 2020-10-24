@@ -121,10 +121,9 @@ const App: React.FC<Props> = () => {
 
         {/* BEGIN FOOTER */}
         <footer>
-          <hr />
           <p>
             ©2020 | GL <FontAwesomeIcon icon={faGlobe} className="icon-footer" /> BEX
-        </p>
+          </p>
         </footer>
         {/* BEGIN FOOTER */}
 
