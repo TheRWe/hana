@@ -39,12 +39,12 @@ const App: React.FC<Props> = () => {
         {/* CHANGE LANGUAGE ICONS */}
         <ul className="language-menu">
           <li className="nav-item">
-            <button onClick={() => setIsCz(!isCz)}>
+            <button onClick={() => setIsCz(false)}>
               <img src="./images/EN_logo.png" alt="English" className="nav-icon" />
             </button>
           </li>
           <li className="nav-item">
-            <button onClick={() => setIsCz(!isCz)}>
+            <button onClick={() => setIsCz(true)}>
               <img src="./images/CZ_logo.png" alt="Czech" className="nav-icon" />
             </button>
           </li>
