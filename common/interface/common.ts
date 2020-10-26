@@ -62,7 +62,7 @@ export type TCommonDataNew = {
   place?: TPlace,
   photo?: TPhoto,
   tags?: TTag[],
-}
+};
 
 // Common Actions
 export type TGenericResponse = {
@@ -86,7 +86,7 @@ export type TElementAll = {
 
 export type TElementNew = {
   type: ETypeElement,
-} & (TUserNew | TEventNew | TAdNew | TStockExchangeNew)
+} & (TUserNew | TEventNew | TAdNew | TStockExchangeNew);
 
 export type TElementId = {
   type: ETypeElement,

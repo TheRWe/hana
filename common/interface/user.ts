@@ -22,7 +22,7 @@ export type TUserNew = {
   email: string,
   type: EUserType,
   photo?: TPhoto,
-}
+};
 
 // 1. change user type
 export type TUserChangeTypeGetRequest = {

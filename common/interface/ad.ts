@@ -17,4 +17,4 @@ export type TAdNew = TCommonDataNew & {
   category: TAdCategory,
   type: string,
   salary: number,
-}
+};
