@@ -1,7 +1,7 @@
-import { TAd } from "./ad";
-import { TEvent } from "./event";
-import { TStockExchange } from "./stockExchange";
-import { TUser } from "./user";
+import { TAd, TAdNew } from "./ad";
+import { TEvent, TEventNew } from "./event";
+import { TStockExchange, TStockExchangeNew } from "./stockExchange";
+import { TUser, TUserNew } from "./user";
 
 export enum EErrorCode {
   NotLoggedIn = "NotLoggedIn",
@@ -55,6 +55,15 @@ export type TCommonData = {
   create: TDate,
 };
 
+export type TCommonDataNew = {
+  userId: string,
+  name: string,
+  description: string,
+  place?: TPlace,
+  photo?: TPhoto,
+  tags?: TTag[],
+}
+
 // Common Actions
 export type TGenericResponse = {
   wasError: boolean,
@@ -75,6 +84,10 @@ export type TElementAll = {
   type: ETypeElement,
 } & (TUser | TEvent | TAd | TStockExchange);
 
+export type TElementNew = {
+  type: ETypeElement,
+} & (TUserNew | TEventNew | TAdNew | TStockExchangeNew)
+
 export type TElementId = {
   type: ETypeElement,
   id: string,
@@ -88,7 +101,7 @@ export type GetElementByIdGetResponse = (TUser | TEvent | TAd | TStockExchange);
 export type GetElementByIdGetAction = TAction<GetElementByIdGetRequest, GetElementByIdGetResponse>;
 
 // 2. new element
-export type NewElementGetRequest = TElementAll;
+export type NewElementGetRequest = TElementNew;
 
 export type NewElementGetResponse = TGenericResponse;
 

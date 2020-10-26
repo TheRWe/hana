@@ -14,8 +14,15 @@ export type TUser = {
   email: string,
   type: EUserType,
   photo?: TPhoto,
-  creationDate: TDate,
+  create: TDate,
 };
+
+export type TUserNew = {
+  name: string,
+  email: string,
+  type: EUserType,
+  photo?: TPhoto,
+}
 
 // 1. change user type
 export type TUserChangeTypeGetRequest = {

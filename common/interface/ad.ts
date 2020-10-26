@@ -1,4 +1,4 @@
-import { TCommonData } from "./common";
+import { TCommonData, TCommonDataNew } from "./common";
 
 export enum TAdCategory {
   Supply = "Supply",
@@ -11,3 +11,10 @@ export type TAd = TCommonData & {
   type: string,
   salary: number,
 };
+
+export type TAdNew = TCommonDataNew & {
+  isValId: boolean,
+  category: TAdCategory,
+  type: string,
+  salary: number,
+}
