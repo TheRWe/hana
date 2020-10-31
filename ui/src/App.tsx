@@ -40,12 +40,12 @@ const App: React.FC<Props> = () => {
         <ul className="language-menu">
           <li className="nav-item">
             <button onClick={() => setIsCz(false)}>
-              <img src="./images/EN_logo.png" alt="English" className="nav-icon" />
+              <img src="/static/images/EN_logo.png" alt="English" className="nav-icon" />
             </button>
           </li>
           <li className="nav-item">
             <button onClick={() => setIsCz(true)}>
-              <img src="./images/CZ_logo.png" alt="Czech" className="nav-icon" />
+              <img src="/static/images/CZ_logo.png" alt="Czech" className="nav-icon" />
             </button>
           </li>
         </ul>
@@ -54,7 +54,7 @@ const App: React.FC<Props> = () => {
         <section className="section-menu">
           <nav className="navbar navbar-expand-lg">
             <a className="navbar-brand" href="/">
-              <img src="./images/logo.png" alt="logo" />
+              <img src="/static/images/logo.png" alt="logo" />
             </a>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
               <span className="navbar-toggler-icon"></span>

@@ -18,7 +18,7 @@ export const MainPage: React.FC<TMainPageProps> = () => {
 
     {/* BEGIN MAIN PAGE */}
     <section className="section-image">
-      <img src="../images/title_image.png" alt="title" className="img-full"></img>
+      <img src="/static/images/title_image.png" alt="title" className="img-full"></img>
     </section>
 
     <section className="section-about container space center">
@@ -32,7 +32,7 @@ export const MainPage: React.FC<TMainPageProps> = () => {
         a pracovných ponukách v regióne Haná. Prípadne majú záujem o inzerciu nijakého produktu, či služby.
       </p>
       <header>
-        <img src="../images/flower.png" alt="flower-icon" className="icon"></img>
+        <img src="/static/images/flower.png" alt="flower-icon" className="icon"></img>
       </header>
     </section>
 
@@ -114,22 +114,22 @@ export const MainPage: React.FC<TMainPageProps> = () => {
             cz="Nadcházející události"
           />
         </h2>
-        <img src="../images/flower.png" alt="flower-icon" className="icon"></img>
+        <img src="/static/images/flower.png" alt="flower-icon" className="icon"></img>
       </header>
       {/*
        * TODO create component - take last 3 events
        */}
       <div className="row">
         <article className="col-3 card card-orange">
-          <img src="../images/no_image.png" alt="ntg" />
+          <img src="/static/images/no_image.png" alt="ntg" />
           <h3>Tvořivé dílny</h3>
         </article>
         <article className="col-3 card card-orange">
-          <img src="../images/no_image.png" alt="ntg" />
+          <img src="/static/images/no_image.png" alt="ntg" />
           <h3>Cirkus ve městě</h3>
         </article>
         <article className="col-3 card card-orange">
-          <img src="../images/no_image.png" alt="ntg" />
+          <img src="/static/images/no_image.png" alt="ntg" />
           <h3>Food festival</h3>
         </article>
       </div>

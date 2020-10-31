@@ -8,6 +8,8 @@
 [![GitHub](https://img.shields.io/github/license/sciator/hana?&style=for-the-badge)](https://github.com/sciator/hana/blob/master/license.md)
 [![GitHub top language](https://img.shields.io/github/languages/top/sciator/hana?&style=for-the-badge)](https://github.com/sciator/hana)
 
+
+###### TODO: update technologies used (like spring, ...)
 [![Node js](https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Typescript](https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
@@ -25,23 +27,15 @@
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?&style=for-the-badge&logoColor=white)](https://github.com/semantic-release/semantic-release)
 
 
-
-All commited code should follow the [contributing](./contributing.md)
-
 ## Building and dev
-
-> :warning: windows can have problems with symlinks (when `common` inside `ui/src` or `server/src` is not openable)
->
-> to fix this in elevated terminal call `yarn script symfix`
 
 ### prerequisites
    - [node](https://nodejs.org/) installed
-   - [yarn](https://yarnpkg.com/) installed
-
-### distribution
-   - ```yarn dist```
+   - [java](https://java.com/) installed
 
 ### dev
-   - ```yarn install``` (if not called already)
-   - ```yarn dev```
-
+   - ```npm run ui:install```/ ```cd ui && npm install``` (if not called already)
+   - ```mvn spring-boot:run``` - build and deploy server with ui on [http://localhost:8080](http://localhost:8080) (port can be changed in ./server/src/main/resources/application.properties)
+   - ```npm run ui``` - build and deploy ui against webpack-dev-server on [http://localhost:3000](http://localhost:3000) (port can be changed in ./ui/webpack.config.json)
+   - ```npm run ui:build``` - build ui
+   - ```npm run ui:deploy``` - deploy ui against webpack-dev-server on [http://localhost:3000](http://localhost:3000) (port can be changed in ./ui/webpack.config.json)

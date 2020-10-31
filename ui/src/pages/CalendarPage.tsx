@@ -23,7 +23,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
 
     <section>
       <Tile
-        imagePath="../images/no_image.png"
+        imagePath="/static/images/no_image.png"
         eventRating="4/5"
         place="Hala někde ve městě"
         date="5.5.2018 13:00 - 15:00"
