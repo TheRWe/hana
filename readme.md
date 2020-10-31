@@ -32,6 +32,13 @@
 ### prerequisites
    - [node](https://nodejs.org/) installed
    - [java](https://java.com/) installed
+   - [maven](https://maven.apache.org/) installed (optional)
+
+### maven-wrapper
+If you do not have maven installed locally (and you do not want to install it), you can use project's maven-wrapper.
+At first, run the ```./mvnw.cmd clean install``` or ```./mvnw clean install``` (on Unix systems) command.
+On Unix systems, it might be necessary to allow execute permissions using ```chmod +x ./mvnw```.
+Then simply replace the ```mvn``` commands with ```./mvnw.cmd``` or ```./mvnw```.
 
 ### dev
    - ```npm run ui:install```/ ```cd ui && npm install``` (if not called already)
