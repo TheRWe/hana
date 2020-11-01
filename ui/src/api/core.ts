@@ -1,11 +1,11 @@
 import { EErrorCode, TAction, TErrorResponse } from "../common/interface/common";
-import { THttpMethod } from "../common/utils/httpMethods";
+import { EHttpMethod } from "sciator-core";
 
 const HTTP_MULTIPLE_CHOICES = 300;
 
 type TFetchOptions = {
   route: string,
-  method: THttpMethod
+  method: EHttpMethod,
 };
 
 export class ErrorCode extends Error {
