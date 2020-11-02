@@ -23,7 +23,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
 
     <section>
       <Tile
-        imagePath="/static/images/no_image.png"
+        imagePath="../images/no_image.png"
         heading="Stará váza"
         text="Stará čínska porcelánová váza, značená, výška 28 cm, priemer v najširšej časti 20 cm, bez poškodení, vitrínový stav."
         email="stara.vaza@gmail.com"

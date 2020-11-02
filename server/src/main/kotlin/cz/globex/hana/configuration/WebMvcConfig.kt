@@ -10,8 +10,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 class WebMvcConfig : WebMvcConfigurer {
 	override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
 		registry
-			.addResourceHandler("/static/**")
-			.addResourceLocations("classpath:/static/")
+			.addResourceHandler("/build/**")
+			.addResourceLocations("classpath:/build/index.html")
+		registry
+			.addResourceHandler("/**")
+			.addResourceLocations("classpath:/build/")
 	}
 }
 

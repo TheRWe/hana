@@ -8,5 +8,5 @@ import org.springframework.web.bind.annotation.RestController
 @RequestMapping("/api")
 class RestApiController {
 	@GetMapping
-	fun getGreet(): String = """{"greet":"hello"}}"""
+	fun getGreet(): String = """{"greet":"hello"}"""
 }

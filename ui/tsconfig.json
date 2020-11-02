@@ -1,19 +1,26 @@
 {
-    "compilerOptions": {
-      "jsx": "react",
-      "module": "commonjs",
-      "noImplicitAny": true,
-      "preserveConstEnums": true,
-      "removeComments": true,
-      "target": "ES6",
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "allowJs": false,
-      "skipLibCheck": true
-    },
-    "exclude": [
-      "node_modules",
-      "typings/browser.d.ts",
-      "typings/browser"
-    ]
-  }
+  "compilerOptions": {
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react",
+    "strict": true,
+    "sourceMap": true
+  },
+  "include": [
+    "src"
+  ]
+}

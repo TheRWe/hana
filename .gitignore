@@ -1,6 +1,6 @@
 
-# Created by https://www.toptal.com/developers/gitignore/api/node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,git
-# Edit at https://www.toptal.com/developers/gitignore?templates=node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,git
+# Created by https://www.toptal.com/developers/gitignore/api/git,node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,yarn
+# Edit at https://www.toptal.com/developers/gitignore?templates=git,node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,yarn
 
 ### Eclipse ###
 .metadata
@@ -114,14 +114,14 @@ local.properties
 # When using Gradle or Maven with auto-import, you should exclude module files,
 # since they will be recreated, and may cause churn.  Uncomment if using
 # auto-import.
-.idea/artifacts
-.idea/compiler.xml
-.idea/jarRepositories.xml
-.idea/modules.xml
-.idea/*.iml
-.idea/modules
-*.iml
-*.ipr
+# .idea/artifacts
+# .idea/compiler.xml
+# .idea/jarRepositories.xml
+# .idea/modules.xml
+# .idea/*.iml
+# .idea/modules
+# *.iml
+# *.ipr
 
 # CMake
 cmake-build-*/
@@ -278,8 +278,8 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# TODO: investigate https://github.com/takari/maven-wrapper#usage-without-binary-jar
-#.mvn/wrapper/maven-wrapper.jar
+# https://github.com/takari/maven-wrapper#usage-without-binary-jar
+.mvn/wrapper/maven-wrapper.jar
 
 ### NetBeans ###
 **/nbproject/private/
@@ -435,4 +435,20 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,git
+### yarn ###
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+
+# if you are NOT using Zero-installs, then:
+# comment the following lines
+!.yarn/cache
+
+# and uncomment the following lines
+# .pnp.*
+
+# End of https://www.toptal.com/developers/gitignore/api/git,node,java,maven,macos,linux,vscode,kotlin,eclipse,windows,intellij,netbeans,yarn

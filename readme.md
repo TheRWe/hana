@@ -31,6 +31,7 @@
 
 ### prerequisites
    - [node](https://nodejs.org/) installed
+   - [yarn](https://yarnpkg.com/) installed
    - [java](https://java.com/) installed
    - [maven](https://maven.apache.org/) installed (optional)
 
@@ -40,9 +41,10 @@ At first, run the ```./mvnw.cmd clean install``` or ```./mvnw clean install``` (
 On Unix systems, it might be necessary to allow execute permissions using ```chmod +x ./mvnw```.
 Then simply replace the ```mvn``` commands with ```./mvnw.cmd``` or ```./mvnw```.
 
+### distribution
+   - ```yarn dist```
+
 ### dev
-   - ```npm run ui:install```/ ```cd ui && npm install``` (if not called already)
-   - ```mvn spring-boot:run``` - build and deploy server with ui on [http://localhost:8080](http://localhost:8080) (port can be changed in ./server/src/main/resources/application.properties)
-   - ```npm run ui``` - build and deploy ui against webpack-dev-server on [http://localhost:3000](http://localhost:3000) (port can be changed in ./ui/webpack.config.json)
-   - ```npm run ui:build``` - build ui
-   - ```npm run ui:deploy``` - deploy ui against webpack-dev-server on [http://localhost:3000](http://localhost:3000) (port can be changed in ./ui/webpack.config.json)
+   - ```yarn install``` (if not called already)
+   - ```yarn dev```
+   - ```mvn spring-boot:run``` - build and deploy server together with ```yarn build``` command
