@@ -8,13 +8,11 @@
 [![GitHub](https://img.shields.io/github/license/sciator/hana?&style=for-the-badge)](https://github.com/sciator/hana/blob/master/license.md)
 [![GitHub top language](https://img.shields.io/github/languages/top/sciator/hana?&style=for-the-badge)](https://github.com/sciator/hana)
 
-
-###### TODO: update technologies used (like spring, ...)
-[![Node js](https://img.shields.io/badge/node.js%20-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![Spring](https://img.shields.io/badge/spring%20-%236DB33F.svg?&style=for-the-badge&logo=spring&logoColor=white)](https://spring.io/)
+[![Kotlin](https://img.shields.io/badge/kotlin-%230095D5.svg?&style=for-the-badge&logo=kotlin&logoColor=white)](https://kotlinlang.org/)
 [![Typescript](https://img.shields.io/badge/typescript%20-%23007ACC.svg?&style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 [![MS SQL](https://img.shields.io/badge/-MS%20SQL-%23CC2927.svg?&style=for-the-badge&logo=Microsoft-SQL-Server&logoColor=white)](https://www.microsoft.com/cs-cz/sql-server/)
-[![express](https://img.shields.io/badge/express.js%20-%23404d59.svg?&style=for-the-badge)](https://expressjs.com/)
 [![react](https://img.shields.io/badge/react%20-%2320232a.svg?&style=for-the-badge&logo=react&logoColor=%2361DAFB)](https://reactjs.org/)
 [![HTML5](https://img.shields.io/badge/html5%20-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white)](https://www.w3schools.com/html/)
 [![sass](https://img.shields.io/badge/SASS%20-hotpink.svg?&style=for-the-badge&logo=SASS&logoColor=white)](https://sass-lang.com/)
@@ -47,4 +45,5 @@ Then simply replace the ```mvn``` commands with ```./mvnw.cmd``` or ```./mvnw```
 ### dev
    - ```yarn install``` (if not called already)
    - ```yarn dev```
-   - ```mvn spring-boot:run``` - build and deploy server together with ```yarn build``` command
+   - ```mvn process-classes``` generates TypeScript definitions of type interfaces from Kotlin
+   - ```mvn spring-boot:run``` builds and deploys Spring server together with executing the ```yarn build``` command
