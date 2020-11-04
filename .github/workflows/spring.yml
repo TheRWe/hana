@@ -1,0 +1,23 @@
+name: Maven CI/CD
+
+on:
+  push:
+    branches:
+      - master
+      - spring-test-branch
+
+jobs:
+  build_and_test:
+    name: Spring
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Build project with Maven
+        run: mvn -B package --file pom.xml

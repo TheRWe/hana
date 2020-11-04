@@ -5,29 +5,28 @@ import cz.globex.hana.core.dao.*
 import org.springframework.http.*
 
 interface ArticlesApiController {
-	fun retrieveArticles(): ResponseEntity<RetrieveArticlesResponse>
+	companion object {
+		const val PATH: String = ApiController.PATH + "/articles"
+	}
 
-	fun createArticle(req: CreateArticleRequest): ResponseEntity<CreateArticleResponse>
+	fun retrieveArticles(): ResponseEntity<ArticlesRetrieveResponseDto>
 
-	fun retrieveArticle(id: Int): ResponseEntity<RetrieveArticleResponse>
+	fun createArticle(req: ArticleCreateRequestDto): ResponseEntity<CreateResponseDto>
+
+	fun retrieveArticle(id: Int): ResponseEntity<ArticleRetrieveResponseDto>
 }
 
 @CommonInterface
-data class RetrieveArticlesResponse(
+data class ArticlesRetrieveResponseDto(
 	val articles: List<ArticleDto>
 )
 
 @CommonInterface
-data class CreateArticleRequest(
+data class ArticleCreateRequestDto(
 	val article: ArticleDto
 )
 
 @CommonInterface
-data class CreateArticleResponse(
-	val article: ArticleDto
-)
-
-@CommonInterface
-data class RetrieveArticleResponse(
+data class ArticleRetrieveResponseDto(
 	val article: ArticleDto
 )

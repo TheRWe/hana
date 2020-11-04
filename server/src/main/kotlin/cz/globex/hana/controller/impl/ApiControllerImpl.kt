@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.*
 import javax.servlet.http.*
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping(ApiController.PATH)
 class ApiControllerImpl : ApiController {
 	@GetMapping
 	override fun redirectToSwagger(resp: HttpServletResponse) {
-		resp.sendRedirect("/api/docs/swagger-ui.html")
+		resp.sendRedirect("${DocsApiController.PATH}/swagger-ui.html")
 	}
 }

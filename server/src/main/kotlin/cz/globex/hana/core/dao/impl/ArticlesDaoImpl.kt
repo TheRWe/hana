@@ -13,14 +13,8 @@ class ArticlesDaoImpl(private val articlesRepository: ArticlesRepository) : Arti
 		return articlesRepository.findAll().map(Article::toDto)
 	}
 
-	override fun createArticle(articleDto: ArticleDto): Pair<URI, ArticleDto> {
-		val article = articlesRepository.save(Article.from(articleDto))
-		val location = ServletUriComponentsBuilder
-			.fromCurrentRequest()
-			.path("/{id}")
-			.buildAndExpand(article.id)
-			.toUri()
-		return location to article.toDto()
+	override fun createArticle(articleDto: ArticleDto): Int {
+		return articlesRepository.save(Article.from(articleDto)).id
 	}
 
 	override fun getArticleOrNull(id: Int): ArticleDto? = articlesRepository.getById(id)?.toDto()
