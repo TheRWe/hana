@@ -1,4 +1,4 @@
-name: Maven CI/CD
+name: Maven
 
 on:
   push:
@@ -8,7 +8,7 @@ on:
 
 jobs:
   build_and_test:
-    name: Spring
+    name: Build and run tests
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,3 +26,5 @@ jobs:
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Build project with Maven
         run: mvn -B package --file pom.xml
+      - name: Run tests with Maven
+        run: mvn test
