@@ -1,4 +1,4 @@
-package cz.globex.hana
+package cz.globex.hana.controller.util
 
 @Target(AnnotationTarget.CLASS)
 @Retention(AnnotationRetention.BINARY)
