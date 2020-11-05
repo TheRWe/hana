@@ -3,8 +3,9 @@ package cz.globex.hana.database.entity
 import cz.globex.hana.core.dao.*
 import javax.persistence.*
 
+@Suppress("ProtectedInFinal")
 @Entity
-data class Article(
+data class Article protected constructor(
 	@Column(nullable = false)
 	var title: String,
 
@@ -18,10 +19,13 @@ data class Article(
 
 	companion object {
 		fun from(articleDto: ArticleDto): Article = with(articleDto) {
-			Article(title = title, text = text)
+			val trimmedTitle = title.trim()
+			val trimmedText = text.trim()
+			if (trimmedTitle.isEmpty() || trimmedText.isEmpty()) throw IllegalArgumentException()
+
+			Article(title = trimmedTitle, text = trimmedText)
 		}
 	}
 
-	@Suppress("ProtectedInFinal")
 	protected constructor() : this("", "")
 }

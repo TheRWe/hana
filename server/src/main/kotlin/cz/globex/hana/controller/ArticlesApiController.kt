@@ -9,12 +9,18 @@ interface ArticlesApiController {
 		const val PATH: String = ApiController.PATH + "/articles"
 	}
 
-	fun retrieveArticles(): ResponseEntity<ArticlesRetrieveResponseDto>
+	fun retrieveArticles(req: ArticlesRetrieveRequestDto): ResponseEntity<ArticlesRetrieveResponseDto>
 
 	fun createArticle(req: ArticleCreateRequestDto): ResponseEntity<CreateResponseDto>
 
 	fun retrieveArticle(id: Int): ResponseEntity<ArticleRetrieveResponseDto>
 }
+
+@CommonInterface
+class ArticlesRetrieveRequestDto(
+	pageNumber: Int?,
+	pageSize: Int?
+) : Pageable(pageNumber = pageNumber, pageSize = pageSize)
 
 @CommonInterface
 data class ArticlesRetrieveResponseDto(

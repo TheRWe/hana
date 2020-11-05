@@ -1,8 +1,8 @@
 package cz.globex.hana.database.repository
 
-import cz.globex.hana.database.entity.Article
-import org.springframework.data.jpa.repository.JpaRepository
+import cz.globex.hana.database.entity.*
+import org.springframework.data.repository.*
 
-interface ArticlesRepository : JpaRepository<Article, Int> {
+interface ArticlesRepository : PagingAndSortingRepository<Article, Int> {
 	fun getById(id: Int): Article?
 }

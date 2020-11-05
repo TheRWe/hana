@@ -4,13 +4,18 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.database.entity.*
 import cz.globex.hana.database.repository.*
 import org.springframework.context.annotation.*
-import org.springframework.web.servlet.support.*
-import java.net.*
+import org.springframework.data.domain.*
+import kotlin.streams.*
 
 @Configuration
 class ArticlesDaoImpl(private val articlesRepository: ArticlesRepository) : ArticlesDao {
-	override fun getArticles(): List<ArticleDto> {
-		return articlesRepository.findAll().map(Article::toDto)
+	override fun getArticles(pageNumber: Int?, pageSize: Int?): List<ArticleDto> {
+		val pageable = if (pageNumber == null || pageSize == null) {
+			Pageable.unpaged()
+		} else {
+			PageRequest.of(pageNumber, pageSize)
+		}
+		return articlesRepository.findAll(pageable).get().map(Article::toDto).toList()
 	}
 
 	override fun createArticle(articleDto: ArticleDto): Int {

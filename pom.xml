@@ -115,20 +115,20 @@
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
                     <classesWithAnnotations>
-                        <classesWithAnnotation>cz.globex.hana.controller.util.CommonInterface
+                        <classesWithAnnotation>
+                            cz.globex.hana.controller.util.CommonInterface
                         </classesWithAnnotation>
                     </classesWithAnnotations>
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>ui/src/common/interfaces.ts</outputFile>
                     <outputKind>module</outputKind>
-                    <noTslintDisable>true</noTslintDisable>
-                    <noTslintDisable>true</noTslintDisable>
                     <noEslintDisable>true</noEslintDisable>
                     <mapEnum>asEnum</mapEnum>
                     <customTypeMappings>
                         <customTypeMapping>java.net.URI:string</customTypeMapping>
                     </customTypeMappings>
                     <removeTypeNameSuffix>Dto</removeTypeNameSuffix>
+                    <nullabilityDefinition>undefinedInlineUnion</nullabilityDefinition>
                 </configuration>
                 <executions>
                     <execution>

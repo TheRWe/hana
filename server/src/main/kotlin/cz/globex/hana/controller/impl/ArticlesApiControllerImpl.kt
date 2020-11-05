@@ -11,8 +11,15 @@ import org.springframework.web.servlet.support.*
 @RequestMapping(ArticlesApiController.PATH, produces = [MediaType.APPLICATION_JSON_VALUE])
 class ArticlesApiControllerImpl(private val articlesDao: ArticlesDaoImpl) : ArticlesApiController {
 	@GetMapping
-	override fun retrieveArticles(): ResponseEntity<ArticlesRetrieveResponseDto> {
-		return ResponseEntity.ok().body(ArticlesRetrieveResponseDto(articlesDao.getArticles()))
+	override fun retrieveArticles(
+		req: ArticlesRetrieveRequestDto
+	): ResponseEntity<ArticlesRetrieveResponseDto> {
+		val pageNumber = req.pageNumber
+		val pageSize = req.pageSize
+		if ((pageNumber == null) != (pageSize == null)) return ResponseEntity.badRequest().build()
+
+		val articles = articlesDao.getArticles(pageNumber = pageNumber, pageSize = pageSize)
+		return ResponseEntity.ok().body(ArticlesRetrieveResponseDto(articles))
 	}
 
 	@PostMapping

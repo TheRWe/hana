@@ -12,6 +12,11 @@ interface ApiController {
 	fun redirectToSwagger(resp: HttpServletResponse)
 }
 
+abstract class Pageable(
+	val pageNumber: Int?,
+	val pageSize: Int?
+)
+
 @CommonInterface
 data class CreateResponseDto(
 	val resourceInfo: ResourceInfoDto
