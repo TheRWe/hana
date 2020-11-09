@@ -1,5 +1,6 @@
 package cz.globex.hana.configuration
 
+import cz.globex.hana.controller.*
 import org.springframework.context.annotation.*
 import springfox.documentation.builders.*
 import springfox.documentation.spi.*
@@ -15,7 +16,7 @@ class SwaggerConfig {
 			.select()
 			.apis(RequestHandlerSelectors.any())
 			// TODO: hide redirects from paths
-			.paths(PathSelectors.ant("/api/**"))
+			.paths(PathSelectors.ant(ApiController.PATH + "/**"))
 			.build()
 			.apiInfo(
 				ApiInfoBuilder()

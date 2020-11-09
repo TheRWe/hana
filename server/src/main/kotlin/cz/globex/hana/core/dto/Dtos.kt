@@ -181,7 +181,7 @@ enum class StockExchangeType { BUY, SELL, }
 
 data class ResourceInfoDto(
 	val id: Int,
-	val uri: URI,
+	val url: URI,
 )
 
 data class RateDto(

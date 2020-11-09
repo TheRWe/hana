@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Report, ResourceInfo, User, UserCreateUpdate, Users, UsersRequest, UserTypeUpdate } from "./shared";
+import { Report, ResourceInfo, User, UserCreateUpdate, Users, UsersRequest } from "./shared";
 
 // 1. get user by id
 export type TUserGetByIdGetRequest = {};
@@ -28,8 +28,3 @@ export type TUserGetListGetAction = TAction<UsersRequest, Users>;
 export type TUserReportPostRequest = Report;
 export type TUserReportPostResponse = ResourceInfo;
 export type TUserReportPostAction = TAction<TUserReportPostRequest, TUserReportPostResponse>;
-
-// 7. change user type
-export type TUserChangeTypePostRequest = UserTypeUpdate;
-export type TUserChangeTypePostResponse = {};
-export type TUserChangeTypePostAction = TAction<TUserChangeTypePostRequest, TUserChangeTypePostResponse>;
