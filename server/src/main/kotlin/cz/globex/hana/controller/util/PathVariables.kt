@@ -1,5 +1,5 @@
 package cz.globex.hana.controller.util
 
-object RequestParam {
+object PathVariables {
 	const val ID: String = "id"
 }

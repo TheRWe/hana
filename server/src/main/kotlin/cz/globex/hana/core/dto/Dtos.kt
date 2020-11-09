@@ -185,7 +185,7 @@ data class ResourceInfoDto(
 )
 
 data class RateDto(
-	val ratingScore: Double,
+	val score: Double,
 )
 
 data class ReportDto(
