@@ -43,8 +43,12 @@ data class UserCreateUpdateDto(
 enum class UserType { PERSON, COMPANY, CERTIFIED_COMPANY, MODERATOR, ADMINISTRATOR, }
 
 data class UserRatingsDto(
-	val asCompany: RatingDto?,
+	val asSupplier: RatingDto?,
 	val asSeller: RatingDto?,
+)
+
+data class UserTypeUpdateDto(
+	val type: UserType,
 )
 
 data class AdsDto(
@@ -60,6 +64,7 @@ data class AdDto(
 	val photo: PhotoDto?,
 	val tags: LinkedHashSet<TagDto>,
 	val created: LocalDateTime,
+	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
 )
@@ -71,6 +76,7 @@ data class AdCreateUpdateDto(
 	val place: PlaceCreateUpdateDto?,
 	val photo: PhotoDto?,
 	val tags: TagCreateUpdateDto?,
+	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
 )
@@ -108,7 +114,7 @@ data class EventCreateUpdateDto(
 )
 
 data class RatingDto(
-	val totalScore: Double,
+	val score: Double,
 	val votesCount: Int,
 )
 
@@ -130,7 +136,8 @@ data class StockExchangeDto(
 	val photo: PhotoDto?,
 	val tags: LinkedHashSet<TagDto>,
 	val created: LocalDateTime,
-	val type: StockType,
+	val isActual: Boolean,
+	val type: StockExchangeType,
 	val cost: Int,
 )
 
@@ -141,7 +148,8 @@ data class StockExchangeCreateUpdateDto(
 	val place: PlaceCreateUpdateDto?,
 	val photo: PhotoDto?,
 	val tags: TagCreateUpdateDto?,
-	val type: StockType,
+	val isActual: Boolean,
+	val type: StockExchangeType,
 	val cost: Int,
 )
 
@@ -169,9 +177,17 @@ data class TagDto(
 	val name: String,
 )
 
-enum class StockType { BUY, SELL, EXCHANGE, }
+enum class StockExchangeType { BUY, SELL, }
 
 data class ResourceInfoDto(
 	val id: Int,
 	val uri: URI,
+)
+
+data class RateDto(
+	val ratingScore: Double,
+)
+
+data class ReportDto(
+	val msg: String?
 )

@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - spring-test-branch
 
 jobs:
   build_and_test:

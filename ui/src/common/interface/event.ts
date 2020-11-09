@@ -1,35 +1,35 @@
-import { TAction, TGenericResponse, TId, TRate, TReport } from "./common";
-import { Event, EventCreateUpdate, Events, EventsRequest, ResourceInfo } from "./shared";
+import { TAction } from "./common";
+import { Event, EventCreateUpdate, Events, EventsRequest, Rate, Report, ResourceInfo } from "./shared";
 
 // 1. get event by id
-export type TEventGetByIdPostRequest = TId;
-export type TEventGetByIdPostResponse = Event;
-export type TEventGetByIdPostAction = TAction<TEventGetByIdPostRequest, TEventGetByIdPostResponse>;
+export type TEventGetByIdGetRequest = {};
+export type TEventGetByIdGetResponse = Event;
+export type TEventGetByIdGetAction = TAction<TEventGetByIdGetRequest, TEventGetByIdGetResponse>;
 
 // 2. new event
-export type TEventPutRequest = EventCreateUpdate;
-export type TEventPutResponse = ResourceInfo;
-export type TEventPutAction = TAction<TEventPutRequest, TEventPutResponse>;
+export type TEventPostRequest = EventCreateUpdate;
+export type TEventPostResponse = ResourceInfo;
+export type TEventPostAction = TAction<TEventPostRequest, TEventPostResponse>;
 
 // 3. update event
-export type TEventUpdatePostRequest = EventCreateUpdate;
-export type TEventUpdatePostResponse = TGenericResponse;
-export type TEventUpdatePostAction = TAction<TEventUpdatePostRequest, TEventUpdatePostResponse>;
+export type TEventUpdatePutRequest = EventCreateUpdate;
+export type TEventUpdatePutResponse = {};
+export type TEventUpdatePutAction = TAction<TEventUpdatePutRequest, TEventUpdatePutResponse>;
 
 // 4. delete event
-export type TEventDeleteRequest = TId;
-export type TEventDeleteResponse = TGenericResponse;
+export type TEventDeleteRequest = {};
+export type TEventDeleteResponse = {};
 export type TEventDeleteAction = TAction<TEventDeleteRequest, TEventDeleteResponse>;
 
 // 5. rate event
-export type TEventRatePostRequest = TRate;
-export type TEventRatePostResponse = TGenericResponse;
+export type TEventRatePostRequest = Rate;
+export type TEventRatePostResponse = ResourceInfo;
 export type TEventRatePostAction = TAction<TEventRatePostRequest, TEventRatePostResponse>;
 
 // 6. get more events
-export type TEventGetListPostAction = TAction<EventsRequest, Events>;
+export type TEventGetListGetAction = TAction<EventsRequest, Events>;
 
 // 7. report event
-export type TEventReportPostRequest = TReport;
-export type TEventReportPostResponse = TGenericResponse;
+export type TEventReportPostRequest = Report;
+export type TEventReportPostResponse = ResourceInfo;
 export type TEventReportPostAction = TAction<TEventReportPostRequest, TEventReportPostResponse>;
