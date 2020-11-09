@@ -3,13 +3,16 @@ package cz.globex.hana.controller.impl
 import cz.globex.hana.controller.*
 import cz.globex.hana.controller.dto.*
 import cz.globex.hana.controller.util.*
+import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = [EventsApiController.PATH])
-class EventsApiControllerImpl : EventsApiController {
+class EventsApiControllerImpl(daoProvider: DaoProvider) : EventsApiController {
+	private val eventsDao = daoProvider.eventsDao
+
 	@GetMapping
 	override fun retrieveEvents(reqParams: EventsRequestDto): ResponseEntity<EventsDto> {
 		TODO("Not yet implemented")

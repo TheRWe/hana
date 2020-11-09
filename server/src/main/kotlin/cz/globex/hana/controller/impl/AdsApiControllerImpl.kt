@@ -3,13 +3,16 @@ package cz.globex.hana.controller.impl
 import cz.globex.hana.controller.*
 import cz.globex.hana.controller.dto.*
 import cz.globex.hana.controller.util.*
+import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = [AdsApiController.PATH])
-class AdsApiControllerImpl : AdsApiController {
+class AdsApiControllerImpl(daoProvider: DaoProvider) : AdsApiController {
+	private val adsDao = daoProvider.adsDao
+
 	@GetMapping
 	override fun retrieveAds(reqParams: AdsRequestDto): ResponseEntity<AdsDto> {
 		TODO("Not yet implemented")

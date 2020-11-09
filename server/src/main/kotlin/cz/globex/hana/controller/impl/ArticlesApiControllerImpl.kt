@@ -3,7 +3,7 @@ package cz.globex.hana.controller.impl
 import cz.globex.hana.controller.*
 import cz.globex.hana.controller.dto.*
 import cz.globex.hana.controller.util.*
-import cz.globex.hana.core.dao.impl.*
+import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
@@ -11,7 +11,9 @@ import org.springframework.web.servlet.support.*
 
 @RestController
 @RequestMapping(path = [ArticlesApiController.PATH])
-class ArticlesApiControllerImpl(private val articlesDao: ArticlesDaoImpl) : ArticlesApiController {
+class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiController {
+	private val articlesDao = daoProvider.articlesDao
+
 	@GetMapping
 	override fun retrieveArticles(reqParams: ArticlesRequestDto): ResponseEntity<ArticlesDto> {
 		val pageStart = reqParams.pageStart

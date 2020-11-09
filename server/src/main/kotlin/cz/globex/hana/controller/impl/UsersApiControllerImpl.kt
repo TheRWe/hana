@@ -3,13 +3,16 @@ package cz.globex.hana.controller.impl
 import cz.globex.hana.controller.*
 import cz.globex.hana.controller.dto.*
 import cz.globex.hana.controller.util.*
+import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = [UsersApiController.PATH])
-class UsersApiControllerImpl : UsersApiController {
+class UsersApiControllerImpl(daoProvider: DaoProvider) : UsersApiController {
+	private val usersDao = daoProvider.usersDao
+
 	@GetMapping
 	override fun retrieveUsers(reqParams: UsersRequestDto): ResponseEntity<UsersDto> {
 		TODO("Not yet implemented")

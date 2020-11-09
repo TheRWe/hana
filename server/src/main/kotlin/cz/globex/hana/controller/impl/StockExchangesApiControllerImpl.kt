@@ -3,13 +3,16 @@ package cz.globex.hana.controller.impl
 import cz.globex.hana.controller.*
 import cz.globex.hana.controller.dto.*
 import cz.globex.hana.controller.util.*
+import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = [StockExchangesApiController.PATH])
-class StockExchangesApiControllerImpl : StockExchangesApiController {
+class StockExchangesApiControllerImpl(daoProvider: DaoProvider) : StockExchangesApiController {
+	private val stockExchangesDao = daoProvider.stockExchangesDao
+
 	@GetMapping
 	override fun retrieveStockExchanges(
 		reqParams: StockExchangesRequestDto
