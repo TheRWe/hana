@@ -1,8 +1,14 @@
 package cz.globex.hana.router.controller.action
 
 import cz.globex.hana.core.dto.*
+import cz.globex.hana.router.util.*
 import org.springframework.http.*
+import org.springframework.web.bind.annotation.*
 
 fun interface UpdateEntityAction<T : EntityUpdateDto> {
-	fun updateEntity(id: Int, entity: T): ResponseEntity<Unit>
+	@PutMapping(path = ["/{${PathVariables.ID}}"])
+	fun updateEntity(
+		@PathVariable(PathVariables.ID) id: Int,
+		@RequestBody entity: T
+	): ResponseEntity<Unit>
 }

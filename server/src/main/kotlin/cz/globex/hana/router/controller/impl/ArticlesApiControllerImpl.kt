@@ -14,7 +14,6 @@ import org.springframework.web.servlet.support.*
 class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiController {
 	private val articlesDao = daoProvider.articlesDao
 
-	@GetMapping
 	override fun retrieveEntities(reqParams: ArticlesRequestDto): ResponseEntity<ArticlesDto> {
 		val pageStart = reqParams.pageStart
 		val pageSize = reqParams.pageSize
@@ -24,10 +23,7 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 		return ResponseEntity.ok().body(ArticlesDto(articles))
 	}
 
-	@PostMapping
-	override fun createEntity(
-		@RequestBody entity: ArticleCreateUpdateDto
-	): ResponseEntity<ResourceInfoDto> {
+	override fun createEntity(entity: ArticleCreateUpdateDto): ResponseEntity<ResourceInfoDto> {
 		val articleId = articlesDao.createArticle(entity)
 		val location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
@@ -37,10 +33,7 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 		return ResponseEntity.created(location).body(ResourceInfoDto(articleId, location))
 	}
 
-	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	override fun retrieveEntity(
-		@PathVariable(PathVariables.ID) id: Int
-	): ResponseEntity<ArticleDto> {
+	override fun retrieveEntity(id: Int): ResponseEntity<ArticleDto> {
 		val article = articlesDao.getArticleOrNull(id)
 		return if (article != null) {
 			ResponseEntity.ok().body(article)

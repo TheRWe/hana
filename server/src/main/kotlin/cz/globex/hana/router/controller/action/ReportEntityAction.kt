@@ -1,8 +1,14 @@
 package cz.globex.hana.router.controller.action
 
 import cz.globex.hana.core.dto.*
+import cz.globex.hana.router.util.*
 import org.springframework.http.*
+import org.springframework.web.bind.annotation.*
 
 fun interface ReportEntityAction {
-	fun reportEntity(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto>
+	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
+	fun reportEntity(
+		@PathVariable(PathVariables.ID) id: Int,
+		@RequestBody report: ReportDto
+	): ResponseEntity<ResourceInfoDto>
 }
