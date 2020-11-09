@@ -1,13 +1,5 @@
-import {TAction} from "./common";
-import {
-    Event,
-    EventCreateUpdate,
-    Events,
-    EventsRequest,
-    Rate,
-    Report,
-    ResourceInfo
-} from "./shared";
+import { TAction } from "./common";
+import { Event, EventCreateUpdate, Events, EventsRequest, Rate, Report, ResourceInfo } from "./shared";
 
 // 1. get event by id
 export type TEventGetByIdGetRequest = {};
