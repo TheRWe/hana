@@ -1,10 +1,10 @@
 package cz.globex.hana.router.controller.impl
 
+import cz.globex.hana.core.*
+import cz.globex.hana.core.dto.*
 import cz.globex.hana.router.controller.*
 import cz.globex.hana.router.dto.*
 import cz.globex.hana.router.util.*
-import cz.globex.hana.core.*
-import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -14,37 +14,37 @@ class EventsApiControllerImpl(daoProvider: DaoProvider) : EventsApiController {
 	private val eventsDao = daoProvider.eventsDao
 
 	@GetMapping
-	override fun retrieveEvents(reqParams: EventsRequestDto): ResponseEntity<EventsDto> {
+	override fun retrieveEntities(reqParams: EventsRequestDto): ResponseEntity<EventsDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping
-	override fun createEvent(
-		@RequestBody event: EventCreateUpdateDto
+	override fun createEntity(
+		@RequestBody entity: EventCreateUpdateDto
 	): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 
 	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	override fun retrieveEvent(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<EventDto> {
+	override fun retrieveEntity(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<EventDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PutMapping(path = ["/{${PathVariables.ID}}"])
-	override fun updateEvent(
+	override fun updateEntity(
 		@PathVariable(PathVariables.ID) id: Int,
-		@RequestBody event: EventCreateUpdateDto
+		@RequestBody entity: EventCreateUpdateDto
 	): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@DeleteMapping(path = ["/{${PathVariables.ID}}"])
-	override fun deleteEvent(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<Unit> {
+	override fun deleteEntity(id: Int): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/rate"])
-	override fun rateEvent(
+	override fun rateEntity(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody rate: RateDto
 	): ResponseEntity<ResourceInfoDto> {
@@ -52,7 +52,7 @@ class EventsApiControllerImpl(daoProvider: DaoProvider) : EventsApiController {
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
-	override fun reportEvent(
+	override fun reportEntity(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody report: ReportDto
 	): ResponseEntity<ResourceInfoDto> {

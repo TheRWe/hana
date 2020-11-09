@@ -1,10 +1,10 @@
 package cz.globex.hana.router.controller.impl
 
+import cz.globex.hana.core.*
+import cz.globex.hana.core.dto.*
 import cz.globex.hana.router.controller.*
 import cz.globex.hana.router.dto.*
 import cz.globex.hana.router.util.*
-import cz.globex.hana.core.*
-import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.servlet.support.*
@@ -15,7 +15,7 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 	private val articlesDao = daoProvider.articlesDao
 
 	@GetMapping
-	override fun retrieveArticles(reqParams: ArticlesRequestDto): ResponseEntity<ArticlesDto> {
+	override fun retrieveEntities(reqParams: ArticlesRequestDto): ResponseEntity<ArticlesDto> {
 		val pageStart = reqParams.pageStart
 		val pageSize = reqParams.pageSize
 		if ((pageStart == null) != (pageSize == null)) return ResponseEntity.badRequest().build()
@@ -25,8 +25,10 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 	}
 
 	@PostMapping
-	override fun createArticle(@RequestBody article: ArticleDto): ResponseEntity<ResourceInfoDto> {
-		val articleId = articlesDao.createArticle(article)
+	override fun createEntity(
+		@RequestBody entity: ArticleCreateUpdateDto
+	): ResponseEntity<ResourceInfoDto> {
+		val articleId = articlesDao.createArticle(entity)
 		val location = ServletUriComponentsBuilder
 			.fromCurrentRequest()
 			.path("/{${PathVariables.ID}}")
@@ -36,7 +38,7 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 	}
 
 	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	override fun retrieveArticle(
+	override fun retrieveEntity(
 		@PathVariable(PathVariables.ID) id: Int
 	): ResponseEntity<ArticleDto> {
 		val article = articlesDao.getArticleOrNull(id)

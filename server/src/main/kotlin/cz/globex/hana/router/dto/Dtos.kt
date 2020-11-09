@@ -3,10 +3,12 @@ package cz.globex.hana.router.dto
 import cz.globex.hana.core.dto.*
 import java.time.*
 
+interface EntitiesRequestDto
+
 data class ArticlesRequestDto(
 	val pageStart: Int?,
 	val pageSize: Int?,
-)
+) : EntitiesRequestDto
 
 data class UsersRequestDto(
 	val pageStart: Int?,
@@ -22,7 +24,7 @@ data class UsersRequestDto(
 	val ratingAsSellerScoreEndInclusive: Double?,
 	val ratingAsSellerVotesCountStart: Double?,
 	val ratingAsSellerVotesCountEndInclusive: Double?,
-)
+) : EntitiesRequestDto
 
 data class AdsRequestDto(
 	val authorId: Int?,
@@ -37,7 +39,7 @@ data class AdsRequestDto(
 	val type: AdType?,
 	val salaryStart: Int?,
 	val salaryEndInclusive: Int?,
-)
+) : EntitiesRequestDto
 
 data class EventsRequestDto(
 	val authorId: Int?,
@@ -56,7 +58,7 @@ data class EventsRequestDto(
 	val dateEndInclusive: LocalDateTime?,
 	val entryFeeStart: Int?,
 	val entryFeeEndInclusive: Int?,
-)
+) : EntitiesRequestDto
 
 data class StockExchangesRequestDto(
 	val authorId: Int?,
@@ -71,7 +73,7 @@ data class StockExchangesRequestDto(
 	val type: StockExchangeType?,
 	val costStart: Int?,
 	val costEndInclusive: Int?,
-)
+) : EntitiesRequestDto
 
 data class TagRequestDto(
 	val id: Int,

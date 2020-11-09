@@ -1,10 +1,10 @@
 package cz.globex.hana.router.controller.impl
 
+import cz.globex.hana.core.*
+import cz.globex.hana.core.dto.*
 import cz.globex.hana.router.controller.*
 import cz.globex.hana.router.dto.*
 import cz.globex.hana.router.util.*
-import cz.globex.hana.core.*
-import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -14,43 +14,41 @@ class StockExchangesApiControllerImpl(daoProvider: DaoProvider) : StockExchanges
 	private val stockExchangesDao = daoProvider.stockExchangesDao
 
 	@GetMapping
-	override fun retrieveStockExchanges(
+	override fun retrieveEntities(
 		reqParams: StockExchangesRequestDto
 	): ResponseEntity<StockExchangesDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping
-	override fun createStockExchange(
-		@RequestBody stockExchange: StockExchangeCreateUpdateDto
+	override fun createEntity(
+		@RequestBody entity: StockExchangeCreateUpdateDto
 	): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 
 	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	override fun retrieveStockExchange(
+	override fun retrieveEntity(
 		@PathVariable(PathVariables.ID) id: Int
 	): ResponseEntity<StockExchangeDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PutMapping(path = ["/{${PathVariables.ID}}"])
-	override fun updateStockExchange(
+	override fun updateEntity(
 		@PathVariable(PathVariables.ID) id: Int,
-		@RequestBody stockExchange: StockExchangeCreateUpdateDto
+		@RequestBody entity: StockExchangeCreateUpdateDto
 	): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@DeleteMapping(path = ["/{${PathVariables.ID}}"])
-	override fun deleteStockExchange(
-		@PathVariable(PathVariables.ID) id: Int
-	): ResponseEntity<Unit> {
+	override fun deleteEntity(id: Int): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/rate"])
-	override fun rateStockExchange(
+	override fun rateEntity(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody rate: RateDto
 	): ResponseEntity<ResourceInfoDto> {
@@ -58,7 +56,7 @@ class StockExchangesApiControllerImpl(daoProvider: DaoProvider) : StockExchanges
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
-	override fun reportStockExchange(
+	override fun reportEntity(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody report: ReportDto
 	): ResponseEntity<ResourceInfoDto> {

@@ -16,7 +16,7 @@ class ArticlesDaoImpl(private val articlesRepository: ArticlesRepository) : Arti
 		return articlesRepository.findAll(pageable).get().map(Article::toDto).toList()
 	}
 
-	override fun createArticle(articleDto: ArticleDto): Int {
+	override fun createArticle(articleDto: ArticleCreateUpdateDto): Int {
 		return articlesRepository.save(Article.from(articleDto)).id
 	}
 

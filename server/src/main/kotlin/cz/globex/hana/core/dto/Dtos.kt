@@ -5,21 +5,34 @@ import cz.globex.hana.router.deserializer.*
 import java.net.*
 import java.time.*
 
+interface EntitiesDto
+
+interface EntityDto
+
+interface EntityCreateDto
+
+interface EntityUpdateDto
+
 data class ArticlesDto(
 	val articles: List<ArticleDto>
-)
+) : EntitiesDto
 
 data class ArticleDto(
+	val title: String,
+	val text: String,
+) : EntityDto
+
+data class ArticleCreateUpdateDto(
 	@JsonDeserialize(using = StringDeserializer::class)
 	val title: String,
 
 	@JsonDeserialize(using = StringDeserializer::class)
 	val text: String,
-)
+) : EntityCreateDto, EntityUpdateDto
 
 data class UsersDto(
 	val users: Set<UsersDto>,
-)
+) : EntitiesDto
 
 data class UserDto(
 	val id: Int,
@@ -30,7 +43,7 @@ data class UserDto(
 	val registered: LocalDateTime,
 	val photo: PhotoDto?,
 	val ratings: UserRatingsDto?
-)
+) : EntityDto
 
 data class UserCreateUpdateDto(
 	val firstName: String,
@@ -38,7 +51,7 @@ data class UserCreateUpdateDto(
 	val email: String,
 	val type: UserType,
 	val photo: PhotoDto?,
-)
+) : EntityCreateDto, EntityUpdateDto
 
 enum class UserType { PERSON, COMPANY, CERTIFIED_COMPANY, MODERATOR, ADMINISTRATOR, }
 
@@ -47,13 +60,9 @@ data class UserRatingsDto(
 	val asSeller: RatingDto?,
 )
 
-data class UserTypeUpdateDto(
-	val type: UserType,
-)
-
 data class AdsDto(
 	val ads: Set<AdDto>,
-)
+) : EntitiesDto
 
 data class AdDto(
 	val id: Int,
@@ -67,7 +76,7 @@ data class AdDto(
 	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
-)
+) : EntityDto
 
 data class AdCreateUpdateDto(
 	val authorId: Int,
@@ -79,13 +88,13 @@ data class AdCreateUpdateDto(
 	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
-)
+) : EntityCreateDto, EntityUpdateDto
 
 enum class AdType { SUPPLY, DEMAND, }
 
 data class EventsDto(
 	val events: Set<EventDto>,
-)
+) : EntitiesDto
 
 data class EventDto(
 	val id: Int,
@@ -99,7 +108,7 @@ data class EventDto(
 	val rating: RatingDto,
 	val date: RangeDto<LocalDateTime>,
 	val entryFee: Int
-)
+) : EntityDto
 
 data class EventCreateUpdateDto(
 	val authorId: Int,
@@ -111,7 +120,7 @@ data class EventCreateUpdateDto(
 	val rating: RatingDto,
 	val date: RangeDto<LocalDateTime>,
 	val entryFee: Int,
-)
+) : EntityCreateDto, EntityUpdateDto
 
 data class RatingDto(
 	val score: Double,
@@ -125,7 +134,7 @@ data class RangeDto<T>(
 
 data class StockExchangesDto(
 	val stockExchanges: Set<StockExchangeDto>,
-)
+) : EntitiesDto
 
 data class StockExchangeDto(
 	val id: Int,
@@ -139,7 +148,7 @@ data class StockExchangeDto(
 	val isActual: Boolean,
 	val type: StockExchangeType,
 	val cost: Int,
-)
+) : EntityDto
 
 data class StockExchangeCreateUpdateDto(
 	val authorId: Int,
@@ -151,7 +160,7 @@ data class StockExchangeCreateUpdateDto(
 	val isActual: Boolean,
 	val type: StockExchangeType,
 	val cost: Int,
-)
+) : EntityCreateDto, EntityUpdateDto
 
 data class PlaceCreateUpdateDto(
 	val latitude: Double,

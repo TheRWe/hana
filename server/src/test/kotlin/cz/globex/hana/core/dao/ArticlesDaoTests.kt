@@ -32,7 +32,7 @@ class ArticlesDaoTests {
 	@BeforeAll
 	fun initializeDb() {
 		val articles = (1..ARTICLES_COUNT).map {
-			Article.from(ArticleDto("$EXAMPLE_TITLE $it", "$EXAMPLE_TEXT $it"))
+			Article.from(ArticleCreateUpdateDto("$EXAMPLE_TITLE $it", "$EXAMPLE_TEXT $it"))
 		}
 		articlesRepository.saveAll(articles)
 	}
@@ -65,7 +65,7 @@ class ArticlesDaoTests {
 	@Test
 	@Transactional
 	fun `Create one article`() {
-		val article = ArticleDto("Some title", "Some long text.")
+		val article = ArticleCreateUpdateDto("Some title", "Some long text.")
 		val articleId = articlesDao.createArticle(article)
 		val articles: Iterable<Article> = articlesRepository.findAll()
 		val articlesCount = @Suppress("ReplaceCollectionCountWithSize") articles.count()
@@ -78,7 +78,7 @@ class ArticlesDaoTests {
 	@Test
 	@Transactional
 	fun `Create two articles with the same title and text`() {
-		val article = ArticleDto("Some title", "Some long text.")
+		val article = ArticleCreateUpdateDto("Some title", "Some long text.")
 		val firstArticleId = articlesDao.createArticle(article)
 		val secondArticleId = articlesDao.createArticle(article)
 		val articles: Iterable<Article> = articlesRepository.findAll()
@@ -95,7 +95,7 @@ class ArticlesDaoTests {
 	@Test
 	@Transactional
 	fun `Create one article with blank title`() {
-		val article = ArticleDto(" ", "Some long text.")
+		val article = ArticleCreateUpdateDto(" ", "Some long text.")
 		Assertions.assertThrows(IllegalArgumentException::class.java) {
 			articlesDao.createArticle(article)
 		}
@@ -104,7 +104,7 @@ class ArticlesDaoTests {
 	@Test
 	@Transactional
 	fun `Create one article with blank text`() {
-		val article = ArticleDto("Some title", " ")
+		val article = ArticleCreateUpdateDto("Some title", " ")
 		Assertions.assertThrows(IllegalArgumentException::class.java) {
 			articlesDao.createArticle(article)
 		}
