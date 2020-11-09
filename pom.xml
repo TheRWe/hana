@@ -120,7 +120,6 @@
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>ui/src/common/interface/shared.ts</outputFile>
                     <outputKind>module</outputKind>
-                    <noTslintDisable>true</noTslintDisable>
                     <noEslintDisable>true</noEslintDisable>
                     <mapEnum>asEnum</mapEnum>
                     <customTypeMappings>
