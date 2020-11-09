@@ -114,14 +114,13 @@
                 <version>2.26.723</version>
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
-                    <classesWithAnnotations>
-                        <classesWithAnnotation>
-                            cz.globex.hana.controller.util.CommonInterface
-                        </classesWithAnnotation>
-                    </classesWithAnnotations>
+                    <classPatterns>
+                        <classPattern>cz.globex.hana.**Dto</classPattern>
+                    </classPatterns>
                     <outputFileType>implementationFile</outputFileType>
-                    <outputFile>ui/src/common/interfaces.ts</outputFile>
+                    <outputFile>ui/src/common/interface/shared.ts</outputFile>
                     <outputKind>module</outputKind>
+                    <noTslintDisable>true</noTslintDisable>
                     <noEslintDisable>true</noEslintDisable>
                     <mapEnum>asEnum</mapEnum>
                     <customTypeMappings>

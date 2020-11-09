@@ -1,6 +1,7 @@
 package cz.globex.hana.core.dao
 
 import cz.globex.hana.core.*
+import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.*
 import cz.globex.hana.database.repository.*
 import org.junit.jupiter.api.*
@@ -45,15 +46,15 @@ class ArticlesDaoTests {
 	@Test
 	fun `Get articles with paging`() {
 		val pagesCount = ceil(ARTICLES_COUNT / PAGE_SIZE.toDouble()).toInt()
-		repeat(pagesCount) { pageNumber ->
-			val articles = articlesDao.getArticles(pageNumber = pageNumber, pageSize = PAGE_SIZE)
+		repeat(pagesCount) { pageStart ->
+			val articles = articlesDao.getArticles(pageStart = pageStart, pageSize = PAGE_SIZE)
 			Assertions.assertTrue(articles.size in 1..PAGE_SIZE)
 		}
 	}
 
 	@Test
-	fun `Get articles with only pageNumber`() {
-		Assertions.assertEquals(ARTICLES_COUNT, articlesDao.getArticles(pageNumber = 0).size)
+	fun `Get articles with only pageStart`() {
+		Assertions.assertEquals(ARTICLES_COUNT, articlesDao.getArticles(pageStart = 0).size)
 	}
 
 	@Test

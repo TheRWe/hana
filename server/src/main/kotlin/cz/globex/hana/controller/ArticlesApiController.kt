@@ -1,7 +1,7 @@
 package cz.globex.hana.controller
 
-import cz.globex.hana.controller.util.*
-import cz.globex.hana.core.dao.*
+import cz.globex.hana.controller.dto.*
+import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 
 interface ArticlesApiController {
@@ -9,30 +9,9 @@ interface ArticlesApiController {
 		const val PATH: String = ApiController.PATH + "/articles"
 	}
 
-	fun retrieveArticles(req: ArticlesRetrieveRequestDto): ResponseEntity<ArticlesRetrieveResponseDto>
+	fun retrieveArticles(reqParams: ArticlesRequestDto): ResponseEntity<ArticlesDto>
 
-	fun createArticle(req: ArticleCreateRequestDto): ResponseEntity<CreateResponseDto>
+	fun createArticle(article: ArticleDto): ResponseEntity<ResourceInfoDto>
 
-	fun retrieveArticle(id: Int): ResponseEntity<ArticleRetrieveResponseDto>
+	fun retrieveArticle(id: Int): ResponseEntity<ArticleDto>
 }
-
-@CommonInterface
-class ArticlesRetrieveRequestDto(
-	pageNumber: Int?,
-	pageSize: Int?
-) : Pageable(pageNumber = pageNumber, pageSize = pageSize)
-
-@CommonInterface
-data class ArticlesRetrieveResponseDto(
-	val articles: List<ArticleDto>
-)
-
-@CommonInterface
-data class ArticleCreateRequestDto(
-	val article: ArticleDto
-)
-
-@CommonInterface
-data class ArticleRetrieveResponseDto(
-	val article: ArticleDto
-)
