@@ -1,6 +1,6 @@
 package cz.globex.hana.configuration
 
-import cz.globex.hana.controller.*
+import cz.globex.hana.router.controller.*
 import org.springframework.context.annotation.*
 import springfox.documentation.builders.*
 import springfox.documentation.spi.*

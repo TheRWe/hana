@@ -1,6 +1,6 @@
-package cz.globex.hana.controller
+package cz.globex.hana.router.controller
 
-import cz.globex.hana.controller.dto.*
+import cz.globex.hana.router.dto.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 

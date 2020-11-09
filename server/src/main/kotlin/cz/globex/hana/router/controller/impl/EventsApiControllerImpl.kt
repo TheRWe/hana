@@ -1,56 +1,50 @@
-package cz.globex.hana.controller.impl
+package cz.globex.hana.router.controller.impl
 
-import cz.globex.hana.controller.*
-import cz.globex.hana.controller.dto.*
-import cz.globex.hana.controller.util.*
+import cz.globex.hana.router.controller.*
+import cz.globex.hana.router.dto.*
+import cz.globex.hana.router.util.*
 import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping(path = [StockExchangesApiController.PATH])
-class StockExchangesApiControllerImpl(daoProvider: DaoProvider) : StockExchangesApiController {
-	private val stockExchangesDao = daoProvider.stockExchangesDao
+@RequestMapping(path = [EventsApiController.PATH])
+class EventsApiControllerImpl(daoProvider: DaoProvider) : EventsApiController {
+	private val eventsDao = daoProvider.eventsDao
 
 	@GetMapping
-	override fun retrieveStockExchanges(
-		reqParams: StockExchangesRequestDto
-	): ResponseEntity<StockExchangesDto> {
+	override fun retrieveEvents(reqParams: EventsRequestDto): ResponseEntity<EventsDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping
-	override fun createStockExchange(
-		@RequestBody stockExchange: StockExchangeCreateUpdateDto
+	override fun createEvent(
+		@RequestBody event: EventCreateUpdateDto
 	): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 
 	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	override fun retrieveStockExchange(
-		@PathVariable(PathVariables.ID) id: Int
-	): ResponseEntity<StockExchangeDto> {
+	override fun retrieveEvent(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<EventDto> {
 		TODO("Not yet implemented")
 	}
 
 	@PutMapping(path = ["/{${PathVariables.ID}}"])
-	override fun updateStockExchange(
+	override fun updateEvent(
 		@PathVariable(PathVariables.ID) id: Int,
-		@RequestBody stockExchange: StockExchangeCreateUpdateDto
+		@RequestBody event: EventCreateUpdateDto
 	): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@DeleteMapping(path = ["/{${PathVariables.ID}}"])
-	override fun deleteStockExchange(
-		@PathVariable(PathVariables.ID) id: Int
-	): ResponseEntity<Unit> {
+	override fun deleteEvent(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/rate"])
-	override fun rateStockExchange(
+	override fun rateEvent(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody rate: RateDto
 	): ResponseEntity<ResourceInfoDto> {
@@ -58,7 +52,7 @@ class StockExchangesApiControllerImpl(daoProvider: DaoProvider) : StockExchanges
 	}
 
 	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
-	override fun reportStockExchange(
+	override fun reportEvent(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody report: ReportDto
 	): ResponseEntity<ResourceInfoDto> {

@@ -1,7 +1,7 @@
 package cz.globex.hana.core.dto
 
 import com.fasterxml.jackson.databind.annotation.*
-import cz.globex.hana.controller.deserializer.*
+import cz.globex.hana.router.deserializer.*
 import java.net.*
 import java.time.*
 

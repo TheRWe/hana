@@ -1,4 +1,4 @@
-package cz.globex.hana.controller.dto
+package cz.globex.hana.router.dto
 
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.*

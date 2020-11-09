@@ -1,4 +1,4 @@
-package cz.globex.hana.controller.deserializer
+package cz.globex.hana.router.deserializer
 
 import com.fasterxml.jackson.core.*
 import com.fasterxml.jackson.databind.*
