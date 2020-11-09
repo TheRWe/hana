@@ -5,10 +5,10 @@ import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
-fun interface ReportEntityAction {
-	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
-	fun reportEntity(
+fun interface RateAction {
+	@PostMapping(path = ["/{${PathVariables.ID}}/rate"])
+	fun rate(
 		@PathVariable(PathVariables.ID) id: Int,
-		@RequestBody report: ReportDto
+		@RequestBody rate: RateDto
 	): ResponseEntity<ResourceInfoDto>
 }

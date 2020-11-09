@@ -5,7 +5,7 @@ import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
-fun interface RetrieveEntityAction<R : EntityDto> {
+fun interface RetrieveAction<R : EntityDto> {
 	@GetMapping(path = ["/{${PathVariables.ID}}"])
-	fun retrieveEntity(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<R>
+	fun retrieve(@PathVariable(PathVariables.ID) id: Int): ResponseEntity<R>
 }

@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Event, EventCreateUpdate, Events, EventsRequest, Rate, Report, ResourceInfo } from "./shared";
+import { Event, EventCreateUpdate, Events, EventFilters, Rate, Report, ResourceInfo } from "./shared";
 
 // 1. get event by id
 export type TEventGetByIdGetRequest = {};
@@ -27,7 +27,7 @@ export type TEventRatePostResponse = ResourceInfo;
 export type TEventRatePostAction = TAction<TEventRatePostRequest, TEventRatePostResponse>;
 
 // 6. get more events
-export type TEventGetListGetAction = TAction<EventsRequest, Events>;
+export type TEventGetListGetAction = TAction<EventFilters, Events>;
 
 // 7. report event
 export type TEventReportPostRequest = Report;

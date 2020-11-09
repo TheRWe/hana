@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Report, ResourceInfo, User, UserCreateUpdate, Users, UsersRequest } from "./shared";
+import { Report, ResourceInfo, User, UserCreateUpdate, Users, UserFilters } from "./shared";
 
 // 1. get user by id
 export type TUserGetByIdGetRequest = {};
@@ -22,7 +22,7 @@ export type TUserDeleteResponse = {};
 export type TUserDeleteAction = TAction<TUserDeleteRequest, TUserDeleteResponse>;
 
 // 5. get more users
-export type TUserGetListGetAction = TAction<UsersRequest, Users>;
+export type TUserGetListGetAction = TAction<UserFilters, Users>;
 
 // 6. report user
 export type TUserReportPostRequest = Report;

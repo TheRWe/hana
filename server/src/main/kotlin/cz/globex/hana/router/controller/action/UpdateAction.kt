@@ -5,9 +5,9 @@ import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
-fun interface UpdateEntityAction<T : EntityUpdateDto> {
+fun interface UpdateAction<T : EntityUpdateDto> {
 	@PutMapping(path = ["/{${PathVariables.ID}}"])
-	fun updateEntity(
+	fun update(
 		@PathVariable(PathVariables.ID) id: Int,
 		@RequestBody entity: T
 	): ResponseEntity<Unit>

@@ -115,7 +115,7 @@
                 <configuration>
                     <jsonLibrary>jackson2</jsonLibrary>
                     <classPatterns>
-                        <classPattern>cz.globex.hana.**Dto</classPattern>
+                        <classPattern>cz.globex.hana.core.dto.**Dto</classPattern>
                     </classPatterns>
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>ui/src/common/interface/shared.ts</outputFile>

@@ -4,7 +4,7 @@ import cz.globex.hana.core.dto.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
-fun interface CreateEntityAction<T : EntityCreateDto> {
+fun interface CreateAction<T : EntityCreateDto> {
 	@PostMapping
-	fun createEntity(@RequestBody entity: T): ResponseEntity<ResourceInfoDto>
+	fun create(@RequestBody entity: T): ResponseEntity<ResourceInfoDto>
 }

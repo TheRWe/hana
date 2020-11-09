@@ -1,6 +1,5 @@
 package cz.globex.hana.core.dao.impl
 
-import cz.globex.hana.router.dto.*
 import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.core.util.*

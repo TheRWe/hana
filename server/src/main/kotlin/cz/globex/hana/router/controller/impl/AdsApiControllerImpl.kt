@@ -3,8 +3,6 @@ package cz.globex.hana.router.controller.impl
 import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.router.controller.*
-import cz.globex.hana.router.dto.*
-import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -13,31 +11,31 @@ import org.springframework.web.bind.annotation.*
 class AdsApiControllerImpl(daoProvider: DaoProvider) : AdsApiController {
 	private val adsDao = daoProvider.adsDao
 
-	override fun retrieveEntities(reqParams: AdsRequestDto): ResponseEntity<AdsDto> {
+	override fun retrieveMultiple(filters: AdFiltersDto): ResponseEntity<AdsDto> {
 		TODO("Not yet implemented")
 	}
 
-	override fun createEntity(entity: AdCreateUpdateDto): ResponseEntity<ResourceInfoDto> {
+	override fun create(entity: AdCreateUpdateDto): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieveEntity(id: Int): ResponseEntity<AdDto> {
+	override fun retrieve(id: Int): ResponseEntity<AdDto> {
 		TODO("Not yet implemented")
 	}
 
-	override fun updateEntity(id: Int, entity: AdCreateUpdateDto): ResponseEntity<Unit> {
+	override fun update(id: Int, entity: AdCreateUpdateDto): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun deleteEntity(id: Int): ResponseEntity<Unit> {
+	override fun delete(id: Int): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun rateEntity(id: Int, rate: RateDto): ResponseEntity<ResourceInfoDto> {
+	override fun rate(id: Int, rate: RateDto): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 
-	override fun reportEntity(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto> {
+	override fun report(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 }
