@@ -15,14 +15,14 @@ interface EntityCreateDto
 
 interface EntityUpdateDto
 
-data class ArticleFiltersDto(
-	val pageStart: Int?,
-	val pageSize: Int?,
-) : EntityFiltersDto
+data class PaginationDto(
+	val pageStart: Int? = null,
+	val pageSize: Int? = null,
+)
+
+class ArticleFiltersDto : EntityFiltersDto
 
 data class UserFiltersDto(
-	val pageStart: Int?,
-	val pageSize: Int?,
 	val type: UserType?,
 	val registeredStart: LocalDateTime?,
 	val registeredEndInclusive: LocalDateTime?,
@@ -38,13 +38,12 @@ data class UserFiltersDto(
 
 data class AdFiltersDto(
 	val authorId: Int?,
-	val place: PlaceDto?,
+	val placeLatitude: Double?,
+	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
 	val createdStart: LocalDateTime?,
 	val createdEndInclusive: LocalDateTime?,
 	val tagName: Set<String>?,
-	val pageStart: Int?,
-	val pageSize: Int?,
 	val isActual: Boolean?,
 	val type: AdType?,
 	val salaryStart: Int?,
@@ -53,13 +52,12 @@ data class AdFiltersDto(
 
 data class EventFiltersDto(
 	val authorId: Int?,
-	val place: PlaceDto?,
+	val placeLatitude: Double?,
+	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
 	val createdStart: LocalDateTime?,
 	val createdEndInclusive: LocalDateTime?,
 	val tagName: Set<String>?,
-	val pageStart: Int?,
-	val pageSize: Int?,
 	val ratingScoreStart: Double?,
 	val ratingScoreEndInclusive: Double?,
 	val ratingVotesCountStart: Double?,
@@ -72,13 +70,12 @@ data class EventFiltersDto(
 
 data class StockExchangeFiltersDto(
 	val authorId: Int?,
-	val place: PlaceDto?,
+	val placeLatitude: Double?,
+	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
 	val createdStart: LocalDateTime?,
 	val createdEndInclusive: LocalDateTime?,
 	val tagName: Set<String>?,
-	val pageStart: Int?,
-	val pageSize: Int?,
 	val isActual: Boolean?,
 	val type: StockExchangeType?,
 	val costStart: Int?,

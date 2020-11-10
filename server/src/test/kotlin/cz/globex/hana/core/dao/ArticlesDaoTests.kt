@@ -7,6 +7,7 @@ import cz.globex.hana.database.repository.*
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.*
 import org.springframework.boot.test.context.*
+import org.springframework.data.domain.*
 import org.springframework.transaction.annotation.*
 import kotlin.math.*
 
@@ -38,35 +39,26 @@ class ArticlesDaoTests {
 	}
 
 	@Test
-	fun `Get all articles`() {
-		val articles = articlesDao.getArticles()
-		Assertions.assertEquals(ARTICLES_COUNT, articles.size)
+	fun `Retrieve all articles`() {
+		val articlesDto = articlesDao.retrieveMultiple(ArticleFiltersDto(), Pageable.unpaged())
+		Assertions.assertEquals(ARTICLES_COUNT, articlesDto.articles.size)
 	}
 
 	@Test
-	fun `Get articles with paging`() {
+	fun `Retrieve articles with paging`() {
 		val pagesCount = ceil(ARTICLES_COUNT / PAGE_SIZE.toDouble()).toInt()
 		repeat(pagesCount) { pageStart ->
-			val articles = articlesDao.getArticles(pageStart = pageStart, pageSize = PAGE_SIZE)
-			Assertions.assertTrue(articles.size in 1..PAGE_SIZE)
+			val pageable = PageRequest.of(pageStart, PAGE_SIZE)
+			val articlesDto = articlesDao.retrieveMultiple(ArticleFiltersDto(), pageable)
+			Assertions.assertTrue(articlesDto.articles.size in 1..PAGE_SIZE)
 		}
-	}
-
-	@Test
-	fun `Get articles with only pageStart`() {
-		Assertions.assertEquals(ARTICLES_COUNT, articlesDao.getArticles(pageStart = 0).size)
-	}
-
-	@Test
-	fun `Get articles with only pageSize`() {
-		Assertions.assertEquals(ARTICLES_COUNT, articlesDao.getArticles(pageSize = PAGE_SIZE).size)
 	}
 
 	@Test
 	@Transactional
 	fun `Create one article`() {
 		val article = ArticleCreateUpdateDto("Some title", "Some long text.")
-		val articleId = articlesDao.createArticle(article)
+		val articleId = articlesDao.createOne(article)
 		val articles: Iterable<Article> = articlesRepository.findAll()
 		val articlesCount = @Suppress("ReplaceCollectionCountWithSize") articles.count()
 		Assertions.assertEquals(ARTICLES_COUNT + 1, articlesCount)
@@ -79,8 +71,8 @@ class ArticlesDaoTests {
 	@Transactional
 	fun `Create two articles with the same title and text`() {
 		val article = ArticleCreateUpdateDto("Some title", "Some long text.")
-		val firstArticleId = articlesDao.createArticle(article)
-		val secondArticleId = articlesDao.createArticle(article)
+		val firstArticleId = articlesDao.createOne(article)
+		val secondArticleId = articlesDao.createOne(article)
 		val articles: Iterable<Article> = articlesRepository.findAll()
 		val articlesCount = @Suppress("ReplaceCollectionCountWithSize") articles.count()
 		Assertions.assertEquals(ARTICLES_COUNT + 2, articlesCount)
@@ -97,7 +89,7 @@ class ArticlesDaoTests {
 	fun `Create one article with blank title`() {
 		val article = ArticleCreateUpdateDto(" ", "Some long text.")
 		Assertions.assertThrows(IllegalArgumentException::class.java) {
-			articlesDao.createArticle(article)
+			articlesDao.createOne(article)
 		}
 	}
 
@@ -106,14 +98,14 @@ class ArticlesDaoTests {
 	fun `Create one article with blank text`() {
 		val article = ArticleCreateUpdateDto("Some title", " ")
 		Assertions.assertThrows(IllegalArgumentException::class.java) {
-			articlesDao.createArticle(article)
+			articlesDao.createOne(article)
 		}
 	}
 
 	@Test
-	fun `Get article`() {
+	fun `Retrieve article`() {
 		for (index in 1..ARTICLES_COUNT) {
-			val article = articlesDao.getArticleOrNull(index)
+			val article = articlesDao.retrieveOneOrNull(index)
 			checkNotNull(article)
 
 			Assertions.assertEquals("$EXAMPLE_TITLE $index", article.title)
@@ -122,7 +114,7 @@ class ArticlesDaoTests {
 	}
 
 	@Test
-	fun `Get nonexistent article`() {
-		Assertions.assertNull(articlesDao.getArticleOrNull(ARTICLES_COUNT + 1))
+	fun `Retrieve nonexistent article`() {
+		Assertions.assertNull(articlesDao.retrieveOneOrNull(ARTICLES_COUNT + 1))
 	}
 }

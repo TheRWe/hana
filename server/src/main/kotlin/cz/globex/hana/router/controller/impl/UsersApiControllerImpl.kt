@@ -11,27 +11,28 @@ import org.springframework.web.bind.annotation.*
 class UsersApiControllerImpl(daoProvider: DaoProvider) : UsersApiController {
 	private val usersDao = daoProvider.usersDao
 
-	override fun retrieveMultiple(filters: UserFiltersDto): ResponseEntity<UsersDto> {
+	override fun retrieveMultiple(
+		filters: UserFiltersDto,
+		pagination: PaginationDto
+	): ResponseEntity<UsersDto> {
+		return usersDao.retrieveMultipleAndWrap(filters, pagination)
+	}
+
+	override fun createOne(entity: UserCreateUpdateDto): ResponseEntity<ResourceInfoDto> {
+		return usersDao.createOneAndWrap(entity)
+	}
+
+	override fun retrieveOne(id: Int): ResponseEntity<UserDto> = usersDao.retrieveOneAndWrap(id)
+
+	override fun updateOne(id: Int, entity: UserCreateUpdateDto): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun create(entity: UserCreateUpdateDto): ResponseEntity<ResourceInfoDto> {
+	override fun deleteOne(id: Int): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieve(id: Int): ResponseEntity<UserDto> {
-		TODO("Not yet implemented")
-	}
-
-	override fun update(id: Int, entity: UserCreateUpdateDto): ResponseEntity<Unit> {
-		TODO("Not yet implemented")
-	}
-
-	override fun delete(id: Int): ResponseEntity<Unit> {
-		TODO("Not yet implemented")
-	}
-
-	override fun report(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto> {
+	override fun reportOne(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 }

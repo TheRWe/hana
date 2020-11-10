@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Ad, AdCreateUpdate, Ads, AdFilters, Rate, Report, ResourceInfo } from "./shared";
+import { Ad, AdCreateUpdate, Ads, AdFilters, Rate, Report, ResourceInfo, Pagination } from "./shared";
 
 // 1. get ad by id
 export type TAdGetByIdGetRequest = {};
@@ -27,7 +27,9 @@ export type TAdRatePostResponse = ResourceInfo;
 export type TAdRatePostAction = TAction<TAdRatePostRequest, TAdRatePostResponse>;
 
 // 6. get more ads
-export type TAdGetListGetAction = TAction<AdFilters, Ads>;
+export type TAdGetListGetRequest = AdFilters & Pagination;
+export type TAdGetListGetResponse = Ads;
+export type TAdGetListGetAction = TAction<TAdGetListGetRequest, TAdGetListGetResponse>;
 
 // 7. report ad
 export type TAdReportPostRequest = Report;
