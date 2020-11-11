@@ -31,19 +31,23 @@
    - [node](https://nodejs.org/) installed
    - [yarn](https://yarnpkg.com/) installed
    - [java](https://java.com/) installed
-   - [maven](https://maven.apache.org/) installed (optional)
+   - [maven](https://maven.apache.org/) installed _([optional *](#maven-wrapper))_
+
+
+### distribution
+   - ```yarn dist```
+
+### dev
+call ```yarn install``` (if not called already)
+   - ALL
+      - ```yarn dev```
+   - Server only
+      - `mvn spring-boot:run` builds and deploys Spring server on `localhost:8080`
+   - UI only
+      - ```yarn dev:ui```
 
 ### maven-wrapper
 If you do not have maven installed locally (and you do not want to install it), you can use project's maven-wrapper.
 At first, run the ```./mvnw.cmd clean install``` or ```./mvnw clean install``` (on Unix systems) command.
 On Unix systems, it might be necessary to allow execute permissions using ```chmod +x ./mvnw```.
 Then simply replace the ```mvn``` commands with ```./mvnw.cmd``` or ```./mvnw```.
-
-### distribution
-   - ```yarn dist```
-
-### dev
-   - ```yarn install``` (if not called already)
-   - ```yarn dev```
-   - ```mvn process-classes``` generates TypeScript definitions of type interfaces from Kotlin
-   - ```mvn spring-boot:run``` builds and deploys Spring server together with executing the ```yarn build``` command

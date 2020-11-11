@@ -6,18 +6,20 @@
     "script": "cd ./scripts/ && ts-node-script",
     "ts-node-script": "ts-node-script",
     "postinstall": "run-p install:*",
-    "install:ui": "yarn --cwd ui install",
+    "install:ui": "yarn --cwd ui install & yarn generate",
     "ci": "yarn install --ignore-scripts --frozen-lockfile && run-s ci:*",
-    "ci:ui": "yarn --cwd ui install --frozen-lockfile",
+    "ci:ui": "yarn --cwd ui install --frozen-lockfile & yarn generate",
     "build": "run-p build:*",
     "build:ui": "yarn --cwd ui build",
     "dist": "yarn ci && run-s build \"script dist\"",
     "pkg": "pkg",
     "dev": "run-p dev:*",
     "dev:ui": "yarn --cwd ui dev",
+    "dev:server": "mvn spring-boot:run",
     "semantic-release": "semantic-release",
     "lint": "tslint -c tslint.json ./{ui/src}/**/*.ts{,x}",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "generate": "mvn process-classes"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",
