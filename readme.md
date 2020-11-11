@@ -27,6 +27,8 @@
 
 ## Building and dev
 
+All commited code should follow the [contributing](./contributing.md)
+
 ### prerequisites
    - [node](https://nodejs.org/) installed
    - [yarn](https://yarnpkg.com/) installed
