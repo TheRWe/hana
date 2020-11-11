@@ -21,7 +21,7 @@
 [![github](https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white)](https://github.com/)
 [![github actions](https://img.shields.io/badge/GH%20Actions-%23161616.svg?&style=for-the-badge&logo=github&logoColor=white)](https://github.com/actions)
 [![webpack](https://img.shields.io/badge/webpack%20-%238DD6F9.svg?&style=for-the-badge&logo=webpack&logoColor=black)](https://webpack.js.org/)
-[![pkg](https://img.shields.io/badge/-%20%20%F0%9F%93%A6PKG-%23777777?&style=for-the-badge&logoColor=white)](https://github.com/vercel/pkg)
+[![Maven](https://img.shields.io/badge/-Maven-C71A36?&style=for-the-badge&logoColor=white&logo=apache-maven)](https://maven.apache.org/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?&style=for-the-badge&logoColor=white)](https://github.com/semantic-release/semantic-release)
 
 
