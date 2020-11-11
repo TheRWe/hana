@@ -16,7 +16,7 @@
     "dev:ui": "yarn --cwd ui dev",
     "dev:server": "mvn spring-boot:run",
     "semantic-release": "semantic-release",
-    "lint": "tslint -c tslint.json ./{ui/src}/**/*.ts{,x}",
+    "lint": "tslint -c tslint.json ./ui/src/**/*.ts{,x}",
     "lint:fix": "yarn lint --fix",
     "generate": "mvn process-classes"
   },
