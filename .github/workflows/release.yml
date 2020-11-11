@@ -3,6 +3,8 @@ name: Release
 on:
   push:
     branches:
+      # todo: keep only master here
+      - spring-test-branch
       - master
 
 jobs:
@@ -11,13 +13,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
           node-version: 12
+      - name: Setup JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
       - name: Restore node_modules cache
         uses: actions/cache@v2
         with:
