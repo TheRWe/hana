@@ -1,63 +1,27 @@
-import { execSync } from "child_process";
+// tslint:disable: no-console
 import * as fs from "fs";
-import { lstatSync, copyFileSync, existsSync, mkdirSync, readdirSync } from "fs";
+import { existsSync, readdirSync } from "fs";
 import * as path from "path";
-import { join } from "path";
 
-export const copyRecrusivePreservingFolders = (from: string, to: string, fileReg: RegExp = /.*/) => {
-  if (lstatSync(from).isFile()) {
-    if (fileReg.test(from))
-      copyFileSync(from, to)
-        ;
-    return;
-  }
 
-  if (!existsSync(to))
-    mkdirSync(to)
-      ;
-
-  if (fs.lstatSync(from).isSymbolicLink())
-    return;
-
-  readdirSync(from)
-    .forEach(x => copyRecrusivePreservingFolders(join(from, x), join(to, x), fileReg))
-    ;
+const buildRootDir = "../target/";
+const findJar = () => {
+  const regex = /.*\.jar$/;
+  const jarFileName = readdirSync(buildRootDir).find(x => regex.exec(x));
+  return path.join(buildRootDir, jarFileName);
 };
 
+const distDir = "../dist/";
 
-// used to configure pkg
-const fakePackageJson = {
-  name: "hana",
-  bin: "./server/index.js",
-  pkg: {
-    assets: [
-      "./ui/**/*",
-    ],
-  },
-};
+if (!existsSync(distDir))
+  fs.mkdirSync(distDir);
 
-const withTemp = (fnc: (temp: string) => void) => {
-  const temp = "../temp/";
-  if (fs.existsSync(temp))
-    fs.rmdirSync(temp, { recursive: true });
+const jarFilePath = findJar();
 
-  try {
-    fs.mkdirSync(temp);
-    fnc(temp);
-  } finally {
-    fs.rmdirSync(temp, { recursive: true });
-  }
-};
+fs.copyFileSync(jarFilePath, path.join(distDir, "hana.jar"));
 
-withTemp((temp) => {
-  const inTemp = (target: string) => path.join(temp, target);
-  [
-    { source: "../ui/build/", target: inTemp("ui") },
-  ]
-    .forEach(({ source, target }) => copyRecrusivePreservingFolders(source, target))
-    ;
-
-  fs.writeFileSync(inTemp("package.json"), JSON.stringify(fakePackageJson));
-
-  execSync("cd .. && yarn pkg ./temp/ --out-dir dist", { windowsHide: true });
-});
+try {
+  fs.rmdirSync(buildRootDir, { recursive: true });
+} catch {
+  console.warn("failed to clean up");
+}
