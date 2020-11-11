@@ -3,8 +3,6 @@ name: Release
 on:
   push:
     branches:
-      # todo: keep only master here
-      - spring-test-branch
       - master
 
 jobs:
