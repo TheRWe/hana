@@ -1,6 +1,12 @@
 {
   "files.exclude": {
     "**/node_modules/": true,
-    "**/build/": true
+    "**/build/": true,
+    ".mvn": true,
+    "yarn.lock": true,
+    ".idea": true,
+    "target": true,
+    "mvnw": true,
+    "mvnw.cmd": true,
   }
 }
