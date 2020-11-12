@@ -1,6 +1,11 @@
 import React from "react";
 import { LocText } from "./LocText";
 
+/* TODO: use useLocalized and TLocalizedText ... result props will be
+type ButtonProps = {
+  label: TLocalizedText,
+};
+*/
 type ButtonProps = {
   labelEng: string
   labelCz: string
