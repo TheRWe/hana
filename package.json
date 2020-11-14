@@ -9,7 +9,7 @@
     "install:ui": "yarn --cwd ui install & yarn generate",
     "ci": "yarn install --ignore-scripts --frozen-lockfile && run-s ci:*",
     "ci:ui": "yarn --cwd ui install --frozen-lockfile",
-    "build": "mvn -B package --file pom.xml",
+    "build": "mvn -T 1C -B package --file pom.xml",
     "build:ui": "yarn --cwd ui build",
     "dist": "yarn ci && run-s build \"script dist\"",
     "dev": "run-p dev:*",
