@@ -46,4 +46,4 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Build project and run tests with Maven
-        run: mvn -B package --file pom.xml
+        run: mvn -T 1C -B package --file pom.xml
