@@ -30,7 +30,7 @@ data class User protected constructor(
     val id: Int = 0
 
     @Column(nullable = false)
-    var registered: String = ""
+    var registered: LocalDateTime = LocalDateTime.now()
 
     @Transient
     var ratingAsSupplier: Double = 0.0
@@ -53,7 +53,7 @@ data class User protected constructor(
             val somethingIsEmpty = trimmedFirstName.isEmpty() || trimmedLastName.isEmpty() || trimmedEmail.isEmpty()
             if (!email.contains("@") || somethingIsEmpty) throw IllegalArgumentException()
 			
-            return User(firstName, lastName, email, type, photoUri)
+            return User(trimmedFirstName, trimmedLastName, trimmedEmail, type, photoUri)
         }
     }
 

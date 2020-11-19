@@ -1,14 +1,12 @@
 package cz.globex.hana.database.entity
 
-import cz.globex.hana.core.dto.AdType
-
 import java.net.*
 import java.time.*
 import javax.persistence.*
 
 @Suppress("ProtectedInFinal")
 @Entity
-data class Ad protected constructor(
+data class Event protected constructor(
     @Column(nullable = false)
     var authorId: Int,
 
@@ -27,22 +25,28 @@ data class Ad protected constructor(
     @ManyToMany
     var tags: Set<Tag>?,
 
-    @Column(nullable = true)
-    var isActual: Boolean,
+    @Column(nullable = false)
+    var dateStart: LocalDateTime,
 
-    @Column(nullable = true)
-    var payout: Int,
+    @Column(nullable = false)
+    var dateEndInclusive: LocalDateTime,
 
-    @Enumerated(EnumType.STRING)
-    var type: AdType,
+    @Column(nullable = false)
+    var entryFee: Int
 ) {
     @Id
     @GeneratedValue
     @Column(updatable = false)
     val id: Int = 0
 
+    @Transient
+    var ratingScore: Double = 0.0
+
+    @Transient
+    var ratingVotesCount: Int = 0
+
     @Column(nullable = false)
-    var created: String = ""
+    var created: LocalDateTime = LocalDateTime.now()
 
     companion object {
         fun newInstance(
@@ -52,19 +56,19 @@ data class Ad protected constructor(
             place: Place?,
             photoUri: String?,
             tags: Set<Tag>?,
-            isActual: Boolean,
-            payout: Int,
-            type: AdType,
-        ): Ad {
+            dateStart: LocalDateTime,
+            dateEndInclusive: LocalDateTime,
+            entryFee: Int
+        ): Event {
             val trimmedName = name.trim()
-            val trimmedDescription = description.trim()
+	        val trimmedDescription = description.trim()
 
             if (trimmedName.isEmpty()) throw IllegalArgumentException()
-			
-            return Ad(authorId, trimmedName, trimmedDescription, place, photoUri, tags, 
-                isActual, payout, type)
+            
+            return Event(authorId, trimmedName, trimmedDescription, place, photoUri, tags, dateStart, dateEndInclusive, entryFee)
         }
     }
 
-    protected constructor() : this(0, "", "", null, null, null, false, 0, AdType.SUPPLY)
+    protected constructor() : this(0, "", "", null, null, null, 
+        LocalDateTime.now(), LocalDateTime.now(), 0)
 }

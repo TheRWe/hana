@@ -15,12 +15,24 @@ data class Tag protected constructor(
     @Column(updatable = false)
     val id: Int = 0
 
+    // Ad
+    @ManyToMany
+    var ads: Set<Ad> = emptySet()
+
+    // Event
+    @ManyToMany
+    var events: Set<Event> = emptySet()
+
+    // StockExchange
+    @ManyToMany
+    var stockExchanges: Set<StockExchange> = emptySet()
+
     companion object {
         fun newInstance(name: String): Tag {
             val trimmedName = name.trim()
 
             if (trimmedName.isEmpty()) throw IllegalArgumentException()
-			
+
             return Tag(trimmedName)
         }
     }
