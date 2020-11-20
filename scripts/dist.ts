@@ -4,10 +4,11 @@ import { existsSync, readdirSync } from "fs";
 import * as path from "path";
 
 
-const buildRootDir = "../target/";
+const buildRootDir = "../assembly/target/";
 const findJar = () => {
   const regex = /.*\.jar$/;
   const jarFileName = readdirSync(buildRootDir).find(x => regex.exec(x));
+  // @ts-ignore
   return path.join(buildRootDir, jarFileName);
 };
 
