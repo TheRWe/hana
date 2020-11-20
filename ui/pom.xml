@@ -11,7 +11,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>hana-ui</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <properties>
         <typescript-generator-maven-plugin.version>2.26.723</typescript-generator-maven-plugin.version>

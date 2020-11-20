@@ -36,20 +36,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
-      - name: Setup Node.js
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-      - name: Restore node_modules cache
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Restore .m2 cache
         uses: actions/cache@v2
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Build project and run tests with Maven
-        run: mvn -T 1C verify -pl server -am --file pom.xml
+      - name: Run server tests
+        run: mvn -T 1C -B verify -pl server -am --file pom.xml
