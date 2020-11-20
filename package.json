@@ -7,7 +7,7 @@
     "ts-node-script": "ts-node-script",
     "postinstall": "run-p install:*",
     "install:ui": "yarn --cwd ui install & yarn generate",
-    "ci": "yarn install --ignore-scripts --frozen-lockfile && run-s ci:ui",
+    "ci": "yarn install --ignore-scripts --frozen-lockfile && run-s ci:*",
     "ci:ui": "yarn --cwd ui install --frozen-lockfile",
     "ci:server": "mvn -T 1C -B package -DskipTests -pl assembly -am --file pom.xml -Dkotlin.compiler.incremental=false",
     "build": "mvn -T 1C -B package -DskipTests -pl assembly -am --file pom.xml",

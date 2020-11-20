@@ -21,7 +21,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        run: yarn ci
+        run: yarn install --ignore-scripts --frozen-lockfile && yarn ci:ui
       - name: run linter
         run: yarn lint
   spring-tests:
