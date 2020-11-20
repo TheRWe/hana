@@ -1,7 +1,5 @@
-package cz.globex.hana.core.dto
+package cz.globex.hana.common.dto
 
-import com.fasterxml.jackson.databind.annotation.*
-import cz.globex.hana.router.deserializer.*
 import java.net.*
 import java.time.*
 
@@ -92,10 +90,7 @@ data class ArticleDto(
 ) : EntityDto
 
 data class ArticleCreateUpdateDto(
-	@JsonDeserialize(using = StringDeserializer::class)
 	val title: String,
-
-	@JsonDeserialize(using = StringDeserializer::class)
 	val text: String,
 ) : EntityCreateDto, EntityUpdateDto
 

@@ -9,16 +9,14 @@
     "install:ui": "yarn --cwd ui install & yarn generate",
     "ci": "yarn install --ignore-scripts --frozen-lockfile && run-s ci:*",
     "ci:ui": "yarn --cwd ui install --frozen-lockfile",
-    "build": "mvn -T 1C -B package --file pom.xml -DskipTests",
-    "build:ui": "yarn --cwd ui build",
+    "build": "mvn -T 1C -B package -DskipTests -pl assembly -am --file pom.xml",
     "dist": "yarn ci && run-s build \"script dist\"",
     "dev": "run-p dev:*",
     "dev:ui": "yarn --cwd ui dev",
-    "dev:server": "mvn spring-boot:run",
     "semantic-release": "semantic-release",
     "lint": "tslint -c tslint.json ./ui/src/**/*.ts{,x}",
     "lint:fix": "yarn lint --fix",
-    "generate": "mvn process-classes"
+    "generate": "mvn generate-sources -pl ui -am"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^5.0.1",

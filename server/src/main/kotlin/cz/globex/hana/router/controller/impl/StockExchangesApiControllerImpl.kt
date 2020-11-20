@@ -1,7 +1,7 @@
 package cz.globex.hana.router.controller.impl
 
+import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.*
-import cz.globex.hana.core.dto.*
 import cz.globex.hana.router.controller.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*

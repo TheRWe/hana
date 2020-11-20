@@ -1,6 +1,6 @@
 package cz.globex.hana.router.controller
 
-import cz.globex.hana.core.dto.*
+import cz.globex.hana.common.dto.*
 import cz.globex.hana.router.controller.action.*
 
 interface ArticlesApiController :

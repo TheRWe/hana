@@ -1,5 +1,6 @@
 package cz.globex.hana.core.dao
 
+import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.*
