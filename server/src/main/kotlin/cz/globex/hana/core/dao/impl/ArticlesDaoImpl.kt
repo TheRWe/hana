@@ -20,9 +20,9 @@ class ArticlesDaoImpl(private val articlesRepository: ArticlesRepository) : Arti
 		return ArticlesDto(articles)
 	}
 
-	override fun createOne(entity: ArticleCreateUpdateDto): Int {
+	override fun createOne(entity: ArticleCreateUpdateDto): Long {
 		return articlesRepository.save(Article.from(entity)).id
 	}
 
-	override fun retrieveOneOrNull(id: Int): ArticleDto? = articlesRepository.getById(id)?.toDto()
+	override fun retrieveOneOrNull(id: Long): ArticleDto? = articlesRepository.getById(id)?.toDto()
 }

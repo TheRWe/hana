@@ -11,11 +11,11 @@ class UsersDaoImpl : UsersDao {
 		TODO("Not yet implemented")
 	}
 
-	override fun createOne(entity: UserCreateUpdateDto): Int {
+	override fun createOne(entity: UserCreateUpdateDto): Long {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieveOneOrNull(id: Int): UserDto? {
+	override fun retrieveOneOrNull(id: Long): UserDto? {
 		TODO("Not yet implemented")
 	}
 }

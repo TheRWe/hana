@@ -27,7 +27,7 @@ class ArticlesDaoTests {
 		private const val EXAMPLE_TITLE = "Some title"
 		private const val EXAMPLE_TEXT = "Some long text."
 
-		private const val ARTICLES_COUNT = 10
+		private const val ARTICLES_COUNT = 10L
 		private const val PAGE_SIZE = 3
 	}
 

@@ -22,7 +22,7 @@ class ArticlesApiControllerImpl(daoProvider: DaoProvider) : ArticlesApiControlle
 		return articlesDao.createOneAndWrap(entity)
 	}
 
-	override fun retrieveOne(id: Int): ResponseEntity<ArticleDto> {
+	override fun retrieveOne(id: Long): ResponseEntity<ArticleDto> {
 		return articlesDao.retrieveOneAndWrap(id)
 	}
 }

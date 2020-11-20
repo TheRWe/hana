@@ -11,11 +11,11 @@ class EventsDaoImpl : EventsDao {
 		TODO("Not yet implemented")
 	}
 
-	override fun createOne(entity: EventCreateUpdateDto): Int {
+	override fun createOne(entity: EventCreateUpdateDto): Long {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieveOneOrNull(id: Int): EventDto? {
+	override fun retrieveOneOrNull(id: Long): EventDto? {
 		TODO("Not yet implemented")
 	}
 }

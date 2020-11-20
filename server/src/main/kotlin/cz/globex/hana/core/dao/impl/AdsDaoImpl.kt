@@ -11,11 +11,11 @@ class AdsDaoImpl : AdsDao {
 		TODO("Not yet implemented")
 	}
 
-	override fun createOne(entity: AdCreateUpdateDto): Int {
+	override fun createOne(entity: AdCreateUpdateDto): Long {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieveOneOrNull(id: Int): AdDto? {
+	override fun retrieveOneOrNull(id: Long): AdDto? {
 		TODO("Not yet implemented")
 	}
 }

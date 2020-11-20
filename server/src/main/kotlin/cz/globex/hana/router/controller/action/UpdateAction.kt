@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 fun interface UpdateAction<T : EntityUpdateDto> {
 	@PutMapping(path = ["/{${PathVariables.ID}}"])
 	fun updateOne(
-		@PathVariable(PathVariables.ID) id: Int,
+		@PathVariable(PathVariables.ID) id: Long,
 		@RequestBody entity: T
 	): ResponseEntity<Unit>
 }

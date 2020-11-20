@@ -14,11 +14,11 @@ class StockExchangesDaoImpl : StockExchangesDao {
 		TODO("Not yet implemented")
 	}
 
-	override fun createOne(entity: StockExchangeCreateUpdateDto): Int {
+	override fun createOne(entity: StockExchangeCreateUpdateDto): Long {
 		TODO("Not yet implemented")
 	}
 
-	override fun retrieveOneOrNull(id: Int): StockExchangeDto? {
+	override fun retrieveOneOrNull(id: Long): StockExchangeDto? {
 		TODO("Not yet implemented")
 	}
 }

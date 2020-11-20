@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 fun interface ReportAction {
 	@PostMapping(path = ["/{${PathVariables.ID}}/report"])
 	fun reportOne(
-		@PathVariable(PathVariables.ID) id: Int,
+		@PathVariable(PathVariables.ID) id: Long,
 		@RequestBody report: ReportDto
 	): ResponseEntity<ResourceInfoDto>
 }

@@ -1,44 +1,25 @@
 package cz.globex.hana.database.entity
 
-import java.net.*
-import java.time.*
 import javax.persistence.*
 
-@Suppress("ProtectedInFinal")
 @Entity
-data class Place protected constructor(
-    @Column(nullable = false)
-    var address: String,
+@Table(
+	uniqueConstraints = [
+		UniqueConstraint(columnNames = [Place.LATITUDE_COLUMN, Place.LONGITUDE_COLUMN])
+	]
+)
+data class Place @Suppress("ProtectedInFinal") protected constructor(
+	@Column(nullable = false, updatable = false) val street: String,
+	@Column(nullable = false, updatable = false) val houseNumber: String,
+	@Column(nullable = false, updatable = false) val zipCode: String,
+	@Column(nullable = false, updatable = false) val latitude: Double,
+	@Column(nullable = false, updatable = false) val longitude: Double,
+) : Persistable() {
+	@OneToMany
+	val advertisables: Set<Advertisable> = emptySet()
 
-    @Column(nullable = false)
-    var zipCode: String,
-
-    @Column(nullable = false)
-    var houseNumber: String,
-
-    @Column(nullable = false)
-    var latitude: Double,
-
-    @Column(nullable = false)
-    var longitude: Double
-) {
-    @Id
-    @GeneratedValue
-    @Column(updatable = false)
-    val id: Int = 0
-
-    companion object {
-        fun newInstance(
-            address: String,
-            zipCode: String,
-            houseNumber: String,
-            latitude: Double,
-            longitude: Double
-        ): Place {
-            // osetreni
-            return Place(address, zipCode, houseNumber, latitude, longitude)
-        }
-    }
-
-    protected constructor() : this("", "", "", 0.0, 0.0)
+	companion object {
+		const val LATITUDE_COLUMN: String = "latitude"
+		const val LONGITUDE_COLUMN: String = "longitude"
+	}
 }

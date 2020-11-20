@@ -22,17 +22,17 @@ class UsersApiControllerImpl(daoProvider: DaoProvider) : UsersApiController {
 		return usersDao.createOneAndWrap(entity)
 	}
 
-	override fun retrieveOne(id: Int): ResponseEntity<UserDto> = usersDao.retrieveOneAndWrap(id)
+	override fun retrieveOne(id: Long): ResponseEntity<UserDto> = usersDao.retrieveOneAndWrap(id)
 
-	override fun updateOne(id: Int, entity: UserCreateUpdateDto): ResponseEntity<Unit> {
+	override fun updateOne(id: Long, entity: UserCreateUpdateDto): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun deleteOne(id: Int): ResponseEntity<Unit> {
+	override fun deleteOne(id: Long): ResponseEntity<Unit> {
 		TODO("Not yet implemented")
 	}
 
-	override fun reportOne(id: Int, report: ReportDto): ResponseEntity<ResourceInfoDto> {
+	override fun reportOne(id: Long, report: ReportDto): ResponseEntity<ResourceInfoDto> {
 		TODO("Not yet implemented")
 	}
 }

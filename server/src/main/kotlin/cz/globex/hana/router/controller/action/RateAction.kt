@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 fun interface RateAction {
 	@PostMapping(path = ["/{${PathVariables.ID}}/rate"])
 	fun rateOne(
-		@PathVariable(PathVariables.ID) id: Int,
+		@PathVariable(PathVariables.ID) id: Long,
 		@RequestBody rate: RateDto
 	): ResponseEntity<ResourceInfoDto>
 }
