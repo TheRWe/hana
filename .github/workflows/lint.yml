@@ -43,4 +43,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run server tests
-        run: mvn -T 1C -B verify -pl server -am --file pom.xml
+        run: mvn -T 1C -B verify -pl server -am --file pom.xml -Dkotlin.compiler.incremental=false
