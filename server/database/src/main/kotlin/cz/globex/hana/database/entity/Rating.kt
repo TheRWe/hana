@@ -8,7 +8,7 @@ import javax.persistence.*
 		UniqueConstraint(columnNames = [Rating.RATER_COLUMN, Rating.ADVERTISABLE_COLUMN])
 	]
 )
-data class Rating @Suppress("ProtectedInFinal") protected constructor(
+data class Rating internal constructor(
 	@ManyToOne(optional = false)
 	@JoinColumn(name = RATER_COLUMN)
 	val rater: User,

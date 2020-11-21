@@ -19,7 +19,7 @@ if (!existsSync(distDir))
 
 const jarFilePath = findJar();
 
-fs.copyFileSync(jarFilePath, path.join(distDir, "hana.jar"));
+fs.copyFileSync(jarFilePath, path.join(distDir, "cz.globex.hana.jar"));
 
 try {
   fs.rmdirSync(buildRootDir, { recursive: true });

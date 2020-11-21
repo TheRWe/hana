@@ -8,7 +8,7 @@ import javax.persistence.*
 		UniqueConstraint(columnNames = [Place.LATITUDE_COLUMN, Place.LONGITUDE_COLUMN])
 	]
 )
-data class Place @Suppress("ProtectedInFinal") protected constructor(
+data class Place internal constructor(
 	@Column(nullable = false, updatable = false) val street: String,
 	@Column(nullable = false, updatable = false) val houseNumber: String,
 	@Column(nullable = false, updatable = false) val zipCode: String,

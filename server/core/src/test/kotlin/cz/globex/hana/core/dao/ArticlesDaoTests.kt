@@ -27,7 +27,7 @@ class ArticlesDaoTests {
 		private const val EXAMPLE_TITLE = "Some title"
 		private const val EXAMPLE_TEXT = "Some long text."
 
-		private const val ARTICLES_COUNT = 10L
+		private const val ARTICLES_COUNT = 10
 		private const val PAGE_SIZE = 3
 	}
 
@@ -106,7 +106,7 @@ class ArticlesDaoTests {
 	@Test
 	fun `Retrieve article`() {
 		for (index in 1..ARTICLES_COUNT) {
-			val article = articlesDao.retrieveOneOrNull(index)
+			val article = articlesDao.retrieveOneOrNull(index.toLong())
 			checkNotNull(article)
 
 			Assertions.assertEquals("$EXAMPLE_TITLE $index", article.title)
@@ -116,6 +116,6 @@ class ArticlesDaoTests {
 
 	@Test
 	fun `Retrieve nonexistent article`() {
-		Assertions.assertNull(articlesDao.retrieveOneOrNull(ARTICLES_COUNT + 1))
+		Assertions.assertNull(articlesDao.retrieveOneOrNull(ARTICLES_COUNT + 1L))
 	}
 }

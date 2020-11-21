@@ -5,7 +5,7 @@ import java.time.*
 import javax.persistence.*
 
 @Entity
-data class User @Suppress("ProtectedInFinal") protected constructor(
+data class User internal constructor(
 	@Column(nullable = false) var firstName: String,
 	@Column(nullable = false) var lastName: String,
 	@Column(nullable = false) var email: String,

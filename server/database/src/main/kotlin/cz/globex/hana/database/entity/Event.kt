@@ -1,15 +1,16 @@
 package cz.globex.hana.database.entity
 
-import cz.globex.hana.common.dto.*
+import java.time.*
 import javax.persistence.*
 
 @Entity
-class Ad @Suppress("ProtectedInFinal") protected constructor(
+class Event internal constructor(
 	author: User,
 	name: String,
 	description: String,
+	@Column(nullable = false) var dateStart: LocalDateTime,
+	@Column(nullable = false) var dateEndInclusive: LocalDateTime,
 	price: Int,
-	@Enumerated(EnumType.STRING) var type: AdType,
 	photoUri: String? = null,
 	place: Place? = null,
 	tags: Set<Tag> = emptySet(),
@@ -18,10 +19,13 @@ class Ad @Suppress("ProtectedInFinal") protected constructor(
 	name = name,
 	description = description,
 	price = price,
-	tags = tags,
 	photoUri = photoUri,
-	place = place
+	place = place,
+	tags = tags,
 ) {
-	@Column(nullable = false)
-	var isActual: Boolean = true
+	@Transient
+	var ratingScore: Double = 0.0
+
+	@Transient
+	var ratingVotesCount: Int = 0
 }

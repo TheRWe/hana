@@ -1,19 +1,19 @@
 package cz.globex.hana.database.entity
 
+import cz.globex.hana.common.dto.*
 import java.time.*
 import javax.persistence.*
 
 @Entity
-class Event @Suppress("ProtectedInFinal") protected constructor(
+class StockExchange internal constructor(
 	author: User,
 	name: String,
 	description: String,
-	@Column(nullable = false) var dateStart: LocalDateTime,
-	@Column(nullable = false) var dateEndInclusive: LocalDateTime,
+	@Enumerated(EnumType.STRING) var type: StockExchangeType,
 	price: Int,
 	photoUri: String? = null,
 	place: Place? = null,
-	tags: Set<Tag> = emptySet(),
+	tags: Set<Tag> = emptySet()
 ) : Advertisable(
 	author = author,
 	name = name,
@@ -21,11 +21,8 @@ class Event @Suppress("ProtectedInFinal") protected constructor(
 	price = price,
 	photoUri = photoUri,
 	place = place,
-	tags = tags,
+	tags = tags
 ) {
-	@Transient
-	var ratingScore: Double = 0.0
-
-	@Transient
-	var ratingVotesCount: Int = 0
+	@Column(nullable = false)
+	var isActual: Boolean = true
 }
