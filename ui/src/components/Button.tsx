@@ -1,5 +1,5 @@
 import React from "react";
-import { LocText } from "./LocText";
+import { LocText, TLocalizedText, useLocalized } from "./LocText";
 
 /* TODO: use useLocalized and TLocalizedText ... result props will be
 type ButtonProps = {
@@ -7,19 +7,15 @@ type ButtonProps = {
 };
 */
 type ButtonProps = {
-  labelEng: string
-  labelCz: string
+  label: TLocalizedText
 };
 
 
-export const Button: React.FC<ButtonProps> = ({ labelEng, labelCz }: ButtonProps) => {
+export const Button: React.FC<ButtonProps> = ({ label }: ButtonProps) => {
 
   return (<>
     <button>
-        <LocText
-          en={labelEng}
-          cz={labelCz}
-        />
-      </button>
+      {useLocalized(label)}
+    </button>
   </>);
 };

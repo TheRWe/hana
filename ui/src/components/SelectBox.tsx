@@ -2,14 +2,13 @@ import React from "react";
 import { LocText, TLocalizedText, useLocalized } from "./LocText";
 
 type SelectBoxProps = {
-  labelEng: string
-  labelCz: string
+  label: TLocalizedText
   options: TLocalizedText[]
 };
 
 
-export const SelectBox: React.FC<SelectBoxProps> = ({ labelEng, labelCz, options }: SelectBoxProps) => {
-  const name = labelEng.replace(" ", "-").toLowerCase();
+export const SelectBox: React.FC<SelectBoxProps> = ({ label, options }: SelectBoxProps) => {
+  const name = label.en.replace(" ", "-").toLowerCase();
 
   const LocalizedOption = (element: TLocalizedText) =>
     <option value={element.en}>
@@ -19,12 +18,10 @@ export const SelectBox: React.FC<SelectBoxProps> = ({ labelEng, labelCz, options
 
   return (<>
     <label htmlFor={name}>
-      <LocText
-        en={labelEng}
-        cz={labelCz}
-      />
+      {useLocalized(label)}
     </label>
     <select name={name} id={name}>
+      <option></option>
       {
         options.map(LocalizedOption)
       }

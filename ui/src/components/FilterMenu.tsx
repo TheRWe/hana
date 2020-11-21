@@ -24,38 +24,34 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
       <section className="section-filter-menu">
         <header className="section-filter-menu__buttons">
           <Button
-            labelEng="Search"
-            labelCz="Vyhledávání"></Button>
+            label={{ en: "Search", cz: "Vyhledávání" }}
+          ></Button>
           <Button
-            labelEng="Add an item"
-            labelCz="Přidat položku"></Button>
+            label={{ en: "Add an item", cz: "Přidat položku" }}
+          ></Button>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.text}
-                labelEng="Price from"
-                labelCz="Cena od"
+                label = {{en: "Price from", cz: "Cena od"}}
               ></Input>
               <Input
                 type={EInputType.text}
-                labelEng="- to"
-                labelCz="- do"
+                label = {{en: "- to", cz: "- do"}}
               ></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                labelEng="Place"
-                labelCz="Místo"
+                label = {{en: "Place", cz: "Místo"}}
               ></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                labelEng="Area"
-                labelCz="Okolí"
+                label = {{en: "Area", cz: "Okolí"}}
               ></Input>
             </div>
           </div>
@@ -77,33 +73,30 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
       <section className="section-filter-menu">
         <header className="section-filter-menu__buttons">
           <Button
-            labelEng="Search"
-            labelCz="Vyhledávání"></Button>
+            label={{ en: "Search", cz: "Vyhledávání" }}
+          ></Button>
           <Button
-            labelEng="Add an event"
-            labelCz="Přidat akci"></Button>
+            label={{ en: "Add an event", cz: "Přidat akci" }}
+          ></Button>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                labelEng="From"
-                labelCz="Od"
+                label = {{en: "From", cz: "Od"}}
               ></Input>
             </div>
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                labelEng="To"
-                labelCz="Do"
+                label = {{en: "To", cz: "Do"}}
               ></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                labelEng="Place"
-                labelCz="Místo"
+                label = {{en: "Place", cz: "Místo"}}
               ></Input>
             </div>
           </div>
@@ -126,55 +119,48 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
         <header className="section-filter-menu__buttons">
           <h2>/*display None*/</h2>
           <Button
-            labelEng="Search"
-            labelCz="Vyhledávání"></Button>
+            label={{ en: "Search", cz: "Vyhledávání" }}
+          ></Button>
           <Button
-            labelEng="Create an advertisement"
-            labelCz="Vytvořit inzerát"></Button>
+            label={{ en: "Create an advertisement", cz: "Vytvořit inzerát" }}
+          ></Button>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                labelEng="From"
-                labelCz="Od"></Input>
+                label = {{en: "From", cz: "Od"}}></Input>
             </div>
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                labelEng="To"
-                labelCz="Do"></Input>
+                label = {{en: "To", cz: "Do"}}></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                labelEng="Place"
-                labelCz="Obec/Okres"></Input>
+                label = {{en: "Place", cz: "Obec/Okres"}}></Input>
               <Input
                 type={EInputType.text}
-                labelEng="+"
-                labelCz="+"></Input>
+                label = {{en: "+", cz: "+"}}></Input>
             </div>
           </div>
           <div className="select-filters">
             <div className="menu-filter select-filter">
               <SelectBox
-                labelEng="Type"
-                labelCz="Typ"
-                options={[{en:"Offer", cz:"Nabídka"}, {en:"Inquiry", cz:"Poptávka"}]}></SelectBox>
+                label = {{en: "Type", cz: "Typ"}}
+                options={[{ en: "Offer", cz: "Nabídka" }, { en: "Inquiry", cz: "Poptávka" }]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
-                labelEng="Type of employment"
-                labelCz="Druhy pracovního poměru"
-                options={[{en:"Full time", cz:"Plný úvazek"}, {en:"???", cz:"Živnost"}, {en:"Summer job", cz:"Brigáda"}, {en:"Part time", cz:"Zkrácený úvazek"}, {en:"Internship", cz:"Stáž"}]}></SelectBox>
+                label = {{en: "Type of employment", cz: "Druhy pracovního poměru"}}
+                options={[{ en: "Full time", cz: "Plný úvazek" }, { en: "???", cz: "Živnost" }, { en: "Summer job", cz: "Brigáda" }, { en: "Part time", cz: "Zkrácený úvazek" }, { en: "Internship", cz: "Stáž" }]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
-                labelEng="Job"
-                labelCz="Pracovní pozice"
-                options={[{en:"IT Analyst", cz:"IT Analytik"}, {en:"Idk", cz:"Idk"}]}></SelectBox>
+                label = {{en: "Job", cz: "Pracovní pozice"}}
+                options={[{ en: "IT Analyst", cz: "IT Analytik" }, { en: "Idk", cz: "Idk" }]}></SelectBox>
             </div>
           </div>
         </div>
