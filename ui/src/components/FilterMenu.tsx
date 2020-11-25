@@ -2,6 +2,7 @@ import React from "react";
 import { ERadioFilterType, RadioFilter } from "../components/RadioFilter";
 import { EInputType, Input } from "../components/Input";
 import { Button } from "../components/Button";
+import { ButtonLink } from "../components/ButtonLink";
 import { SelectBox } from "../components/SelectBox";
 
 export enum EFilterMenuType {
@@ -26,32 +27,36 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
           <Button
             label={{ en: "Search", cz: "Vyhledávání" }}
           ></Button>
-          <Button
+          {/* <Button
             label={{ en: "Add an item", cz: "Přidat položku" }}
-          ></Button>
+          ></Button> */}
+          <ButtonLink
+            linkTo="/AddTradePage"
+            label={{ en: "Add an item", cz: "Přidat položku" }}
+          ></ButtonLink>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.text}
-                label = {{en: "Price from", cz: "Cena od"}}
+                label={{ en: "Price from", cz: "Cena od" }}
               ></Input>
               <Input
                 type={EInputType.text}
-                label = {{en: "- to", cz: "- do"}}
-              ></Input>
-            </div>
-            <div className="menu-filter">
-              <Input
-                type={EInputType.text}
-                label = {{en: "Place", cz: "Místo"}}
+                label={{ en: "- to", cz: "- do" }}
               ></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                label = {{en: "Area", cz: "Okolí"}}
+                label={{ en: "Place", cz: "Místo" }}
+              ></Input>
+            </div>
+            <div className="menu-filter">
+              <Input
+                type={EInputType.text}
+                label={{ en: "Area", cz: "Okolí" }}
               ></Input>
             </div>
           </div>
@@ -75,28 +80,32 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
           <Button
             label={{ en: "Search", cz: "Vyhledávání" }}
           ></Button>
-          <Button
+          {/* <Button
             label={{ en: "Add an event", cz: "Přidat akci" }}
-          ></Button>
+          ></Button> */}
+          <ButtonLink
+            linkTo="/AddEventPage"
+            label={{ en: "Add an event", cz: "Přidat akci" }}
+          ></ButtonLink>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                label = {{en: "From", cz: "Od"}}
+                label={{ en: "From", cz: "Od" }}
               ></Input>
             </div>
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                label = {{en: "To", cz: "Do"}}
+                label={{ en: "To", cz: "Do" }}
               ></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                label = {{en: "Place", cz: "Místo"}}
+                label={{ en: "Place", cz: "Místo" }}
               ></Input>
             </div>
           </div>
@@ -121,45 +130,49 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
           <Button
             label={{ en: "Search", cz: "Vyhledávání" }}
           ></Button>
-          <Button
+          {/* <Button
             label={{ en: "Create an advertisement", cz: "Vytvořit inzerát" }}
-          ></Button>
+          ></Button> */}
+          <ButtonLink
+            linkTo="/AddJobAdPage"
+            label={{ en: "Create an advertisement", cz: "Vytvořit inzerát" }}
+          ></ButtonLink>
         </header>
         <div className="section-filter-menu__filters">
           <div className="input-filters">
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                label = {{en: "From", cz: "Od"}}></Input>
+                label={{ en: "From", cz: "Od" }}></Input>
             </div>
             <div className="menu-filter date-filter">
               <Input
                 type={EInputType.date}
-                label = {{en: "To", cz: "Do"}}></Input>
+                label={{ en: "To", cz: "Do" }}></Input>
             </div>
             <div className="menu-filter">
               <Input
                 type={EInputType.text}
-                label = {{en: "Place", cz: "Obec/Okres"}}></Input>
+                label={{ en: "Place", cz: "Obec/Okres" }}></Input>
               <Input
                 type={EInputType.text}
-                label = {{en: "+", cz: "+"}}></Input>
+                label={{ en: "+", cz: "+" }}></Input>
             </div>
           </div>
           <div className="select-filters">
             <div className="menu-filter select-filter">
               <SelectBox
-                label = {{en: "Type", cz: "Typ"}}
+                label={{ en: "Type", cz: "Typ" }}
                 options={[{ en: "Offer", cz: "Nabídka" }, { en: "Inquiry", cz: "Poptávka" }]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
-                label = {{en: "Type of employment", cz: "Druhy pracovního poměru"}}
+                label={{ en: "Type of employment", cz: "Druhy pracovního poměru" }}
                 options={[{ en: "Full time", cz: "Plný úvazek" }, { en: "???", cz: "Živnost" }, { en: "Summer job", cz: "Brigáda" }, { en: "Part time", cz: "Zkrácený úvazek" }, { en: "Internship", cz: "Stáž" }]}></SelectBox>
             </div>
             <div className="menu-filter select-filter">
               <SelectBox
-                label = {{en: "Job", cz: "Pracovní pozice"}}
+                label={{ en: "Job", cz: "Pracovní pozice" }}
                 options={[{ en: "IT Analyst", cz: "IT Analytik" }, { en: "Idk", cz: "Idk" }]}></SelectBox>
             </div>
           </div>

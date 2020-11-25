@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 
 // Styles
@@ -95,6 +96,9 @@ const App: React.FC<Props> = () => {
                 <li className="nav-item">
                   <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
                   <a href="/">Roman buk</a>
+                  <Link to="/ProfilePage">
+                    Roman Buk
+                  </Link>
                 </li>
               </ul>
             </div>

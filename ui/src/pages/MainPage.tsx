@@ -8,6 +8,10 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag, faCalendar, faSuitcase } from "@fortawesome/free-solid-svg-icons";
 
+
+import { ButtonLink } from "../components/ButtonLink";
+import { Button } from "../components/Button";
+
 type TMainPageProps = {
 
 };
@@ -133,12 +137,17 @@ export const MainPage: React.FC<TMainPageProps> = () => {
           <h3>Food festival</h3>
         </article>
       </div>
-      <Link to="/CalendarPage" className="button btn-orange">
+      {/* <Link to="/CalendarPage" className="button btn-orange">
         <LocText
           en="More info"
           cz="Více informací"
         />
-      </Link>
+      </Link> */}
+      <ButtonLink
+        linkTo="/CalendarPage"
+        label={{ en: "More info", cz: "Více informací" }}>
+      </ButtonLink>
+
     </section>
     {/* END MAIN PAGE */}
 
