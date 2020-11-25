@@ -1,11 +1,11 @@
 import React from "react";
 import { AddJobAdForm } from "../components/AddJobAdForm";
 
-type TAddEventPageProps = {
+type TAddJobAdPageProps = {
 
 };
 
-export const AddEventPage: React.FC<TAddEventPageProps> = () => {
+export const AddJobAdPage: React.FC<TAddJobAdPageProps> = () => {
 
   return <>
 
