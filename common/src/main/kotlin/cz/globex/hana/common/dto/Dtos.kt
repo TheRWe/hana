@@ -35,7 +35,7 @@ data class UserFiltersDto(
 ) : EntityFiltersDto
 
 data class AdFiltersDto(
-	val authorId: Int?,
+	val authorId: Long?,
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
@@ -49,7 +49,7 @@ data class AdFiltersDto(
 ) : EntityFiltersDto
 
 data class EventFiltersDto(
-	val authorId: Int?,
+	val authorId: Long?,
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
@@ -67,7 +67,7 @@ data class EventFiltersDto(
 ) : EntityFiltersDto
 
 data class StockExchangeFiltersDto(
-	val authorId: Int?,
+	val authorId: Long?,
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
@@ -99,7 +99,7 @@ data class UsersDto(
 ) : EntitiesDto
 
 data class UserDto(
-	val id: Int,
+	val id: Long,
 	val firstName: String,
 	val lastName: String,
 	val email: String,
@@ -129,8 +129,8 @@ data class AdsDto(
 ) : EntitiesDto
 
 data class AdDto(
-	val id: Int,
-	val authorId: Int,
+	val id: Long,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
@@ -143,7 +143,7 @@ data class AdDto(
 ) : EntityDto
 
 data class AdCreateUpdateDto(
-	val authorId: Int,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
@@ -161,8 +161,8 @@ data class EventsDto(
 ) : EntitiesDto
 
 data class EventDto(
-	val id: Int,
-	val authorId: Int,
+	val id: Long,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
@@ -175,7 +175,7 @@ data class EventDto(
 ) : EntityDto
 
 data class EventCreateUpdateDto(
-	val authorId: Int,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
@@ -201,8 +201,8 @@ data class StockExchangesDto(
 ) : EntitiesDto
 
 data class StockExchangeDto(
-	val id: Int,
-	val authorId: Int,
+	val id: Long,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
@@ -215,7 +215,7 @@ data class StockExchangeDto(
 ) : EntityDto
 
 data class StockExchangeCreateUpdateDto(
-	val authorId: Int,
+	val authorId: Long,
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
@@ -253,7 +253,7 @@ data class TagDto(
 enum class StockExchangeType { BUY, SELL, }
 
 data class ResourceInfoDto(
-	val id: Int,
+	val id: Long,
 	val url: URI,
 )
 
