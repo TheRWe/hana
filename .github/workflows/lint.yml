@@ -21,7 +21,7 @@ jobs:
           path: '**/node_modules'
           key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
       - name: Install dependencies
-        run: yarn ci
+        run: yarn install --ignore-scripts --frozen-lockfile && yarn ci:ui
       - name: run linter
         run: yarn lint
   spring-tests:
@@ -43,4 +43,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run server tests
-        run: mvn -T 1C -B verify -pl server -am --file pom.xml -Dkotlin.compiler.incremental=false
+        run: mvn -T 1C -B verify -pl server,!assembly -am -amd --file pom.xml -Dkotlin.compiler.incremental=false
