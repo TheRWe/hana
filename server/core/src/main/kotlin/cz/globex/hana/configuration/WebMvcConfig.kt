@@ -1,5 +1,6 @@
 package cz.globex.hana.configuration
 
+import cz.globex.hana.router.controller.*
 import org.springframework.context.annotation.*
 import org.springframework.web.servlet.config.annotation.*
 
@@ -14,10 +15,10 @@ class WebMvcConfig : WebMvcConfigurer {
 			.addResourceHandler("/**")
 			.addResourceLocations("classpath:/build/")
 		registry
-			.addResourceHandler("/api/docs/swagger-ui.html**")
+			.addResourceHandler("${DocsApiController.PATH}/swagger-ui.html**")
 			.addResourceLocations("classpath:/META-INF/resources/swagger-ui.html")
 		registry
-			.addResourceHandler("/api/docs/webjars/**")
+			.addResourceHandler("${DocsApiController.PATH}/webjars/**")
 			.addResourceLocations("classpath:/META-INF/resources/webjars/")
 	}
 }

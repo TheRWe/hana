@@ -5,5 +5,6 @@ import org.springframework.stereotype.*
 
 @Controller
 class WebControllerImpl : WebController {
-	override fun getIndex() = "index"
+	@Suppress("PublicApiImplicitType")
+	override fun getIndex() = @Suppress("SpringMVCViewInspection") "index"
 }

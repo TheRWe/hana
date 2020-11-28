@@ -11,7 +11,7 @@ class DocsApiControllerImpl : DocsApiController {
 		resp.sendRedirect("${DocsApiController.PATH}/swagger-ui.html")
 	}
 
-	override fun redirectToApiDocs(resp: HttpServletResponse) {
-		resp.sendRedirect("/v2/api-docs")
+	override fun redirectToApiDocs(req: HttpServletRequest, resp: HttpServletResponse) {
+		resp.sendRedirect(req.servletPath.removePrefix(DocsApiController.PATH))
 	}
 }
