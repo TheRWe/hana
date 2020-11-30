@@ -42,11 +42,11 @@ All commited code should follow the [contributing](./contributing.md)
 ### dev
 call ```yarn install``` (if not called already)
    - ALL
-      - ```yarn dev```
+      - ```mvn install spring-boot:run``` (compile in parallel by adding the ```-T 1C``` to command)
    - Server only
-      - `mvn spring-boot:run` builds and deploys Spring server on `localhost:8080`
+      - ```mvn install -pl !ui spring-boot:run``` builds and deploys Spring server on ````localhost:8080````
    - UI only
-      - ```yarn dev:ui```
+      - ```yarn dev:ui```/```yarn dev```
 
 ### maven-wrapper
 If you do not have maven installed locally (and you do not want to install it), you can use project's maven-wrapper.
