@@ -1,6 +1,5 @@
 package cz.globex.hana.common.dto
 
-import java.net.*
 import java.time.*
 
 interface EntityFiltersDto
@@ -22,8 +21,8 @@ class ArticleFiltersDto : EntityFiltersDto
 
 data class UserFiltersDto(
 	val type: UserType?,
-	val registeredStart: LocalDateTime?,
-	val registeredEndInclusive: LocalDateTime?,
+	val registeredStartUtc: LocalDateTime?,
+	val registeredEndInclusiveUtc: LocalDateTime?,
 	val ratingAsSupplierScoreStart: Double?,
 	val ratingAsSupplierScoreEndInclusive: Double?,
 	val ratingAsSupplierVotesCountStart: Double?,
@@ -39,8 +38,8 @@ data class AdFiltersDto(
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
-	val createdStart: LocalDateTime?,
-	val createdEndInclusive: LocalDateTime?,
+	val createdStartUtc: LocalDateTime?,
+	val createdEndInclusiveUtc: LocalDateTime?,
 	val tagName: Set<String>?,
 	val isActual: Boolean?,
 	val type: AdType?,
@@ -53,8 +52,8 @@ data class EventFiltersDto(
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
-	val createdStart: LocalDateTime?,
-	val createdEndInclusive: LocalDateTime?,
+	val createdStartUtc: LocalDateTime?,
+	val createdEndInclusiveUtc: LocalDateTime?,
 	val tagName: Set<String>?,
 	val ratingScoreStart: Double?,
 	val ratingScoreEndInclusive: Double?,
@@ -81,7 +80,7 @@ data class StockExchangeFiltersDto(
 ) : EntityFiltersDto
 
 data class ArticlesDto(
-	val articles: List<ArticleDto>
+	val articles: List<ArticleDto>,
 ) : EntitiesDto
 
 data class ArticleDto(
@@ -95,7 +94,7 @@ data class ArticleCreateUpdateDto(
 ) : EntityCreateDto, EntityUpdateDto
 
 data class UsersDto(
-	val users: Set<UsersDto>,
+	val users: Set<UserDto>,
 ) : EntitiesDto
 
 data class UserDto(
@@ -104,9 +103,9 @@ data class UserDto(
 	val lastName: String,
 	val email: String,
 	val type: UserType,
-	val registered: LocalDateTime,
-	val photo: PhotoDto?,
-	val ratings: UserRatingsDto?
+	val registeredUtc: LocalDateTime,
+	val photoUri: String?,
+	val ratings: UserRatingsDto?,
 ) : EntityDto
 
 data class UserCreateUpdateDto(
@@ -114,7 +113,7 @@ data class UserCreateUpdateDto(
 	val lastName: String,
 	val email: String,
 	val type: UserType,
-	val photo: PhotoDto?,
+	val photoUri: String?,
 ) : EntityCreateDto, EntityUpdateDto
 
 enum class UserType { PERSON, COMPANY, CERTIFIED_COMPANY, MODERATOR, ADMINISTRATOR, }
@@ -134,9 +133,9 @@ data class AdDto(
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
-	val photo: PhotoDto?,
-	val tags: LinkedHashSet<TagDto>,
-	val created: LocalDateTime,
+	val photoUri: String?,
+	val tags: Set<String>,
+	val createdUtc: LocalDateTime,
 	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
@@ -147,8 +146,8 @@ data class AdCreateUpdateDto(
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
-	val photo: PhotoDto?,
-	val tags: TagCreateUpdateDto?,
+	val photoUri: String?,
+	val tags: Set<String>,
 	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
@@ -166,12 +165,12 @@ data class EventDto(
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
-	val photo: PhotoDto?,
-	val tags: LinkedHashSet<TagDto>,
-	val created: LocalDateTime,
+	val photoUri: String?,
+	val tags: Set<String>,
+	val createdUtc: LocalDateTime,
 	val rating: RatingDto,
 	val date: RangeDto<LocalDateTime>,
-	val entryFee: Int
+	val entryFee: Int,
 ) : EntityDto
 
 data class EventCreateUpdateDto(
@@ -179,8 +178,8 @@ data class EventCreateUpdateDto(
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
-	val photo: PhotoDto?,
-	val tags: TagCreateUpdateDto?,
+	val photoUri: String?,
+	val tags: Set<String>,
 	val rating: RatingDto,
 	val date: RangeDto<LocalDateTime>,
 	val entryFee: Int,
@@ -206,9 +205,9 @@ data class StockExchangeDto(
 	val name: String,
 	val description: String,
 	val place: PlaceDto?,
-	val photo: PhotoDto?,
-	val tags: LinkedHashSet<TagDto>,
-	val created: LocalDateTime,
+	val photoUri: String?,
+	val tags: Set<String>,
+	val createdUtc: LocalDateTime,
 	val isActual: Boolean,
 	val type: StockExchangeType,
 	val cost: Int,
@@ -219,8 +218,8 @@ data class StockExchangeCreateUpdateDto(
 	val name: String,
 	val description: String,
 	val place: PlaceCreateUpdateDto?,
-	val photo: PhotoDto?,
-	val tags: TagCreateUpdateDto?,
+	val photoUri: String?,
+	val tags: Set<String>,
 	val isActual: Boolean,
 	val type: StockExchangeType,
 	val cost: Int,
@@ -231,30 +230,17 @@ data class PlaceCreateUpdateDto(
 	val longitude: Double,
 )
 
-data class TagCreateUpdateDto(
-	val name: String,
-)
-
 data class PlaceDto(
 	val name: String,
 	val latitude: Double,
 	val longitude: Double,
 )
 
-data class PhotoDto(
-	val uri: URI
-)
-
-data class TagDto(
-	val id: String,
-	val name: String,
-)
-
 enum class StockExchangeType { BUY, SELL, }
 
-data class ResourceInfoDto(
-	val id: Long,
-	val url: URI,
+data class ResourceInfoDto<ID : Comparable<ID>>(
+	val id: ID,
+	val url: String,
 )
 
 data class RateDto(
@@ -262,5 +248,5 @@ data class RateDto(
 )
 
 data class ReportDto(
-	val msg: String?
+	val msg: String?,
 )

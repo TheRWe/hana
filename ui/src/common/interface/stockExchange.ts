@@ -8,7 +8,7 @@ export type TStockExchangeGetByIdGetAction = TAction<TStockExchangeGetByIdGetReq
 
 // 2. new stock exchange
 export type TStockExchangePostRequest = StockExchangeCreateUpdate;
-export type TStockExchangePostResponse = ResourceInfo;
+export type TStockExchangePostResponse = ResourceInfo<number>;
 export type TStockExchangePostAction = TAction<TStockExchangePostRequest, TStockExchangePostResponse>;
 
 // 3. update stock exchange
@@ -23,7 +23,7 @@ export type TStockExchangeDeleteAction = TAction<TStockExchangeDeleteRequest, TS
 
 // 5. rate stock exchange
 export type TStockExchangeRatePostRequest = Rate;
-export type TStockExchangeRatePostResponse = ResourceInfo;
+export type TStockExchangeRatePostResponse = ResourceInfo<number>;
 export type TStockExchangeRatePostAction = TAction<TStockExchangeRatePostRequest, TStockExchangeRatePostResponse>;
 
 // 6. get more stock exchanges
@@ -33,5 +33,5 @@ export type TStockExchangeGetListGetAction = TAction<TStockExchangeGetListGetReq
 
 // 7. report stock exchange
 export type TStockExchangeReportPostRequest = Report;
-export type TStockExchangeReportPostResponse = ResourceInfo;
+export type TStockExchangeReportPostResponse = ResourceInfo<number>;
 export type TStockExchangeReportPostAction = TAction<TStockExchangeReportPostRequest, TStockExchangeReportPostResponse>;

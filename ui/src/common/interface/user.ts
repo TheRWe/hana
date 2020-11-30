@@ -8,7 +8,7 @@ export type TUserGetByIdGetAction = TAction<TUserGetByIdGetRequest, TUserGetById
 
 // 2. new user
 export type TUserPostRequest = UserCreateUpdate;
-export type TUserPostResponse = ResourceInfo;
+export type TUserPostResponse = ResourceInfo<number>;
 export type TUserPostAction = TAction<TUserPostRequest, TUserPostResponse>;
 
 // 3. update user
@@ -28,5 +28,5 @@ export type TUserGetListGetAction = TAction<TUserGetListGetRequest, TUserGetList
 
 // 6. report user
 export type TUserReportPostRequest = Report;
-export type TUserReportPostResponse = ResourceInfo;
+export type TUserReportPostResponse = ResourceInfo<number>;
 export type TUserReportPostAction = TAction<TUserReportPostRequest, TUserReportPostResponse>;

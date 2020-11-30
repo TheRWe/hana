@@ -26,7 +26,7 @@
         </dependency>
         <dependency>
             <groupId>cz.globex</groupId>
-            <artifactId>hana-server-core</artifactId>
+            <artifactId>hana-server-assembly</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
     </dependencies>

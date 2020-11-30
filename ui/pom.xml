@@ -59,9 +59,6 @@
                     <outputKind>module</outputKind>
                     <noEslintDisable>true</noEslintDisable>
                     <mapEnum>asEnum</mapEnum>
-                    <customTypeMappings>
-                        <customTypeMapping>java.net.URI:string</customTypeMapping>
-                    </customTypeMappings>
                     <removeTypeNameSuffix>Dto</removeTypeNameSuffix>
                     <nullabilityDefinition>undefinedInlineUnion</nullabilityDefinition>
                 </configuration>
