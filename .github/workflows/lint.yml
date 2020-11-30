@@ -6,6 +6,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,6 +28,7 @@ jobs:
   spring-tests:
     name: Spring tests
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
