@@ -7,8 +7,8 @@ import cz.globex.hana.database.repository.*
 import org.springframework.context.annotation.*
 import org.springframework.stereotype.*
 import java.time.*
-import java.util.*
 import javax.annotation.*
+import kotlin.random.*
 
 @Profile("dev")
 @Component
@@ -19,7 +19,8 @@ class ServerInitializer protected constructor(
 	private val stockExchangesRepository: StockExchangesRepository,
 	private val tagsRepository: TagsRepository,
 ) {
-	private val faker = Faker()
+	private val random = Random(31)
+	private val faker = Faker(random.asJavaRandom())
 
 	private companion object {
 		const val USERS_COUNT = 100
@@ -45,8 +46,8 @@ class ServerInitializer protected constructor(
 				firstName = firstName,
 				lastName = lastName,
 				email = faker.internet().emailAddress("$firstName.$lastName".toLowerCase()),
-				UserType.values().random(),
-				photoUri = "/images/" + UUID.randomUUID() + ".png",
+				type = UserType.values().random(random),
+				photoUri = "/images/" + faker.internet().uuid() + ".png",
 			)
 		}
 		usersRepository.saveAll(users)
@@ -56,16 +57,16 @@ class ServerInitializer protected constructor(
 		val ads = mutableSetOf<Ad>()
 		repeat(ADS_COUNT) {
 			val tags = mutableSetOf<String>()
-			repeat((0..15).random()) {
+			repeat(faker.number().numberBetween(0, 15)) {
 				tags += faker.harryPotter().spell()
 			}
 			ads += Ad(
-				author = usersRepository.getOne((1..USERS_COUNT).random().toLong()),
-				name = faker.lorem().sentence((3..5).random()).removeSuffix("."),
+				author = usersRepository.getOne(faker.number().numberBetween(1L, USERS_COUNT.toLong())),
+				name = faker.lorem().sentence(faker.number().numberBetween(3, 5)).removeSuffix("."),
 				description = faker.harryPotter().quote(),
-				type = AdType.values().random(),
-				price = faker.number().digits((1..4).random()).toInt(),
-				photoUri = "/images/" + UUID.randomUUID() + ".jpg",
+				type = AdType.values().random(random),
+				price = faker.number().digits(faker.number().numberBetween(1, 4)).toInt(),
+				photoUri = "/images/" + faker.internet().uuid() + ".jpg",
 				place = null,
 				tags = tagsRepository.saveAll(tags.map(Tag::newInstance)).toSet()
 			)
@@ -77,20 +78,19 @@ class ServerInitializer protected constructor(
 		val events = mutableSetOf<Event>()
 		repeat(EVENTS_COUNT) {
 			val tags = mutableSetOf<String>()
-			repeat((0..15).random()) {
+			repeat(faker.number().numberBetween(0, 15)) {
 				tags += faker.lordOfTheRings().location()
 			}
 			events += Event(
-				author = usersRepository.getOne((1..USERS_COUNT).random().toLong()),
-				name = faker.lorem().sentence((3..5).random()).removeSuffix("."),
+				author = usersRepository.getOne(faker.number().numberBetween(1L, USERS_COUNT.toLong())),
+				name = faker.lorem().sentence(faker.number().numberBetween(3, 5)).removeSuffix("."),
 				description = faker.hobbit().quote(),
-				dateStartUtc = LocalDateTime.now().plusDays((1..10).random().toLong()),
-				dateEndInclusiveUtc = LocalDateTime.now().plusDays((10..12).random().toLong()),
-				price = faker.number().digits((1..4).random()).toInt(),
-				photoUri = "/images/" + UUID.randomUUID() + ".jpg",
+				dateStartUtc = LocalDateTime.now().plusDays(faker.number().numberBetween(1L, 10L)),
+				dateEndInclusiveUtc = LocalDateTime.now().plusDays(faker.number().numberBetween(10L, 12L)),
+				price = faker.number().digits(faker.number().numberBetween(1, 4)).toInt(),
+				photoUri = "/images/" + faker.internet().uuid() + ".png",
 				place = null,
-				tags = tagsRepository.saveAll(tags.map(Tag::newInstance)).toSet()
-			)
+				tags = tagsRepository.saveAll(tags.map(Tag::newInstance)).toSet())
 		}
 		eventsRepository.saveAll(events)
 	}
@@ -99,16 +99,17 @@ class ServerInitializer protected constructor(
 		val stockExchanges = mutableSetOf<StockExchange>()
 		repeat(STOCK_EXCHANGES_COUNT) {
 			val tags = mutableSetOf<String>()
-			repeat((0..15).random()) {
+			repeat(faker.number().numberBetween(0, 15)) {
 				tags += faker.pokemon().name()
 			}
 			stockExchanges += StockExchange(
-				author = usersRepository.getOne((1..USERS_COUNT).random().toLong()),
-				name = faker.lorem().sentence((3..5).random()).removeSuffix("."),
+				author = usersRepository.getOne(faker.number()
+					.numberBetween(1L, USERS_COUNT.toLong())),
+				name = faker.lorem().sentence(faker.number().numberBetween(3, 5)).removeSuffix("."),
 				description = faker.gameOfThrones().quote(),
-				type = StockExchangeType.values().random(),
-				price = faker.number().digits((1..4).random()).toInt(),
-				photoUri = "/images/" + UUID.randomUUID() + faker.file().extension(),
+				type = StockExchangeType.values().random(random),
+				price = faker.number().digits(faker.number().numberBetween(1, 4)).toInt(),
+				photoUri = "/images/" + faker.internet().uuid() + ".jpg",
 				place = null,
 				tags = tagsRepository.saveAll(tags.map(Tag::newInstance)).toSet()
 			)
