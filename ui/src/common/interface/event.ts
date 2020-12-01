@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Event, EventCreateUpdate, Events, EventFilters, Rate, Report, ResourceInfo,Pagination } from "./shared";
+import { Event, EventCreateReplace, Events, EventFilters, Rate, Report, ResourceInfo,Pagination } from "./shared";
 
 // 1. get event by id
 export type TEventGetByIdGetRequest = {};
@@ -7,12 +7,12 @@ export type TEventGetByIdGetResponse = Event;
 export type TEventGetByIdGetAction = TAction<TEventGetByIdGetRequest, TEventGetByIdGetResponse>;
 
 // 2. new event
-export type TEventPostRequest = EventCreateUpdate;
+export type TEventPostRequest = EventCreateReplace;
 export type TEventPostResponse = ResourceInfo<number>;
 export type TEventPostAction = TAction<TEventPostRequest, TEventPostResponse>;
 
 // 3. update event
-export type TEventUpdatePutRequest = EventCreateUpdate;
+export type TEventUpdatePutRequest = EventCreateReplace;
 export type TEventUpdatePutResponse = {};
 export type TEventUpdatePutAction = TAction<TEventUpdatePutRequest, TEventUpdatePutResponse>;
 

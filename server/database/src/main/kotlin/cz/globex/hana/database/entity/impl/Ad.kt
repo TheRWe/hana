@@ -9,7 +9,7 @@ class Ad(
 	author: User,
 	name: String,
 	description: String,
-	@Enumerated(EnumType.STRING) var type: AdType,
+	@Enumerated var type: AdType,
 	price: Int,
 	photoUri: String? = null,
 	place: Place? = null,

@@ -8,6 +8,7 @@ import javax.servlet.http.*
 @RestController
 @RequestMapping(path = [ApiController.PATH], produces = [MediaType.APPLICATION_JSON_VALUE])
 internal class ApiControllerImpl private constructor() : ApiController {
+	@GetMapping
 	override fun redirectToSwagger(resp: HttpServletResponse) {
 		resp.sendRedirect("${DocsApiController.PATH}/swagger-ui.html")
 	}

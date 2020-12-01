@@ -3,9 +3,10 @@ package cz.globex.hana.database.entity.impl
 import cz.globex.hana.common.dto.*
 import cz.globex.hana.database.entity.*
 import cz.globex.hana.database.util.*
-import cz.globex.hana.database.util.validatePhotoUri
+import org.hibernate.annotations.*
 import java.time.*
 import javax.persistence.*
+import javax.persistence.Entity
 
 @Entity
 class User(
@@ -44,13 +45,29 @@ class User(
 		}
 
 	@Column(nullable = false)
-	val registeredUtc: LocalDateTime = LocalDateTime.now(Clock.systemUTC())
+	var registeredUtc: LocalDateTime = LocalDateTime.now(Clock.systemUTC())
+		private set
 
-	@Transient
-	var ratingAsSupplier: Double = 0.0
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT AVG(CAST(ar.score AS FLOAT)) FROM Ad a, AdRating ar WHERE a.author_id = id AND a.id = ar.advertisable_id)")
+	var ratingScoreAsSupplier: Float? = null
+		private set
 
-	@Transient
-	var ratingAsSeller: Double = 0.0
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT COUNT(ar.id) FROM Ad a, AdRating ar WHERE a.author_id = id AND a.id = ar.advertisable_id)")
+	var ratingVotesAsSupplier: Int = 0
+		private set
+
+
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT AVG(CAST(ser.score AS FLOAT)) FROM Ad a, StockExchangeRating ser WHERE a.author_id = id AND a.id = ser.advertisable_id)")
+	var ratingScoreAsSeller: Float? = null
+		private set
+
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT COUNT(ser.id) FROM Ad a, StockExchangeRating ser WHERE a.author_id = id AND a.id = ser.advertisable_id)")
+	var ratingVotesAsSeller: Int = 0
+		private set
 
 	private companion object {
 		fun validateFirstName(value: String) {} // TODO

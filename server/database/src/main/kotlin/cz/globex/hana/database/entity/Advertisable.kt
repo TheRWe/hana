@@ -4,12 +4,13 @@ import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.util.*
 import java.time.*
 import javax.persistence.*
-import kotlin.reflect.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 abstract class Advertisable internal constructor(
-	@ManyToOne(optional = false) open val author: User,
+	@ManyToOne(optional = false)
+	@JoinColumn(name = AUTHOR_COLUMN, updatable = false)
+	protected open var author: User,
 	name: String,
 	description: String,
 	tags: Set<Tag>,
@@ -17,6 +18,8 @@ abstract class Advertisable internal constructor(
 	photoUri: String?,
 	@ManyToOne open var place: Place?,
 ) : LongIdentifiable() {
+	val author_safe: User get() = author
+
 	@Column(nullable = false)
 	open var name: String = name.also { validateName(it) }
 		set(value) {
@@ -53,12 +56,12 @@ abstract class Advertisable internal constructor(
 		}
 
 	@Column(nullable = false, updatable = false)
-	open val createdUtc: LocalDateTime = LocalDateTime.now(Clock.systemUTC())
-
-	@OneToMany
-	open val ratings: MutableSet<Rating> = mutableSetOf()
+	protected open var createdUtc: LocalDateTime = LocalDateTime.now(Clock.systemUTC())
+	val createdUtc_safe: LocalDateTime get() = createdUtc
 
 	private companion object {
+		const val AUTHOR_COLUMN = "author_id"
+
 		fun validateName(value: String) {} // TODO
 		fun validateDescription(value: String) {} // TODO
 		fun validateTags(value: Set<Tag>) {} // TODO

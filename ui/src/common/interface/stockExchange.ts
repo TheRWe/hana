@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { ResourceInfo, StockExchange, StockExchanges, StockExchangeCreateUpdate, StockExchangeFilters, Rate, Report, AdFilters, Pagination} from "./shared";
+import { ResourceInfo, StockExchange, StockExchanges, StockExchangeCreateReplace, StockExchangeFilters, Rate, Report, AdFilters, Pagination} from "./shared";
 
 // 1. get stock exchange by id
 export type TStockExchangeGetByIdGetRequest = {};
@@ -7,12 +7,12 @@ export type TStockExchangeGetByIdGetResponse = StockExchange;
 export type TStockExchangeGetByIdGetAction = TAction<TStockExchangeGetByIdGetRequest, TStockExchangeGetByIdGetResponse>;
 
 // 2. new stock exchange
-export type TStockExchangePostRequest = StockExchangeCreateUpdate;
+export type TStockExchangePostRequest = StockExchangeCreateReplace;
 export type TStockExchangePostResponse = ResourceInfo<number>;
 export type TStockExchangePostAction = TAction<TStockExchangePostRequest, TStockExchangePostResponse>;
 
 // 3. update stock exchange
-export type TStockExchangeUpdatePutRequest = StockExchangeCreateUpdate;
+export type TStockExchangeUpdatePutRequest = StockExchangeCreateReplace;
 export type TStockExchangeUpdatePutResponse = {};
 export type TStockExchangeUpdatePutAction = TAction<TStockExchangeUpdatePutRequest, TStockExchangeUpdatePutResponse>;
 

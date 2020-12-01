@@ -1,8 +1,10 @@
 package cz.globex.hana.database.entity.impl
 
 import cz.globex.hana.database.entity.*
+import org.hibernate.annotations.*
 import java.time.*
 import javax.persistence.*
+import javax.persistence.Entity
 
 @Entity
 class Event(
@@ -38,11 +40,15 @@ class Event(
 			field = value
 		}
 
-	@Transient
-	var ratingScore: Double = 0.0
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT AVG(CAST(er.score AS FLOAT)) FROM EventRating er WHERE er.advertisable_id = id)")
+	var ratingScore: Float? = null
+		private set
 
-	@Transient
-	var ratingVotesCount: Int = 0
+	@Basic(fetch = FetchType.LAZY)
+	@Formula("(SELECT COUNT(er.id) FROM EventRating er WHERE er.advertisable_id = id)")
+	var ratingVotes: Int = 0
+		private set
 
 	private companion object {
 		fun validateDate(value: LocalDateTime) {} // TODO

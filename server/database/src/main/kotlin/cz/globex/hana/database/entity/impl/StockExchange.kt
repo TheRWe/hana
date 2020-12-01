@@ -4,12 +4,12 @@ import cz.globex.hana.common.dto.*
 import cz.globex.hana.database.entity.*
 import javax.persistence.*
 
-@Entity
+@Entity(name = "STOCKEXCHANGE")
 class StockExchange(
 	author: User,
 	name: String,
 	description: String,
-	@Enumerated(EnumType.STRING) var type: StockExchangeType,
+	@Enumerated var type: StockExchangeType,
 	price: Int,
 	photoUri: String? = null,
 	place: Place? = null,

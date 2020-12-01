@@ -1,18 +1,20 @@
 package cz.globex.hana.router.controller
 
 import cz.globex.hana.common.dto.*
-import cz.globex.hana.router.controller.action.general.*
-import cz.globex.hana.router.controller.action.specific.*
+import org.springframework.http.*
 
-internal interface UsersApiController :
-	RetrieveMultipleAction<UserFiltersDto, UsersDto>,
-	CreateAction<UserCreateUpdateDto, Long>,
-	RetrieveAction<UserDto, Long>,
-	UpdateAction<UserCreateUpdateDto, Long>,
-	DeleteAction<Long>,
-	ReportAction<Long> {
-
+internal interface UsersApiController {
 	companion object {
 		const val PATH: String = ApiController.PATH + "/users"
 	}
+
+	fun createUser(user: UserCreateReplaceDto): ResponseEntity<ResourceInfoDto<Long>>
+
+	fun getUser(id: Long): UserDto
+
+	fun getUsers(filters: UserFiltersDto, pagination: PaginationDto): UsersDto
+
+	fun replaceUser(id: Long, user: UserCreateReplaceDto)
+
+	fun deleteUser(id: Long)
 }

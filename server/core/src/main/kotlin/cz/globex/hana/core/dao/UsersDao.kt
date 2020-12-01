@@ -1,21 +1,16 @@
 package cz.globex.hana.core.dao
 
 import cz.globex.hana.common.dto.*
-import cz.globex.hana.core.dao.action.general.*
-import cz.globex.hana.core.dao.action.specific.*
-import cz.globex.hana.database.entity.impl.*
+import org.springframework.data.domain.*
 
-interface UsersDao :
-	RetrieveMultipleDaoAction<UserFiltersDto, UsersDto>,
-	CreateDaoAction<UserCreateUpdateDto, Long>,
-	RetrieveDaoAction<UserDto, Long>,
-	UpdateDaoAction<UserCreateUpdateDto, Long>,
-	DeleteDaoAction<Long>,
-	ReportDaoAction<Long> {
+interface UsersDao {
+	fun createUser(userDto: UserCreateReplaceDto): Long
 
-	fun AdvertisablesDao<*, *, *, *, *>.getUser(id: Long): User {
-		return getUserOrNull(id) ?: TODO("user not exists")
-	}
+	fun getUser(id: Long): UserDto
 
-	fun AdvertisablesDao<*, *, *, *, *>.getUserOrNull(id: Long): User?
+	fun getUsers(filters: UserFiltersDto, pageable: Pageable): UsersDto
+
+	fun replaceUser(id: Long, userDto: UserCreateReplaceDto)
+
+	fun deleteUser(id: Long)
 }

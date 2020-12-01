@@ -1,19 +1,27 @@
 package cz.globex.hana.router.controller
 
 import cz.globex.hana.common.dto.*
-import cz.globex.hana.router.controller.action.general.*
-import cz.globex.hana.router.controller.action.specific.*
+import org.springframework.http.*
 
-internal interface EventsApiController :
-	RetrieveMultipleAction<EventFiltersDto, EventsDto>,
-	CreateAction<EventCreateUpdateDto, Long>,
-	RetrieveAction<EventDto, Long>,
-	UpdateAction<EventCreateUpdateDto, Long>,
-	DeleteAction<Long>,
-	RateAction<Long>,
-	ReportAction<Long> {
-
+internal interface EventsApiController {
 	companion object {
 		const val PATH: String = ApiController.PATH + "/events"
 	}
+
+	fun createEvent(event: EventCreateReplaceDto): ResponseEntity<ResourceInfoDto<Long>>
+
+	fun getEvent(id: Long): EventDto
+
+	fun getEvents(filters: EventFiltersDto, pagination: PaginationDto): EventsDto
+
+	fun replaceEvent(id: Long, event: EventCreateReplaceDto)
+
+	fun deleteEvent(id: Long)
+
+	fun createRating(
+		eventId: Long,
+		rating: RatingCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>>
+
+	fun getRating(eventId: Long, ratingId: Long): RatingDto
 }

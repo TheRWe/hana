@@ -4,11 +4,17 @@ import cz.globex.hana.database.entity.*
 import javax.persistence.*
 
 @Entity
-data class Tag(
+class Tag(
+	id: String,
+) {
 	@Id
-	@Column(name = "name", nullable = false, unique = true)
-	var id: String,
-) : Persistable() {
+	@Column(name = NAME_COLUMN, nullable = false, unique = true)
+	var id: String = id.also { validateName(it) }
+		set(value) {
+			validateName(value)
+			field = value
+		}
+
 	var name: String
 		get() = id
 		set(value) {
@@ -16,12 +22,13 @@ data class Tag(
 		}
 
 	@ManyToMany
-	val taggedAdvertisables: Set<Advertisable> = emptySet()
+	@JoinColumn(name = ADVERTISABLES_COLUMN)
+	private var taggedAdvertisables: MutableSet<Advertisable> = mutableSetOf() // TODO: backing field
 
-	companion object {
-		fun newInstance(name: String): Tag {
-			// TODO: checks
-			return Tag(name)
-		}
+	private companion object {
+		const val NAME_COLUMN = "name"
+		const val ADVERTISABLES_COLUMN = "advertisables"
+
+		fun validateName(value: String) {}
 	}
 }

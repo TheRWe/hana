@@ -8,7 +8,7 @@ import java.text.*
 
 internal class ParamsCombinationRequiredException private constructor(
 	status: HttpStatus,
-	msg: String
+	msg: String,
 ) : ResponseStatusException(status, msg) {
 	companion object {
 		private const val TEMPLATE =
@@ -16,7 +16,7 @@ internal class ParamsCombinationRequiredException private constructor(
 
 		fun getInstance(
 			status: HttpStatus,
-			pagination: PaginationDto
+			pagination: PaginationDto,
 		): ParamsCombinationRequiredException {
 			return with(pagination) {
 				val pageStartParam = ::pageStart.name
@@ -34,7 +34,7 @@ internal class ParamsCombinationRequiredException private constructor(
 		fun getInstance(
 			status: HttpStatus,
 			missingParams: Set<String>,
-			providedParams: Set<String>
+			providedParams: Set<String>,
 		): ParamsCombinationRequiredException {
 			val requiredParamsStr = missingParams.stringify()
 			val providedParamsStr = providedParams.stringify()

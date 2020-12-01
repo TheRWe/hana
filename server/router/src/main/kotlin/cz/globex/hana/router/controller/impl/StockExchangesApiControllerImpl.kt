@@ -3,6 +3,7 @@ package cz.globex.hana.router.controller.impl
 import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.*
 import cz.globex.hana.router.controller.*
+import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
@@ -13,34 +14,54 @@ internal class StockExchangesApiControllerImpl private constructor(
 ) : StockExchangesApiController {
 	private val stockExchangesDao = daoProvider.stockExchangesDao
 
-	override fun retrieveMultiple(
+	@PostMapping
+	override fun createStockExchange(
+		@RequestBody stockExchange: StockExchangeCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>> {
+		return ResponseEntities.created(stockExchangesDao.createAdvertisable(stockExchange, 1)) // TODO read current user from servletContext
+	}
+
+	@GetMapping(path = [PathNodes.ID])
+	override fun getStockExchange(@PathVariable(PathVariables.ID) id: Long): StockExchangeDto {
+		return stockExchangesDao.getAdvertisable(id)
+	}
+
+	@GetMapping
+	override fun getStockExchanges(
 		filters: StockExchangeFiltersDto,
 		pagination: PaginationDto,
-	): ResponseEntity<StockExchangesDto> {
-		return stockExchangesDao.retrieveMultipleAndWrap(filters, pagination)
+	): StockExchangesDto {
+		return stockExchangesDao.getAdvertisables(filters, pagination.toPageable())
 	}
 
-	override fun createOne(
-		entity: StockExchangeCreateUpdateDto
+	@PutMapping(path = [PathNodes.ID])
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun replaceStockExchange(
+		@PathVariable(PathVariables.ID) id: Long,
+		@RequestBody stockExchange: StockExchangeCreateReplaceDto,
+	) {
+		stockExchangesDao.replaceAdvertisable(id, stockExchange)
+	}
+
+	@DeleteMapping(path = [PathNodes.ID])
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun deleteStockExchange(@PathVariable(PathVariables.ID) id: Long) {
+		return stockExchangesDao.deleteAdvertisable(id)
+	}
+
+	@PostMapping(PathNodes.ID + PathNodes.RATINGS)
+	override fun createRating(
+		@PathVariable(PathVariables.ID) stockExchangeId: Long,
+		@RequestBody rating: RatingCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return stockExchangesDao.createOneAndWrap(entity)
+		return ResponseEntities.created(stockExchangesDao.createRating(rating, (1..100).random().toLong(), stockExchangeId)) // TODO read current user from servletContext
 	}
 
-	override fun retrieveOne(id: Long): ResponseEntity<StockExchangeDto> {
-		return stockExchangesDao.retrieveOneAndWrap(id)
-	}
-
-	override fun updateOne(id: Long, entity: StockExchangeCreateUpdateDto): ResponseEntity<Unit> {
-		return stockExchangesDao.updateOneAndWrap(id, entity)
-	}
-
-	override fun deleteOne(id: Long): ResponseEntity<Unit> = stockExchangesDao.deleteOneAndWrap(id)
-
-	override fun rateOne(id: Long, rate: RateDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return stockExchangesDao.rateOneAndWrap(id, rate)
-	}
-
-	override fun reportOne(id: Long, report: ReportDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return stockExchangesDao.reportOneAndWrap(id, report)
+	@GetMapping(PathNodes.ID + PathNodes.RATINGS + PathNodes.RATE_ID)
+	override fun getRating(
+		@PathVariable(PathVariables.ID) stockExchangeId: Long,
+		@PathVariable(PathVariables.RATE_ID) ratingId: Long,
+	): RatingDto {
+		return stockExchangesDao.getRating(id = ratingId, advertisableId = stockExchangeId)
 	}
 }

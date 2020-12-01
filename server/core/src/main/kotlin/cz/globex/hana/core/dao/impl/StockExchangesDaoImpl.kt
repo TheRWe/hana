@@ -5,19 +5,20 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.*
-import org.springframework.context.annotation.*
 import org.springframework.data.domain.*
+import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
 import java.util.stream.*
 
-@Configuration
+@Component
 internal class StockExchangesDaoImpl protected constructor(
 	private val stockExchangesRepository: StockExchangesRepository,
 	private val usersRepository: UsersRepository,
 	private val tagsRepository: TagsRepository,
+	private val stockExchangeRatingsRepository: StockExchangeRatingsRepository
 ) : StockExchangesDao {
 	@Transactional(readOnly = true)
-	override fun retrieveMultiple(
+	override fun getAdvertisables(
 		filters: StockExchangeFiltersDto,
 		pageable: Pageable,
 	): StockExchangesDto {
@@ -30,52 +31,67 @@ internal class StockExchangesDaoImpl protected constructor(
 	}
 
 	@Transactional
-	override fun createOne(entity: StockExchangeCreateUpdateDto): Long {
-		val stockExchange = with(entity) {
+	override fun createAdvertisable(
+		advertisableDto: StockExchangeCreateReplaceDto,
+		authorId: Long,
+	): Long {
+		val stockExchange = with(advertisableDto) {
 			StockExchange(
-				author = usersRepository.getOne(authorId), // TODO: load from securityContext
+				author = usersRepository.getOne(authorId),
 				name = name,
 				description = description,
 				type = type,
 				price = cost,
 				photoUri = photoUri,
 				place = null, // TODO
-				tags = tagsRepository.saveAll(entity.tags.map(Tag::newInstance)).toSet()
+				tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toSet()
 			)
 		}
-		return stockExchangesRepository.save(stockExchange).id
+		return stockExchangesRepository.save(stockExchange).id_safe
 	}
 
 	@Transactional(readOnly = true)
-	override fun retrieveOne(id: Long): StockExchangeDto {
+	override fun getAdvertisable(id: Long): StockExchangeDto {
 		return stockExchangesRepository.getOne(id).toDto()
 	}
 
-	override fun updateOne(id: Long, entity: StockExchangeCreateUpdateDto) {
+	override fun replaceAdvertisable(id: Long, advertisableDto: StockExchangeCreateReplaceDto) {
 		val stockExchange = stockExchangesRepository.getOne(id)
 		stockExchange.apply {
-			name = entity.name
-			description = entity.description
-			price = entity.cost
-			type = entity.type
-			photoUri = entity.photoUri
+			name = advertisableDto.name
+			description = advertisableDto.description
+			price = advertisableDto.cost
+			type = advertisableDto.type
+			photoUri = advertisableDto.photoUri
 			place = null // TODO
-			tags = tagsRepository.saveAll(entity.tags.map(Tag::newInstance)).toSet()
-			isActual = entity.isActual
+			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toSet()
+			isActual = advertisableDto.isActual
 		}
 	}
 
-	override fun deleteOne(id: Long) {
+	override fun deleteAdvertisable(id: Long) {
 		val stockExchange = stockExchangesRepository.getOne(id)
 		stockExchange.deleted = true
 		stockExchangesRepository.save(stockExchange)
 	}
 
-	override fun rateOne(id: Long, rate: RateDto): ResourceInfoDto<Long> {
-		TODO("Not yet implemented")
+	override fun createRating(
+		ratingDto: RatingCreateReplaceDto,
+		authorId: Long,
+		advertisableId: Long,
+	): Long {
+		val rating =
+			StockExchangeRating(
+				usersRepository.getOne(authorId),
+				stockExchangesRepository.getOne(advertisableId),
+				ratingDto.score
+			)
+		return stockExchangeRatingsRepository.save(rating).id_safe
 	}
 
-	override fun reportOne(id: Long, report: ReportDto): ResourceInfoDto<Long> {
-		TODO("Not yet implemented")
+	override fun getRating(id: Long, advertisableId: Long): RatingDto {
+		return stockExchangeRatingsRepository
+			.getByIdAndAdvertisableId(id = id, advertisableId = advertisableId)
+			.toDto()
 	}
 }

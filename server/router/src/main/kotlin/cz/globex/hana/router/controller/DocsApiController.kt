@@ -1,6 +1,5 @@
 package cz.globex.hana.router.controller
 
-import org.springframework.web.bind.annotation.*
 import javax.servlet.http.*
 
 interface DocsApiController {
@@ -8,9 +7,7 @@ interface DocsApiController {
 		const val PATH: String = ApiController.PATH + "/docs"
 	}
 
-	@GetMapping
 	fun redirectToSwagger(resp: HttpServletResponse)
 
-	@GetMapping(path = ["/v2/api-docs", "/swagger-resources/**"])
 	fun redirectToApiDocs(req: HttpServletRequest, resp: HttpServletResponse)
 }

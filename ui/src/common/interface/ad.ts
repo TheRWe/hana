@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Ad, AdCreateUpdate, Ads, AdFilters, Rate, Report, ResourceInfo, Pagination } from "./shared";
+import { Ad, AdCreateReplace, Ads, AdFilters, Rate, Report, ResourceInfo, Pagination } from "./shared";
 
 // 1. get ad by id
 export type TAdGetByIdGetRequest = {};
@@ -7,12 +7,12 @@ export type TAdGetByIdGetResponse = Ad;
 export type TAdGetByIdGetAction = TAction<TAdGetByIdGetRequest, TAdGetByIdGetResponse>;
 
 // 2. new ad
-export type TAdPostRequest = AdCreateUpdate;
+export type TAdPostRequest = AdCreateReplace;
 export type TAdPostResponse = ResourceInfo<number>;
 export type TAdPostAction = TAction<TAdPostRequest, TAdPostResponse>;
 
 // 3. update ad
-export type TAdUpdatePutRequest = AdCreateUpdate;
+export type TAdUpdatePutRequest = AdCreateReplace;
 export type TAdUpdatePutResponse = {};
 export type TAdUpdatePutAction = TAction<TAdUpdatePutRequest, TAdUpdatePutResponse>;
 

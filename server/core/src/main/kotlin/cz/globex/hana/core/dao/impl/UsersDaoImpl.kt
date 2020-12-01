@@ -5,26 +5,18 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.*
-import org.springframework.context.annotation.*
 import org.springframework.data.domain.*
-import org.springframework.data.repository.*
+import org.springframework.stereotype.*
+import org.springframework.transaction.annotation.*
 import java.util.stream.*
 
-@Configuration
+@Component
 internal class UsersDaoImpl protected constructor(
 	private val usersRepository: UsersRepository,
 ) : UsersDao {
-	override fun retrieveMultiple(filters: UserFiltersDto, pageable: Pageable): UsersDto {
-		val users: Set<UserDto> = usersRepository
-			.findAll(pageable)
-			.get()
-			.map(User::toDto)
-			.collect(Collectors.toSet())
-		return UsersDto(users)
-	}
 
-	override fun createOne(entity: UserCreateUpdateDto): Long {
-		val user = with(entity) {
+	override fun createUser(userDto: UserCreateReplaceDto): Long {
+		val user = with(userDto) {
 			User(
 				firstName = firstName,
 				lastName = lastName,
@@ -33,34 +25,37 @@ internal class UsersDaoImpl protected constructor(
 				photoUri = photoUri
 			)
 		}
-		return usersRepository.save(user).id
+		return usersRepository.save(user).id_safe
 	}
 
-	override fun retrieveOne(id: Long): UserDto = usersRepository.getOne(id).toDto()
+	@Transactional(readOnly = true)
+	override fun getUser(id: Long): UserDto = usersRepository.getOne(id).toDto()
 
-	override fun updateOne(id: Long, entity: UserCreateUpdateDto) {
+	@Transactional(readOnly = true)
+	override fun getUsers(filters: UserFiltersDto, pageable: Pageable): UsersDto {
+		val users: Set<UserDto> = usersRepository
+			.findAll(pageable)
+			.get()
+			.map(User::toDto)
+			.collect(Collectors.toSet())
+		return UsersDto(users)
+	}
+
+	override fun replaceUser(id: Long, userDto: UserCreateReplaceDto) {
 		val user = usersRepository.getOne(id)
 		user.apply {
-			firstName = entity.firstName
-			lastName = entity.lastName
-			email = entity.email
-			type = entity.type
-			photoUri = entity.photoUri
+			firstName = userDto.firstName
+			lastName = userDto.lastName
+			email = userDto.email
+			type = userDto.type
+			photoUri = userDto.photoUri
 		}
 		usersRepository.save(user)
 	}
 
-	override fun deleteOne(id: Long) {
+	override fun deleteUser(id: Long) {
 		val user = usersRepository.getOne(id)
 		user.deleted = true
 		usersRepository.save(user)
-	}
-
-	override fun reportOne(id: Long, report: ReportDto): ResourceInfoDto<Long> {
-		TODO("Not yet implemented")
-	}
-
-	override fun AdvertisablesDao<*, *, *, *, *>.getUserOrNull(id: Long): User? {
-		return usersRepository.findByIdOrNull(id)
 	}
 }

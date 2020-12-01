@@ -8,9 +8,7 @@ interface EntitiesDto
 
 interface EntityDto
 
-interface EntityCreateDto
-
-interface EntityUpdateDto
+interface EntityCreateReplaceDto
 
 data class PaginationDto(
 	val pageStart: Int? = null,
@@ -88,10 +86,10 @@ data class ArticleDto(
 	val text: String,
 ) : EntityDto
 
-data class ArticleCreateUpdateDto(
+data class ArticleCreateReplaceDto(
 	val title: String,
 	val text: String,
-) : EntityCreateDto, EntityUpdateDto
+) : EntityCreateReplaceDto
 
 data class UsersDto(
 	val users: Set<UserDto>,
@@ -105,22 +103,22 @@ data class UserDto(
 	val type: UserType,
 	val registeredUtc: LocalDateTime,
 	val photoUri: String?,
-	val ratings: UserRatingsDto?,
+	val ratings: UserRatingSummariesDto?,
 ) : EntityDto
 
-data class UserCreateUpdateDto(
+data class UserCreateReplaceDto(
 	val firstName: String,
 	val lastName: String,
 	val email: String,
 	val type: UserType,
 	val photoUri: String?,
-) : EntityCreateDto, EntityUpdateDto
+) : EntityCreateReplaceDto
 
 enum class UserType { PERSON, COMPANY, CERTIFIED_COMPANY, MODERATOR, ADMINISTRATOR, }
 
-data class UserRatingsDto(
-	val asSupplier: RatingDto?,
-	val asSeller: RatingDto?,
+data class UserRatingSummariesDto(
+	val asSupplier: RatingSummaryDto?,
+	val asSeller: RatingSummaryDto?,
 )
 
 data class AdsDto(
@@ -141,19 +139,18 @@ data class AdDto(
 	val type: AdType,
 ) : EntityDto
 
-data class AdCreateUpdateDto(
-	val authorId: Long,
+data class AdCreateReplaceDto(
 	val name: String,
 	val description: String,
-	val place: PlaceCreateUpdateDto?,
+	val place: PlaceCreateReplaceDto?,
 	val photoUri: String?,
 	val tags: Set<String>,
 	val isActual: Boolean,
 	val payout: Int,
 	val type: AdType,
-) : EntityCreateDto, EntityUpdateDto
+) : EntityCreateReplaceDto
 
-enum class AdType { SUPPLY, DEMAND, }
+enum class AdType { DEMAND, SUPPLY, }
 
 data class EventsDto(
 	val events: Set<EventDto>,
@@ -168,27 +165,39 @@ data class EventDto(
 	val photoUri: String?,
 	val tags: Set<String>,
 	val createdUtc: LocalDateTime,
-	val rating: RatingDto,
+	val rating: RatingSummaryDto?,
 	val date: RangeDto<LocalDateTime>,
 	val entryFee: Int,
 ) : EntityDto
 
-data class EventCreateUpdateDto(
-	val authorId: Long,
+data class EventCreateReplaceDto(
 	val name: String,
 	val description: String,
-	val place: PlaceCreateUpdateDto?,
+	val place: PlaceCreateReplaceDto?,
 	val photoUri: String?,
 	val tags: Set<String>,
-	val rating: RatingDto,
 	val date: RangeDto<LocalDateTime>,
 	val entryFee: Int,
-) : EntityCreateDto, EntityUpdateDto
+) : EntityCreateReplaceDto
+
+enum class RatingScore(val value: Short) {
+	UNSATISFACTORY(1), POOR(2), AVERAGE(3), GOOD(4), EXCELLENT(5),
+}
+
+data class RatingSummaryDto(
+	val score: Float,
+	val votesCount: Int,
+) : EntityDto
 
 data class RatingDto(
-	val score: Double,
-	val votesCount: Int,
-)
+	val id: Long,
+	val authorId: Long,
+	val score: RatingScore,
+) : EntityDto
+
+open class RatingCreateReplaceDto(
+	val score: RatingScore,
+) : EntityCreateReplaceDto
 
 data class RangeDto<T>(
 	val start: T,
@@ -213,19 +222,18 @@ data class StockExchangeDto(
 	val cost: Int,
 ) : EntityDto
 
-data class StockExchangeCreateUpdateDto(
-	val authorId: Long,
+data class StockExchangeCreateReplaceDto(
 	val name: String,
 	val description: String,
-	val place: PlaceCreateUpdateDto?,
+	val place: PlaceCreateReplaceDto?,
 	val photoUri: String?,
 	val tags: Set<String>,
 	val isActual: Boolean,
 	val type: StockExchangeType,
 	val cost: Int,
-) : EntityCreateDto, EntityUpdateDto
+) : EntityCreateReplaceDto
 
-data class PlaceCreateUpdateDto(
+data class PlaceCreateReplaceDto(
 	val latitude: Double,
 	val longitude: Double,
 )

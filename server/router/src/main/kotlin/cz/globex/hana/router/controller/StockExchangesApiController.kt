@@ -1,19 +1,32 @@
 package cz.globex.hana.router.controller
 
 import cz.globex.hana.common.dto.*
-import cz.globex.hana.router.controller.action.general.*
-import cz.globex.hana.router.controller.action.specific.*
+import org.springframework.http.*
 
-internal interface StockExchangesApiController :
-	RetrieveMultipleAction<StockExchangeFiltersDto, StockExchangesDto>,
-	CreateAction<StockExchangeCreateUpdateDto, Long>,
-	RetrieveAction<StockExchangeDto, Long>,
-	UpdateAction<StockExchangeCreateUpdateDto, Long>,
-	DeleteAction<Long>,
-	RateAction<Long>,
-	ReportAction<Long> {
-
+internal interface StockExchangesApiController {
 	companion object {
 		const val PATH: String = ApiController.PATH + "/stock-exchanges"
 	}
+
+	fun createStockExchange(
+		stockExchange: StockExchangeCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>>
+
+	fun getStockExchange(id: Long): StockExchangeDto
+
+	fun getStockExchanges(
+		filters: StockExchangeFiltersDto,
+		pagination: PaginationDto,
+	): StockExchangesDto
+
+	fun replaceStockExchange(id: Long, stockExchange: StockExchangeCreateReplaceDto)
+
+	fun deleteStockExchange(id: Long)
+
+	fun createRating(
+		stockExchangeId: Long,
+		rating: RatingCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>>
+
+	fun getRating(stockExchangeId: Long, ratingId: Long): RatingDto
 }

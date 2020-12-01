@@ -3,36 +3,42 @@ package cz.globex.hana.router.controller.impl
 import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.*
 import cz.globex.hana.router.controller.*
+import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping(path = [UsersApiController.PATH])
 internal class UsersApiControllerImpl private constructor(
-	daoProvider: DaoProvider
+	daoProvider: DaoProvider,
 ) : UsersApiController {
 	private val usersDao = daoProvider.usersDao
 
-	override fun retrieveMultiple(
-		filters: UserFiltersDto,
-		pagination: PaginationDto,
-	): ResponseEntity<UsersDto> {
-		return usersDao.retrieveMultipleAndWrap(filters, pagination)
+	@PostMapping
+	override fun createUser(
+		@RequestBody user: UserCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>> {
+		return ResponseEntities.created(usersDao.createUser(user))
 	}
 
-	override fun createOne(entity: UserCreateUpdateDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return usersDao.createOneAndWrap(entity)
+	@GetMapping(path = [PathNodes.ID])
+	override fun getUser(@PathVariable(PathVariables.ID) id: Long) = usersDao.getUser(id)
+
+	@GetMapping
+	override fun getUsers(filters: UserFiltersDto, pagination: PaginationDto): UsersDto {
+		return usersDao.getUsers(filters, pagination.toPageable())
 	}
 
-	override fun retrieveOne(id: Long): ResponseEntity<UserDto> = usersDao.retrieveOneAndWrap(id)
-
-	override fun updateOne(id: Long, entity: UserCreateUpdateDto): ResponseEntity<Unit> {
-		return usersDao.updateOneAndWrap(id, entity)
+	@PutMapping(path = [PathNodes.ID])
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun replaceUser(
+		@PathVariable(PathVariables.ID) id: Long,
+		@RequestBody user: UserCreateReplaceDto,
+	) {
+		usersDao.replaceUser(id, user)
 	}
 
-	override fun deleteOne(id: Long): ResponseEntity<Unit> = usersDao.deleteOneAndWrap(id)
-
-	override fun reportOne(id: Long, report: ReportDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return usersDao.reportOneAndWrap(id, report)
-	}
+	@DeleteMapping(path = [PathNodes.ID])
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun deleteUser(@PathVariable(PathVariables.ID) id: Long) = usersDao.deleteUser(id)
 }

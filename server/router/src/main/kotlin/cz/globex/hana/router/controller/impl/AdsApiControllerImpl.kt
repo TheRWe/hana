@@ -3,42 +3,58 @@ package cz.globex.hana.router.controller.impl
 import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.*
 import cz.globex.hana.router.controller.*
+import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.server.*
-import javax.persistence.*
 
 @RestController
 @RequestMapping(path = [AdsApiController.PATH])
 internal class AdsApiControllerImpl private constructor(
-	daoProvider: DaoProvider
+	daoProvider: DaoProvider,
 ) : AdsApiController {
 	private val adsDao = daoProvider.adsDao
 
-	override fun retrieveMultiple(
-		filters: AdFiltersDto,
-		pagination: PaginationDto
-	): ResponseEntity<AdsDto> {
-		return adsDao.retrieveMultipleAndWrap(filters, pagination)
+	@PostMapping
+	override fun createAd(
+		@RequestBody ad: AdCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>> {
+		return ResponseEntities.created(adsDao.createAdvertisable(ad, (1..100).random().toLong())) // TODO read current user from servletContext
 	}
 
-	override fun createOne(entity: AdCreateUpdateDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return adsDao.createOneAndWrap(entity)
+	@GetMapping(PathNodes.ID)
+	override fun getAd(@PathVariable(PathVariables.ID) id: Long) = adsDao.getAdvertisable(id)
+
+	@GetMapping
+	override fun getAds(filters: AdFiltersDto, pagination: PaginationDto): AdsDto {
+		return adsDao.getAdvertisables(filters, pagination.toPageable())
 	}
 
-	override fun retrieveOne(id: Long): ResponseEntity<AdDto> = adsDao.retrieveOneAndWrap(id)
-
-	override fun updateOne(id: Long, entity: AdCreateUpdateDto): ResponseEntity<Unit> {
-		return adsDao.updateOneAndWrap(id, entity)
+	@PutMapping(PathNodes.ID)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun replaceAd(
+		@PathVariable(PathVariables.ID) id: Long,
+		@RequestBody ad: AdCreateReplaceDto,
+	) {
+		adsDao.replaceAdvertisable(id, ad)
 	}
 
-	override fun deleteOne(id: Long): ResponseEntity<Unit> = adsDao.deleteOneAndWrap(id)
+	@DeleteMapping(PathNodes.ID)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	override fun deleteAd(@PathVariable(PathVariables.ID) id: Long) = adsDao.deleteAdvertisable(id)
 
-	override fun rateOne(id: Long, rate: RateDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return adsDao.rateOneAndWrap(id, rate)
+	@PostMapping(PathNodes.ID + PathNodes.RATINGS)
+	override fun createRating(
+		@PathVariable(PathVariables.ID) adId: Long,
+		@RequestBody rating: RatingCreateReplaceDto,
+	): ResponseEntity<ResourceInfoDto<Long>> {
+		return ResponseEntities.created(adsDao.createRating(rating, (1..100).random().toLong(), adId)) // TODO read current user from servletContext
 	}
 
-	override fun reportOne(id: Long, report: ReportDto): ResponseEntity<ResourceInfoDto<Long>> {
-		return adsDao.reportOneAndWrap(id, report)
+	@GetMapping(PathNodes.ID + PathNodes.RATINGS + PathNodes.RATE_ID)
+	override fun getRating(
+		@PathVariable(PathVariables.ID) adId: Long,
+		@PathVariable(PathVariables.RATE_ID) ratingId: Long,
+	): RatingDto {
+		return adsDao.getRating(id = ratingId, advertisableId = adId)
 	}
 }
