@@ -4,12 +4,12 @@ import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
-import cz.globex.hana.database.repository.*
 import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
 import java.util.stream.*
+import javax.persistence.*
 
 @Component
 internal class AdsDaoImpl protected constructor(
@@ -65,10 +65,10 @@ internal class AdsDaoImpl protected constructor(
 		adsRepository.save(ad)
 	}
 
+	@Transactional
 	override fun deleteAdvertisable(id: Long) {
-		val ad = adsRepository.getByIdAndIsDeletedFalse(id)
-		ad.isDeleted = true
-		adsRepository.save(ad)
+		if (!adsRepository.existsByIdAndIsDeletedFalse(id)) throw EntityNotFoundException()
+		adsRepository.deleteById(id)
 	}
 
 	override fun createRating(

@@ -9,4 +9,8 @@ interface UsersRepository : JpaRepository<User, Long>, ArchivablesRepository {
 	override fun findAllByIsDeletedFalse(pageable: Pageable): Page<User>
 
 	override fun getByIdAndIsDeletedFalse(id: Long): User
+
+	@Modifying
+	@Query("UPDATE User u SET u.isDeleted = true WHERE u.id = :id")
+	override fun deleteById(id: Long)
 }

@@ -9,6 +9,7 @@ import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
 import java.util.stream.*
+import javax.persistence.*
 
 @Component
 internal class UsersDaoImpl protected constructor(
@@ -52,9 +53,9 @@ internal class UsersDaoImpl protected constructor(
 		usersRepository.save(user)
 	}
 
-	override fun deleteUser(id: Long) {
-		val user = usersRepository.getByIdAndIsDeletedFalse(id)
-		user.isDeleted = true
-		usersRepository.save(user)
+	@Transactional
+	override fun deleteUser(id: Long){
+		if (!usersRepository.existsByIdAndIsDeletedFalse(id)) throw EntityNotFoundException()
+		usersRepository.deleteById(id)
 	}
 }

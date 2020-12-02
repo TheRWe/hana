@@ -7,4 +7,8 @@ interface ArchivablesRepository {
 	fun findAllByIsDeletedFalse(pageable: Pageable): Page<out Archivable>
 
 	fun getByIdAndIsDeletedFalse(id: Long): Archivable
+
+	fun existsByIdAndIsDeletedFalse(id: Long): Boolean
+
+	fun deleteById(id: Long)
 }

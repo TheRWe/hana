@@ -9,4 +9,8 @@ interface StockExchangesRepository : JpaRepository<StockExchange, Long>, Archiva
 	override fun findAllByIsDeletedFalse(pageable: Pageable): Page<StockExchange>
 
 	override fun getByIdAndIsDeletedFalse(id: Long): StockExchange
+
+	@Modifying
+	@Query("UPDATE STOCKEXCHANGE se SET se.isDeleted = true WHERE se.id = :id")
+	override fun deleteById(id: Long)
 }
