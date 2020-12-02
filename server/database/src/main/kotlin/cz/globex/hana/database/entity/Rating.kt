@@ -6,13 +6,13 @@ import javax.persistence.*
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-abstract class Rating(
+abstract class Rating internal constructor(
 	@ManyToOne(optional = false)
 	@JoinColumn(name = AUTHOR_COLUMN)
 	protected open var author: User,
 	advertisable: Advertisable,
 	score: RatingScore,
-) : LongIdentifiable() {
+) : Archivable() {
 	val author_safe: User get() = author
 
 	protected abstract var advertisable: Advertisable

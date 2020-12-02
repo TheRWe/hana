@@ -17,7 +17,7 @@ abstract class Advertisable internal constructor(
 	price: Int,
 	photoUri: String?,
 	@ManyToOne open var place: Place?,
-) : LongIdentifiable() {
+) : Archivable() {
 	val author_safe: User get() = author
 
 	@Column(nullable = false)

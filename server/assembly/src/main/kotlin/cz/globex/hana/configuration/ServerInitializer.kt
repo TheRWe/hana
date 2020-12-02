@@ -3,7 +3,7 @@ package cz.globex.hana.configuration
 import com.github.javafaker.*
 import cz.globex.hana.common.dto.*
 import cz.globex.hana.database.entity.impl.*
-import cz.globex.hana.database.repository.*
+import cz.globex.hana.database.repository.impl.*
 import org.springframework.context.annotation.*
 import org.springframework.stereotype.*
 import java.time.*

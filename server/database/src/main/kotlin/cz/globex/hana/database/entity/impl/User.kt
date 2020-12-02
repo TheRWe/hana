@@ -15,7 +15,7 @@ class User(
 	email: String,
 	@Enumerated(EnumType.STRING) var type: UserType,
 	photoUri: String? = null,
-) : LongIdentifiable() {
+) : Archivable() {
 	@Column(nullable = false)
 	var firstName: String = firstName.also { validateFirstName(it) }
 		set(value) {

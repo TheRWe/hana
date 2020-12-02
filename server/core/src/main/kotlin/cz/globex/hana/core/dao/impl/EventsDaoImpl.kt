@@ -5,6 +5,7 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.*
+import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
@@ -20,7 +21,7 @@ internal class EventsDaoImpl protected constructor(
 	@Transactional(readOnly = true)
 	override fun getAdvertisables(filters: EventFiltersDto, pageable: Pageable): EventsDto {
 		val events: Set<EventDto> = eventsRepository
-			.findAll(pageable)
+			.findAllByIsDeletedFalse(pageable)
 			.get()
 			.map(Event::toDto)
 			.collect(Collectors.toSet())
@@ -31,7 +32,7 @@ internal class EventsDaoImpl protected constructor(
 	override fun createAdvertisable(advertisableDto: EventCreateReplaceDto, authorId: Long): Long {
 		val event = with(advertisableDto) {
 			Event(
-				author = usersRepository.getOne(authorId),
+				author = usersRepository.getByIdAndIsDeletedFalse(authorId),
 				name = name,
 				description = description,
 				dateStartUtc = date.start,
@@ -49,7 +50,7 @@ internal class EventsDaoImpl protected constructor(
 	override fun getAdvertisable(id: Long): EventDto = eventsRepository.getOne(id).toDto()
 
 	override fun replaceAdvertisable(id: Long, advertisableDto: EventCreateReplaceDto) {
-		val event = eventsRepository.getOne(id)
+		val event = eventsRepository.getByIdAndIsDeletedFalse(id)
 		event.apply {
 			name = advertisableDto.name
 			description = advertisableDto.description
@@ -64,8 +65,8 @@ internal class EventsDaoImpl protected constructor(
 	}
 
 	override fun deleteAdvertisable(id: Long) {
-		val event = eventsRepository.getOne(id)
-		event.deleted = true
+		val event = eventsRepository.getByIdAndIsDeletedFalse(id)
+		event.isDeleted = true
 		eventsRepository.save(event)
 	}
 
@@ -76,8 +77,8 @@ internal class EventsDaoImpl protected constructor(
 	): Long {
 		val rating =
 			EventRating(
-				usersRepository.getOne(authorId),
-				eventsRepository.getOne(advertisableId),
+				usersRepository.getByIdAndIsDeletedFalse(authorId),
+				eventsRepository.getByIdAndIsDeletedFalse(advertisableId),
 				ratingDto.score
 			)
 		return eventRatingsRepository.save(rating).id_safe

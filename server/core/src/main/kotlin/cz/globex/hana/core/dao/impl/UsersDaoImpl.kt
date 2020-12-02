@@ -4,7 +4,7 @@ import cz.globex.hana.common.dto.*
 import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
-import cz.globex.hana.database.repository.*
+import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
@@ -14,7 +14,6 @@ import java.util.stream.*
 internal class UsersDaoImpl protected constructor(
 	private val usersRepository: UsersRepository,
 ) : UsersDao {
-
 	override fun createUser(userDto: UserCreateReplaceDto): Long {
 		val user = with(userDto) {
 			User(
@@ -29,12 +28,12 @@ internal class UsersDaoImpl protected constructor(
 	}
 
 	@Transactional(readOnly = true)
-	override fun getUser(id: Long): UserDto = usersRepository.getOne(id).toDto()
+	override fun getUser(id: Long): UserDto = usersRepository.getByIdAndIsDeletedFalse(id).toDto()
 
 	@Transactional(readOnly = true)
 	override fun getUsers(filters: UserFiltersDto, pageable: Pageable): UsersDto {
 		val users: Set<UserDto> = usersRepository
-			.findAll(pageable)
+			.findAllByIsDeletedFalse(pageable)
 			.get()
 			.map(User::toDto)
 			.collect(Collectors.toSet())
@@ -42,7 +41,7 @@ internal class UsersDaoImpl protected constructor(
 	}
 
 	override fun replaceUser(id: Long, userDto: UserCreateReplaceDto) {
-		val user = usersRepository.getOne(id)
+		val user = usersRepository.getByIdAndIsDeletedFalse(id)
 		user.apply {
 			firstName = userDto.firstName
 			lastName = userDto.lastName
@@ -54,8 +53,8 @@ internal class UsersDaoImpl protected constructor(
 	}
 
 	override fun deleteUser(id: Long) {
-		val user = usersRepository.getOne(id)
-		user.deleted = true
+		val user = usersRepository.getByIdAndIsDeletedFalse(id)
+		user.isDeleted = true
 		usersRepository.save(user)
 	}
 }

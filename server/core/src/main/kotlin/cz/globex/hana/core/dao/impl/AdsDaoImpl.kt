@@ -5,6 +5,7 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.*
+import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
@@ -21,7 +22,7 @@ internal class AdsDaoImpl protected constructor(
 	override fun createAdvertisable(advertisableDto: AdCreateReplaceDto, authorId: Long): Long {
 		val ad = with(advertisableDto) {
 			Ad(
-				author = usersRepository.getOne(authorId),
+				author = usersRepository.getByIdAndIsDeletedFalse(authorId),
 				name = name,
 				description = description,
 				type = type,
@@ -37,7 +38,7 @@ internal class AdsDaoImpl protected constructor(
 	@Transactional(readOnly = true)
 	override fun getAdvertisables(filters: AdFiltersDto, pageable: Pageable): AdsDto {
 		val ads: Set<AdDto> = adsRepository
-			.findAll(pageable)
+			.findAllByIsDeletedFalse(pageable)
 			.get()
 			.map(Ad::toDto)
 			.collect(Collectors.toSet())
@@ -45,10 +46,12 @@ internal class AdsDaoImpl protected constructor(
 	}
 
 	@Transactional(readOnly = true)
-	override fun getAdvertisable(id: Long): AdDto = adsRepository.getOne(id).toDto()
+	override fun getAdvertisable(id: Long): AdDto {
+		return adsRepository.getByIdAndIsDeletedFalse(id).toDto()
+	}
 
 	override fun replaceAdvertisable(id: Long, advertisableDto: AdCreateReplaceDto) {
-		val ad = adsRepository.getOne(id)
+		val ad = adsRepository.getByIdAndIsDeletedFalse(id)
 		ad.apply {
 			name = advertisableDto.name
 			description = advertisableDto.description
@@ -63,8 +66,8 @@ internal class AdsDaoImpl protected constructor(
 	}
 
 	override fun deleteAdvertisable(id: Long) {
-		val ad = adsRepository.getOne(id)
-		ad.deleted = true
+		val ad = adsRepository.getByIdAndIsDeletedFalse(id)
+		ad.isDeleted = true
 		adsRepository.save(ad)
 	}
 
@@ -74,10 +77,9 @@ internal class AdsDaoImpl protected constructor(
 		advertisableId: Long,
 	): Long {
 		val rating =
-
 			AdRating(
-				usersRepository.getOne(authorId),
-				adsRepository.getOne(advertisableId),
+				usersRepository.getByIdAndIsDeletedFalse(authorId),
+				adsRepository.getByIdAndIsDeletedFalse(advertisableId),
 				ratingDto.score
 			)
 		return adRatingsRepository.save(rating).id_safe

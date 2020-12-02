@@ -5,6 +5,7 @@ import cz.globex.hana.core.dao.*
 import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.*
+import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
@@ -23,7 +24,7 @@ internal class StockExchangesDaoImpl protected constructor(
 		pageable: Pageable,
 	): StockExchangesDto {
 		val stockExchanges: Set<StockExchangeDto> = stockExchangesRepository
-			.findAll(pageable)
+			.findAllByIsDeletedFalse(pageable)
 			.get()
 			.map(StockExchange::toDto)
 			.collect(Collectors.toSet())
@@ -37,7 +38,7 @@ internal class StockExchangesDaoImpl protected constructor(
 	): Long {
 		val stockExchange = with(advertisableDto) {
 			StockExchange(
-				author = usersRepository.getOne(authorId),
+				author = usersRepository.getByIdAndIsDeletedFalse(authorId),
 				name = name,
 				description = description,
 				type = type,
@@ -52,11 +53,11 @@ internal class StockExchangesDaoImpl protected constructor(
 
 	@Transactional(readOnly = true)
 	override fun getAdvertisable(id: Long): StockExchangeDto {
-		return stockExchangesRepository.getOne(id).toDto()
+		return stockExchangesRepository.getByIdAndIsDeletedFalse(id).toDto()
 	}
 
 	override fun replaceAdvertisable(id: Long, advertisableDto: StockExchangeCreateReplaceDto) {
-		val stockExchange = stockExchangesRepository.getOne(id)
+		val stockExchange = stockExchangesRepository.getByIdAndIsDeletedFalse(id)
 		stockExchange.apply {
 			name = advertisableDto.name
 			description = advertisableDto.description
@@ -70,8 +71,8 @@ internal class StockExchangesDaoImpl protected constructor(
 	}
 
 	override fun deleteAdvertisable(id: Long) {
-		val stockExchange = stockExchangesRepository.getOne(id)
-		stockExchange.deleted = true
+		val stockExchange = stockExchangesRepository.getByIdAndIsDeletedFalse(id)
+		stockExchange.isDeleted = true
 		stockExchangesRepository.save(stockExchange)
 	}
 
@@ -82,8 +83,8 @@ internal class StockExchangesDaoImpl protected constructor(
 	): Long {
 		val rating =
 			StockExchangeRating(
-				usersRepository.getOne(authorId),
-				stockExchangesRepository.getOne(advertisableId),
+				usersRepository.getByIdAndIsDeletedFalse(authorId),
+				stockExchangesRepository.getByIdAndIsDeletedFalse(advertisableId),
 				ratingDto.score
 			)
 		return stockExchangeRatingsRepository.save(rating).id_safe
