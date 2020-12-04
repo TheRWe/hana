@@ -1,6 +1,9 @@
 import React from "react";
 import { Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
+import { LocText } from "../components/LocText";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSort } from "@fortawesome/free-solid-svg-icons";
 
 type TCalendarPageProps = {
 
@@ -16,12 +19,30 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     >
     </FilterMenu>
 
-
     <section className="section-sort">
-      //sorting options
+      <div className="container">
+        <div className="sort-option">
+          <FontAwesomeIcon icon={faSort} />
+          <p>
+            <LocText
+              en="Date"
+              cz="Datum"
+            />
+          </p>
+        </div>
+        <div className="sort-option">
+          <FontAwesomeIcon icon={faSort} />
+          <p>
+            <LocText
+              en="Popularity"
+              cz="Popularita"
+            />
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section>
+    <section className="container cards">
       <Tile
         imagePath="../images/no_image.png"
         eventRating="4/5"
