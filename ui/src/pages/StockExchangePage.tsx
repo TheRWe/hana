@@ -1,6 +1,9 @@
 import React from "react";
 import { Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LocText } from "../components/LocText";
+import { faSort } from "@fortawesome/free-solid-svg-icons";
 
 type TStockExchangePageProps = {
 
@@ -18,10 +21,20 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
     </FilterMenu>
 
     <section className="section-sort">
-      //sorting options
+      <div className="container">
+        <div className="sort-option">
+          <FontAwesomeIcon icon={faSort} />
+          <p>
+            <LocText
+              en="Cena"
+              cz="Price"
+            />
+          </p>
+        </div>
+      </div>
     </section>
 
-    <section>
+    <section className="container cards">
       <Tile
         imagePath="../images/no_image.png"
         heading="Stará váza"
