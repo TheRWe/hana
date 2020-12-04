@@ -21,7 +21,7 @@ export const MainPage: React.FC<TMainPageProps> = () => {
       <img src="../images/title_image.png" alt="title" className="img-full"></img>
     </section>
 
-    <section className="section-about container space center">
+    <section className="section-about container  container-center">
       <p>
         Haná je etnografická oblasť na strednej Morave, približne na území medzi mestami Zábřeh,
         Holešov, Vyškov a Uničov, väčšie centra sa nachádzajú v nížinách okolo riek Moravy
@@ -37,7 +37,7 @@ export const MainPage: React.FC<TMainPageProps> = () => {
     </section>
 
     <section className="section-goto">
-      <div className="container space">
+      <div className="container container-center">
         <div className="row">
           <article className="col-3 card-section-goto">
             <header>
@@ -106,7 +106,7 @@ export const MainPage: React.FC<TMainPageProps> = () => {
     </section>
 
 
-    <section className="section-upcoming-events container space center">
+    <section className="section-upcoming-events container  container-center">
       <header>
         <h2>
           <LocText
