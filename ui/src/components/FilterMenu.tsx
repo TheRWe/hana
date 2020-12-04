@@ -22,6 +22,24 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
   const [searchVisible, setSearchVisible] = useState(false);
   const searchVisibleClassName = searchVisible ? "expanded" : "collapsed";
 
+  const [addModalVysible, setAddModalVysible] = useState(false);
+
+  const labelAdd = (() => {
+    switch (filterType) {
+      case EFilterMenuType.stock: return {
+        en: "Add an item",
+        cz: "Přidat položku",
+      };
+      case EFilterMenuType.events: return {
+        en: "Add an event",
+        cz: "Přidat akci",
+      };
+      case EFilterMenuType.jobAd: return {
+        en: "Add an advertisement",
+        cz: "Vytvořit inzerát",
+      };
+    }
+  })();
 
   return (<>
     <section className="section-filter-menu">
@@ -35,32 +53,18 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
             />
             <FontAwesomeIcon icon={faCaretDown} />
           </button>
-          <button className="button btn-orange right">
-            {useLocalized((() => {
-              switch (filterType) {
-                case EFilterMenuType.stock:
-                  return {
-                    en: "Add an item",
-                    cz: "Přidat položku",
-                  };
-                case EFilterMenuType.events:
-                  return {
-                    en: "Add an event",
-                    cz: "Přidat akci",
-                  };
-                case EFilterMenuType.jobAd:
-                  return {
-                    en: "Add an advertisement",
-                    cz: "Vytvořit inzerát",
-                  };
-              }
-            })())}
+          <button className="button btn-orange right" onClick={() => setAddModalVysible(true)}>
+            {useLocalized(labelAdd)}
             <FontAwesomeIcon icon={faPlus} />
           </button>
 
           <ModalBox
-            isHidden={true}
-          ></ModalBox>
+            visible={addModalVysible}
+            onClose={() => setAddModalVysible(false)}
+            label={labelAdd}
+          >
+            TODO: add form
+          </ModalBox>
         </header>
 
 
