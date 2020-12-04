@@ -1,4 +1,4 @@
-import { faMapMarkedAlt, faStar, faStarHalf, faStarOfDavid } from "@fortawesome/free-solid-svg-icons";
+import { faMapMarkedAlt, faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { LocText } from "../components/LocText";
