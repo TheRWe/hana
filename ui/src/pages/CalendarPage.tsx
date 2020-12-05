@@ -1,23 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 import { LocText } from "../components/LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
+import { EHttpMethod, withFetch } from "../api";
+import { TEventGetListGetAction } from "../common/interface/event";
+import { PromiseType } from "../common/utils/types";
+import { dateFromApi } from "../common/interface";
 
 type TCalendarPageProps = {
 
 };
 
+type Events = PromiseType<ReturnType<TEventGetListGetAction>>["events"];
+
 export const CalendarPage: React.FC<TCalendarPageProps> = () => {
 
-  return <>
-    {/* BEGIN SECTION CALENDAR */}
+  const [events, setEvents] = useState<Events>([]);
 
+  useEffect(() => {
+    const fetchEvents = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "/events" });
+
+    (async () => {
+      const ev = await fetchEvents();
+      setEvents(ev.events);
+    })();
+  }, []);
+
+  return <>
     <FilterMenu
       filterType={EFilterMenuType.events}
-    >
-    </FilterMenu>
+    />
 
     <section className="section-sort">
       <div className="container">
@@ -42,19 +56,23 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
-      <Tile
-        imagePath="../images/no_image.png"
-        eventRating="4/5"
-        place="Hala někde ve městě"
-        date="5.5.2018 13:00 - 15:00"
-        heading="Tvořivé dílny"
-        text="Program pre žiakov materských škôl, základných a špeciálnych škôl. V tvorivej dielni si deti vyskúšajú rôzne aktivity s použitím niektorých tradičných výrobných postupov a prírodných materiálov."
-        price="30 kč"
-      >
-      </Tile>
-    </section>
-
-    {/* END SECTION CALENDAR */}
+    {
+      events.map(({
+        authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
+      }) =>
+        <section className="container cards">
+          <Tile
+            imagePath={photoUri || "../images/no_image.png"}
+            eventRating="4/5"
+            place="Hala někde ve městě"
+            date={dateFromApi(date.start).toLocaleString()}
+            heading="Tvořivé dílny"
+            text="Program pre žiakov materských škôl, základných a špeciálnych škôl. V tvorivej dielni si deti vyskúšajú rôzne aktivity s použitím niektorých tradičných výrobných postupov a prírodných materiálov."
+            price={entryFee.toString(10) + " Kč"}
+          >
+          </Tile>
+        </section>
+      )
+    }
   </>;
 };

@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { ResourceInfo, StockExchange, StockExchanges, StockExchangeCreateReplace, StockExchangeFilters, Rate, Report, AdFilters, Pagination} from "./shared";
+import { ResourceInfo, StockExchange, StockExchanges, StockExchangeCreateReplace, StockExchangeFilters, Rate, Report, Pagination} from "./shared";
 
 // 1. get stock exchange by id
 export type TStockExchangeGetByIdGetRequest = {};

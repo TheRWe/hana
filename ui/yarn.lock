@@ -9766,13 +9766,6 @@ schema-utils@^2.5.0, schema-utils@^2.6.0, schema-utils@^2.6.1, schema-utils@^2.6
     ajv "^6.12.4"
     ajv-keywords "^3.5.2"
 
-sciator-core@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/sciator-core/-/sciator-core-1.1.0.tgz#2639e7e2962ed6230e8d13b6fb5722c04252abc2"
-  integrity sha512-+wA3sggIx6PmhjacMap9HykdTLY7kFBpw7UATfqWUcOp0GZxLQ80zI0m0tqlXGtdYgd9oVq5sgfUf7PmxUFHTQ==
-  dependencies:
-    chalk "2.4.2"
-
 scss-tokenizer@^0.2.3:
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/scss-tokenizer/-/scss-tokenizer-0.2.3.tgz#8eb06db9a9723333824d3f5530641149847ce5d1"
