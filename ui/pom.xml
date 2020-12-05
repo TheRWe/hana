@@ -54,6 +54,9 @@
                     <classPatterns>
                         <classPattern>cz.globex.hana.common.dto.**Dto</classPattern>
                     </classPatterns>
+                    <customTypeMappings>
+                        <customTypeMapping>java.time.LocalDateTime:[number, number, number, number, number, number, number]</customTypeMapping>
+                    </customTypeMappings>
                     <outputFileType>implementationFile</outputFileType>
                     <outputFile>src/common/interface/shared.ts</outputFile>
                     <outputKind>module</outputKind>
