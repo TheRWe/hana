@@ -1,5 +1,5 @@
 import React from "react";
-import { LocText, TLocalizedText, useLocalized } from "./LocText";
+import { LocText, TLocalizedText } from "./LocText";
 
 type ModalBoxProps = {
   visible: boolean,
