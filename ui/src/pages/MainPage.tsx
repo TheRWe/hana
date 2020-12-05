@@ -10,10 +10,6 @@ import { faTag, faCalendar, faSuitcase } from "@fortawesome/free-solid-svg-icons
 
 
 import { ButtonLink } from "../components/ButtonLink";
-<<<<<<< HEAD
-import { Button } from "../components/Button";
-=======
->>>>>>> 820969067d5d57a57ebae3280cd7f2a3b8a1e549
 
 type TMainPageProps = {
 
