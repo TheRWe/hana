@@ -16,7 +16,6 @@ type TStockExchangePageProps = {
 };
 
 type TExchanges = PromiseType<ReturnType<TStockExchangeGetListGetAction>>["stockExchanges"];
-type TUser = PromiseType<ReturnType<TUserGetByIdGetAction>>;
 
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
   const [exchanges, setExchanges] = useState<TExchanges>([]);

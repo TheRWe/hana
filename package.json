@@ -14,6 +14,7 @@
     "dist": "yarn ci && yarn script dist",
     "dev": "run-p dev:*",
     "dev:ui": "yarn --cwd ui dev",
+    "dev:server": "mvn install -pl !ui spring-boot:run",
     "semantic-release": "semantic-release",
     "lint": "tslint -c tslint.json ./ui/src/**/*.ts{,x}",
     "lint:fix": "yarn lint --fix",

@@ -14,16 +14,31 @@ export enum EFilterMenuType {
   jobAd,
 }
 
+type TFilter = {
+  timeFrom?: Date,
+  timeTo?: Date,
+  // todo: place
+  place?: string,
+  distance?: number,
+  priceFrom?: number,
+  priceTo?: number,
+  type?: string,
+  // todo: job types
+};
+
 type FilterMenuProps = {
-  filterType: EFilterMenuType
+  filterType: EFilterMenuType,
 };
 
 export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenuProps) => {
-
   const [searchVisible, setSearchVisible] = useState(false);
-  const searchVisibleClassName = searchVisible ? "expanded" : "collapsed";
-
   const [addModalVysible, setAddModalVysible] = useState(false);
+  const [filter, setFilter] = useState<TFilter>({});
+  const setFilterProp = (fnc: (filter: TFilter) => void) => {
+    const cpy = { ...filter }; fnc(cpy); setFilter(cpy);
+  };
+
+  const searchVisibleClassName = searchVisible ? "expanded" : "collapsed";
 
   const labelAdd = (() => {
     switch (filterType) {
@@ -43,6 +58,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
   })();
 
   return (<>
+  {JSON.stringify(filter)}
     <section className="section-filter-menu">
       <div className="container">
 
@@ -80,16 +96,20 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
                     <Input
-                      type={EInputType.text}
+                      type={EInputType.number}
                       label={{
                         en: "Price:   from", cz: "Cena:   od",
                       }}
+                      onValueChange={(val) => setFilterProp(x => x.priceFrom = val)}
+                      value={filter.priceFrom || 0}
                     ></Input>
                     <Input
-                      type={EInputType.text}
+                      type={EInputType.number}
                       label={{
                         en: "- to", cz: "- do",
                       }}
+                      onValueChange={(val) => setFilterProp(x => x.priceFrom = val)}
+                      value={filter.priceFrom || 0}
                     ></Input>
                   </div>
                   <div className="menu-filter">
