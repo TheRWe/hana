@@ -6,6 +6,7 @@ import { ModalBox } from "../components/ModalBox";
 import { LocText, useLocalized } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonLink } from "./ButtonLink";
 
 export enum EFilterMenuType {
   events,

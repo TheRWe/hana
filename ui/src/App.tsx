@@ -26,6 +26,9 @@ import { ProfilePage } from "./pages/ProfilePage";
 import { AddEventPage } from "./pages/AddEventPage";
 import { AddJobAdPage } from "./pages/AddJobAdPage";
 import { AddTradePage } from "./pages/AddTradePage";
+import { EventDetails } from "./pages/EventDetails";
+import { JobAdDetails } from "./pages/JobAdDetails";
+import { TradeDetails } from "./pages/TradeDetails";
 
 type Props = {
 
@@ -136,6 +139,15 @@ const App: React.FC<Props> = () => {
             </Route>
             <Route path="/AddTradePage">
               <AddTradePage />
+            </Route>
+            <Route path="/EventDetails">
+              <EventDetails />
+            </Route>
+            <Route path="/JobAdDetails">
+              <JobAdDetails />
+            </Route>
+            <Route path="/TradeDetails">
+              <TradeDetails />
             </Route>
           </Switch>
         </main>

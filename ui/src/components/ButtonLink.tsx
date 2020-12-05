@@ -9,14 +9,15 @@ type ButtonLinkProps = {
 };
 
 
-export const ButtonLink: React.FC<ButtonLinkProps> = ({ label, linkTo }: ButtonLinkProps) => {
+export const ButtonLink: React.FC<ButtonLinkProps> = (props) => {
 
   return (<>
     {/* <button>
 
     </button> */}
-    <Link to={linkTo} className="button btn-orange">
-      {useLocalized(label)}
+    <Link to={props.linkTo} className="button btn-orange">
+      {useLocalized(props.label)}
+      {props.children}
     </Link>
   </>);
 };
