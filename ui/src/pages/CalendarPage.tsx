@@ -16,7 +16,6 @@ type TCalendarPageProps = {
 type Events = PromiseType<ReturnType<TEventGetListGetAction>>["events"];
 
 export const CalendarPage: React.FC<TCalendarPageProps> = () => {
-
   const [events, setEvents] = useState<Events>([]);
 
   useEffect(() => {
@@ -63,11 +62,13 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
         <section className="container cards">
           <Tile
             imagePath={photoUri || "../images/no_image.png"}
-            eventRating="4/5"
-            place="Hala někde ve městě"
-            date={dateFromApi(date.start).toLocaleString()}
-            heading="Tvořivé dílny"
-            text="Program pre žiakov materských škôl, základných a špeciálnych škôl. V tvorivej dielni si deti vyskúšajú rôzne aktivity s použitím niektorých tradičných výrobných postupov a prírodných materiálov."
+            eventRating={rating}
+            place={place?.name}
+            date={
+              // todo: date fromater -> if date start is same with end only time end will show ...
+              dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
+            heading={name}
+            text={description}
             price={entryFee.toString(10) + " Kč"}
           >
           </Tile>
