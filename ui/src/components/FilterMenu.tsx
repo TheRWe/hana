@@ -3,7 +3,7 @@ import { ERadioFilterType, RadioFilter } from "../components/RadioFilter";
 import { EInputType, Input } from "../components/Input";
 import { SelectBox } from "../components/SelectBox";
 import { ModalBox } from "../components/ModalBox";
-import { LocText } from "./LocText";
+import { LocText, useLocalized } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { ButtonLink } from "./ButtonLink";
@@ -23,47 +23,59 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
   const [searchVisible, setSearchVisible] = useState(false);
   const searchVisibleClassName = searchVisible ? "expanded" : "collapsed";
 
+  const [addModalVysible, setAddModalVysible] = useState(false);
+
+  const labelAdd = (() => {
+    switch (filterType) {
+      case EFilterMenuType.stock: return {
+        en: "Add an item",
+        cz: "Přidat položku",
+      };
+      case EFilterMenuType.events: return {
+        en: "Add an event",
+        cz: "Přidat akci",
+      };
+      case EFilterMenuType.jobAd: return {
+        en: "Add an advertisement",
+        cz: "Vytvořit inzerát",
+      };
+    }
+  })();
+
   return (<>
+    <section className="section-filter-menu">
+      <div className="container">
 
-    {/*********************************
-   * Filters for stock exhange page *
-   **********************************/}
-    {
-      (filterType as EFilterMenuType) === EFilterMenuType.stock ?
-        <section className="section-filter-menu">
-          <div className="container">
-            <header className="row">
-              <button className="button  btn-blue left" onClick={() => setSearchVisible(!searchVisible)}>
-                <LocText
-                  en="Search"
-                  cz="Vyhledávání"
-                />
-                <FontAwesomeIcon icon={faCaretDown} />
-              </button>
-              {/* <button className="button btn-orange right">
-                <LocText
-                  en="Add an item"
-                  cz="Přidat položku"
-                />
-                <FontAwesomeIcon icon={faPlus} />
-              </button> */}
-              <ButtonLink
-                label = {{en:"Add an item", cz:"Přidat položku"}}
-                linkTo="/AddTradePage"
-              >
-                  <FontAwesomeIcon icon={faPlus} />
-              </ButtonLink>
+        <header className="row">
+          <button className="button  btn-blue left" onClick={() => setSearchVisible(!searchVisible)}>
+            <LocText
+              en="Search"
+              cz="Vyhledávání"
+            />
+            <FontAwesomeIcon icon={faCaretDown} />
+          </button>
+          <button className="button btn-orange right" onClick={() => setAddModalVysible(true)}>
+            {useLocalized(labelAdd)}
+            <FontAwesomeIcon icon={faPlus} />
+          </button>
 
-              <ModalBox
-                isHidden={true}
-              ></ModalBox>
-            </header>
+          <ModalBox
+            visible={addModalVysible}
+            onClose={() => setAddModalVysible(false)}
+            label={labelAdd}
+          >
+            TODO: add form
+          </ModalBox>
+        </header>
 
-            <div className={["section-filter-menu__filters"]
-              .concat(`section-filter-menu__filters-${searchVisibleClassName}`)
-              .join(" ")
-            }
-            >
+
+        <div className={["section-filter-menu__filters"]
+          .concat(`section-filter-menu__filters-${searchVisibleClassName}`)
+          .join(" ")
+        }>
+
+          {
+            (filterType as EFilterMenuType) === EFilterMenuType.stock ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
@@ -104,48 +116,14 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 >
                 </RadioFilter>
               </div>
-            </div>
-          </div>
-        </section>
-        :
-        undefined
-    }
+            </>
+              :
+              undefined
+          }
 
-    {/**************************************
-   * Filters for Calender of events page *
-   ***************************************/}
-    {
-      (filterType as EFilterMenuType) === EFilterMenuType.events ?
-        <section className="section-filter-menu">
-          <div className="container">
-            <header className="row">
-              <button className="button  btn-blue left" onClick={() => setSearchVisible(!searchVisible)}>
-                <LocText
-                  en="Search"
-                  cz="Vyhledávání"
-                />
-                <FontAwesomeIcon icon={faCaretDown} />
-              </button>
-              <ButtonLink
-                label = {{en:"Add an event", cz:"Přidat akci"}}
-                linkTo="/AddEventPage"
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-              </ButtonLink>
-              {/* <button className="button  btn-orange right">
-                <LocText
-                  en="Add an event"
-                  cz="Přidat akci"
-                />
-                <FontAwesomeIcon icon={faPlus} />
-              </button> */}
-            </header>
-            <div className={
-              ["section-filter-menu__filters"]
-                .concat(`section-filter-menu__filters-${searchVisibleClassName}`)
-                .join(" ")
-            }
-            >
+
+          {
+            (filterType as EFilterMenuType) === EFilterMenuType.events ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
@@ -184,48 +162,14 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 >
                 </RadioFilter>
               </div>
+            </>
+              :
+              undefined
+          }
 
-            </div>
-          </div>
-        </section>
-        :
-        undefined
-    }
 
-    {/***************************
-   * Filters for Job ads page *
-   ****************************/}
-    {
-      (filterType as EFilterMenuType) === EFilterMenuType.jobAd ?
-        <section className="section-filter-menu">
-          <div className="container">
-            <header className="row">
-              <button className="button  btn-blue left" onClick={() => setSearchVisible(!searchVisible)}>
-                <LocText
-                  en="Search"
-                  cz="Vyhledávání"
-                />
-                <FontAwesomeIcon icon={faCaretDown} />
-              </button>
-              {/* <button className="button  btn-orange right">
-                <LocText
-                  en="Add an advertisement"
-                  cz="Vytvořit inzerát"
-                />
-                <FontAwesomeIcon icon={faPlus} />
-              </button> */}
-              <ButtonLink
-                label = {{en:"Add an advertisement", cz:"Vytvořit inzerát"}}
-                linkTo="/AddJobAdPage"
-                >
-                  <FontAwesomeIcon icon={faPlus} />
-              </ButtonLink>
-            </header>
-            <div className={["section-filter-menu__filters"]
-              .concat(`section-filter-menu__filters-${searchVisibleClassName}`)
-              .join(" ")
-            }
-            >
+          {
+            (filterType as EFilterMenuType) === EFilterMenuType.jobAd ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
@@ -294,12 +238,15 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </section >
-        :
-        undefined
-    }
+            </>
+              :
+              undefined
+          }
+
+
+        </div>
+      </div>
+    </section>
   </>
   );
 };

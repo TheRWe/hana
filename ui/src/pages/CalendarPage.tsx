@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 import { LocText } from "../components/LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
+import { EHttpMethod, withFetch } from "../api";
+import { TEventGetListGetAction } from "../common/interface/event";
+import { PromiseType } from "../common/utils/types";
+import { dateFromApi } from "../common/interface";
 
 type TCalendarPageProps = {
 
 };
 
+type Events = PromiseType<ReturnType<TEventGetListGetAction>>["events"];
+
 export const CalendarPage: React.FC<TCalendarPageProps> = () => {
+  const [events, setEvents] = useState<Events>([]);
+
+  useEffect(() => {
+    const fetch = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "events" });
+
+    (async () => {
+      const ev = await fetch({});
+      setEvents(ev.events);
+    })();
+  }, []);
 
   return <>
-    {/* BEGIN SECTION CALENDAR */}
-
     <FilterMenu
       filterType={EFilterMenuType.events}
-    >
-    </FilterMenu>
+    />
 
     <section className="section-sort">
       <div className="container">
@@ -43,18 +56,24 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     </section>
 
     <section className="container cards">
-      <Tile
-        imagePath="../images/no_image.png"
-        eventRating="4/5"
-        place="Hala někde ve městě"
-        date="5.5.2018 13:00 - 15:00"
-        heading="Tvořivé dílny"
-        text="Program pre žiakov materských škôl, základných a špeciálnych škôl. V tvorivej dielni si deti vyskúšajú rôzne aktivity s použitím niektorých tradičných výrobných postupov a prírodných materiálov."
-        price="30 kč"
-      >
-      </Tile>
+      {
+        events.map(({
+          authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
+        }) =>
+          <Tile
+            heading={name}
+            imagePath={photoUri || "../images/no_image.png"}
+            eventRating={rating}
+            place={place?.name}
+            date={
+              // todo: date fromater -> if date start is same with end only time end will show ...
+              dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
+            text={description}
+            price={entryFee.toString(10) + " Kč"}
+          >
+          </Tile>
+        )
+      }
     </section>
-
-    {/* END SECTION CALENDAR */}
   </>;
 };

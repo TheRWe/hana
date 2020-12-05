@@ -1,7 +1,9 @@
 import { faMapMarkedAlt, faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
+import { RatingSummary } from "../common/interface/shared";
 import { LocText } from "../components/LocText";
+import { Rating } from "./Rating";
 
 export enum EJobAdType {
   off = "nabídka",
@@ -10,14 +12,14 @@ export enum EJobAdType {
 
 type TileProps = {
   imagePath?: string
-  eventRating?: string
+  eventRating?: RatingSummary | undefined
   place?: string
   date?: string
   email?: string
-  pay?: string
+  pay?: number
   jobType?: string
   userName?: string
-  userRating?: string
+  userRating?: RatingSummary | undefined
   heading: string
   text: string
   price?: string
@@ -31,14 +33,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         imagePath ? <img src={imagePath} alt="ntg" /> : undefined
       }
       <h3 className="card-title">{heading}</h3>
-      {
-        eventRating ?
-          <div className="card-rating">
-            {eventRating}
-          </div>
-          :
-          undefined
-      }
+      <Rating rating={eventRating} />
     </header>
     <p className="card-description">
       {text}
@@ -54,7 +49,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
                   cz="Plat:"
                 />
               </p>
-              <p>{pay}</p>
+              <p>{`${pay.toLocaleString()} Kč`}</p>
             </div>
             :
             undefined
@@ -95,14 +90,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
                 {userName}
               </p>
               {
-                userRating ?
-                  <div className="card-rating">
-                    {userRating}
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStarHalf} />
-                  </div>
-                  :
-                  undefined
+                <Rating rating={userRating} />
               }
             </div>
             :

@@ -104,8 +104,6 @@ export const MainPage: React.FC<TMainPageProps> = () => {
           </article>
         </div>
       </div>
-
-
     </section>
 
 

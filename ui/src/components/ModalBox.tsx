@@ -1,35 +1,35 @@
 import React from "react";
-import { LocText } from "./LocText";
+import { LocText, TLocalizedText } from "./LocText";
 
 type ModalBoxProps = {
-  isHidden: boolean
+  visible: boolean,
+  onClose?: () => void,
+  label: TLocalizedText,
 };
 
-export const ModalBox: React.FC<ModalBoxProps> = ({ isHidden }: ModalBoxProps) => {
+export const ModalBox: React.FC<ModalBoxProps> = ({ visible, onClose = () => { }, label, children }) => {
+  if (!visible)
+    return <></>;
+
+  const close = () => {
+    onClose();
+  };
 
   return (<>
-
-    {
-      isHidden
-        ?
-        null
-        :
-        <div className="modal">
-          <div className="modal-content">
-            <div className="modal-header">
-              <div className="modal-title">
-                <LocText
-                  en="header"
-                  cz="nadpis"
-                /> </div>
-              <span className="close">&times;</span>
-            </div>
-            <div className="modal-body">
-              <p>Some text in the Modal..</p>
-            </div>
+    <div className="modal">
+      <div className="modal-content">
+        <div className="modal-header">
+          <div className="modal-title">
+            <LocText
+              {...label}
+            />
           </div>
+          <span className="close" onClick={close}>&times;</span>
         </div>
-    }
-
+        <div className="modal-body">
+          {children}
+        </div>
+      </div>
+    </div>
   </>);
 };

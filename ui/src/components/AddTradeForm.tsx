@@ -1,9 +1,7 @@
 import React from "react";
 import { LocText } from "./LocText";
-import { EJobAdType } from "./Tile";
 import { EInputType, Input } from "./Input";
 import { TextArea } from "./TextArea";
-import { SelectBox } from "./SelectBox";
 
 
 type AddTradeFormProps = {
