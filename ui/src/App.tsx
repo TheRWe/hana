@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 
 // Styles
@@ -23,6 +24,9 @@ import { StockExchangePage } from "./pages/StockExchangePage";
 import { CalendarPage } from "./pages/CalendarPage";
 import { JobAdsPage } from "./pages/JobAdsPage";
 import { ProfilePage } from "./pages/ProfilePage";
+import { AddEventPage } from "./pages/AddEventPage";
+import { AddJobAdPage } from "./pages/AddJobAdPage";
+import { AddTradePage } from "./pages/AddTradePage";
 
 type Props = {
 
@@ -124,6 +128,15 @@ const App: React.FC<Props> = () => {
             </Route>
             <Route path="/ProfilePage">
               <ProfilePage />
+            </Route>
+            <Route path="/AddEventPage">
+              <AddEventPage />
+            </Route>
+            <Route path="/AddJobAdPage">
+              <AddJobAdPage />
+            </Route>
+            <Route path="/AddTradePage">
+              <AddTradePage />
             </Route>
           </Switch>
         </main>

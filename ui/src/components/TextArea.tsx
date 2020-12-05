@@ -1,25 +1,22 @@
 import React from "react";
 import { LocText, TLocalizedText, useLocalized } from "./LocText";
 
-export enum EInputType {
-  date = "date",
-  text = "text",
-}
 
-type InputProps = {
-  type: EInputType
+type TextAreaProps = {
   label: TLocalizedText
+  numRows?: number
+  numCols?: number
   value?: string
 };
 
 
-export const Input: React.FC<InputProps> = ({ type, label, value }: InputProps) => {
+export const TextArea: React.FC<TextAreaProps> = ({ label, numRows, numCols, value }: TextAreaProps) => {
   const name = label.en.replace(" ", "-").toLowerCase();
 
   return (<>
     <label htmlFor={name}>
       {useLocalized(label)}
     </label>
-    <input type={type} id={name} name={name} value={value} />
+    <textarea id={name} name={name} rows={numRows} cols={numCols}>{value}</textarea>
   </>);
 };
