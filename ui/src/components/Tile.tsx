@@ -16,7 +16,7 @@ type TileProps = {
   place?: string
   date?: string
   email?: string
-  pay?: string
+  pay?: number
   jobType?: string
   userName?: string
   userRating?: RatingSummary | undefined
@@ -49,7 +49,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
                   cz="Plat:"
                 />
               </p>
-              <p>{pay}</p>
+              <p>{`${pay.toLocaleString()} Kč`}</p>
             </div>
             :
             undefined

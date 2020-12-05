@@ -9,6 +9,7 @@ import { EHttpMethod, withFetch } from "../api";
 import { PromiseType, randInt, sleep } from "../common/utils";
 import { TUserGetByIdGetAction } from "../common/interface/user";
 import { StockExchangeType } from "../common/interface/shared";
+import { useProvideUsersForIds } from "../utils/useProvideUser";
 
 type TStockExchangePageProps = {
 
@@ -19,34 +20,22 @@ type TUser = PromiseType<ReturnType<TUserGetByIdGetAction>>;
 
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
   const [exchanges, setExchanges] = useState<TExchanges>([]);
-  const [users, setUsers] = useState<{ [key: number]: TUser }>({});
+
+  const [usersIds, setUsersIds] = useState<number[]>([]);
+  useEffect(() => { setUsersIds(exchanges.map(x => x.authorId)); }, [exchanges]);
+  const users = useProvideUsersForIds(usersIds);
+
+
 
   useEffect(() => {
-    const fetchEvents = withFetch<TStockExchangeGetListGetAction>({ method: EHttpMethod.GET, route: "stock-exchanges" });
+    const fetch = withFetch<TStockExchangeGetListGetAction>({ method: EHttpMethod.GET, route: "stock-exchanges" });
 
     (async () => {
-      const res = await fetchEvents({ pageSize: 24, pageStart: 0 });
+      const res = await fetch({ pageSize: 24, pageStart: 0 });
       setExchanges(res.stockExchanges);
     })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      const userIdToLoad = exchanges.map(x => x.authorId)
-        .filter(x => !users[x])
-        ;
-
-      const localCache = { ...users };
-      await Promise.all(userIdToLoad.map(async id => {
-        const fetchUser = withFetch<TUserGetByIdGetAction>({ method: EHttpMethod.GET, route: `users/${id}` });
-        // todo: remove testing sleep
-        await sleep(randInt(randInt(15_000)));
-        localCache[id] = await fetchUser({});
-        const newObj = { ...users, ...localCache };
-        setUsers(newObj);
-      }));
-    })();
-  }, [exchanges]);
 
   return <>
     <FilterMenu

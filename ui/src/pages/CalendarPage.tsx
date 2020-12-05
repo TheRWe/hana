@@ -19,10 +19,10 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
   const [events, setEvents] = useState<Events>([]);
 
   useEffect(() => {
-    const fetchEvents = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "/events" });
+    const fetch = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "events" });
 
     (async () => {
-      const ev = await fetchEvents({});
+      const ev = await fetch({});
       setEvents(ev.events);
     })();
   }, []);
