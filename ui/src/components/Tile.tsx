@@ -19,7 +19,7 @@ type TileProps = {
   pay?: string
   jobType?: string
   userName?: string
-  userRating?: string
+  userRating?: RatingSummary | undefined
   heading: string
   text: string
   price?: string
@@ -90,14 +90,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
                 {userName}
               </p>
               {
-                userRating ?
-                  <div className="card-rating">
-                    {userRating}
-                    <FontAwesomeIcon icon={faStar} />
-                    <FontAwesomeIcon icon={faStarHalf} />
-                  </div>
-                  :
-                  undefined
+                <Rating rating={userRating} />
               }
             </div>
             :

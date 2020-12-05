@@ -1,20 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
 import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LocText } from "../components/LocText";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
+import { TStockExchangeGetListGetAction } from "../common/interface/stockExchange";
+import { EHttpMethod, withFetch } from "../api";
+import { PromiseType, randInt, sleep } from "../common/utils";
+import { TUserGetByIdGetAction } from "../common/interface/user";
+import { StockExchangeType } from "../common/interface/shared";
 
 type TStockExchangePageProps = {
 
 };
 
+type TExchanges = PromiseType<ReturnType<TStockExchangeGetListGetAction>>["stockExchanges"];
+type TUser = PromiseType<ReturnType<TUserGetByIdGetAction>>;
+
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
+  const [exchanges, setExchanges] = useState<TExchanges>([]);
+  const [users, setUsers] = useState<{ [key: number]: TUser }>({});
+
+  useEffect(() => {
+    const fetchEvents = withFetch<TStockExchangeGetListGetAction>({ method: EHttpMethod.GET, route: "stock-exchanges" });
+
+    (async () => {
+      const res = await fetchEvents({ pageSize: 24, pageStart: 0 });
+      setExchanges(res.stockExchanges);
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      const userIdToLoad = exchanges.map(x => x.authorId)
+        .filter(x => !users[x])
+        ;
+
+      const localCache = { ...users };
+      await Promise.all(userIdToLoad.map(async id => {
+        const fetchUser = withFetch<TUserGetByIdGetAction>({ method: EHttpMethod.GET, route: `users/${id}` });
+        // todo: remove testing sleep
+        await sleep(randInt(randInt(15_000)));
+        localCache[id] = await fetchUser({});
+        const newObj = { ...users, ...localCache };
+        setUsers(newObj);
+      }));
+    })();
+  }, [exchanges]);
 
   return <>
-
-    {/* BEGIN SECTION STOCK EXCHANGE */}
-
     <FilterMenu
       filterType={EFilterMenuType.stock}
     >
@@ -35,18 +69,22 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
     </section>
 
     <section className="container cards">
-      <Tile
-        imagePath="../images/no_image.png"
-        heading="Stará váza"
-        text="Stará čínska porcelánová váza, značená, výška 28 cm, priemer v najširšej časti 20 cm, bez poškodení, vitrínový stav."
-        email="stara.vaza@gmail.com"
-        userName="Sam"
-        userRating="4/5"
-        price="30 kč"
-      >
-      </Tile>
+      {
+        exchanges
+          .map(x => ({ ...x, user: users[x.authorId] }))
+          .map(({
+            user, actual, authorId, cost, createdUtc, description, id, name, tags, type, photoUri, place,
+          }) => <Tile
+              heading={name}
+              imagePath={photoUri || "../images/no_image.png"}
+              text={description}
+              email={user?.email || ""}
+              userName={(user && (user.firstName + " " + user.lastName)) || ""}
+              userRating={user?.ratings?.asSeller}
+              price={`${cost.toLocaleString()} Kč`}
+            />
+          )
+      }
     </section>
-
-    {/* END SECTION STOCK EXCHANGE */}
   </>;
 };

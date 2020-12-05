@@ -22,7 +22,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     const fetchEvents = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "/events" });
 
     (async () => {
-      const ev = await fetchEvents();
+      const ev = await fetchEvents({});
       setEvents(ev.events);
     })();
   }, []);
@@ -55,25 +55,25 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
       </div>
     </section>
 
-    {
-      events.map(({
-        authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
-      }) =>
-        <section className="container cards">
+    <section className="container cards">
+      {
+        events.map(({
+          authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
+        }) =>
           <Tile
+            heading={name}
             imagePath={photoUri || "../images/no_image.png"}
             eventRating={rating}
             place={place?.name}
             date={
               // todo: date fromater -> if date start is same with end only time end will show ...
               dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
-            heading={name}
             text={description}
             price={entryFee.toString(10) + " Kč"}
           >
           </Tile>
-        </section>
-      )
-    }
+        )
+      }
+    </section>
   </>;
 };

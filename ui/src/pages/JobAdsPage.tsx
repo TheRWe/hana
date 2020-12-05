@@ -41,7 +41,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
         pay="120 kc/hod"
         jobType="Brigáda"
         userName="Tomáš"
-        userRating="4/5"
+        userRating={undefined}
         place="Vrch pod kopcom"
         jobAdType={EJobAdType.inq}
       >
@@ -52,7 +52,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
         pay="200 kc/hod"
         jobType="Brigáda"
         userName="Sam"
-        userRating="4/5"
+        userRating={undefined}
         place="Za Borinou"
         jobAdType={EJobAdType.off}
       >
