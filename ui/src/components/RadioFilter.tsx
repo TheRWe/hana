@@ -17,11 +17,11 @@ export const RadioFilter: React.FC<RadioFilterProps> = ({ type }: RadioFilterPro
       /********************************
       * Radio filters for stocks page *
       *********************************/
-      <div className="type-filters">
+      <div className="radio-filter row">
         <label>
           <LocText
-            en="Category"
-            cz="Kategorie"
+            en="Category:"
+            cz="Kategorie:"
           />
         </label>
         <input type="radio" id="toys" name="event-type" />
@@ -57,11 +57,11 @@ export const RadioFilter: React.FC<RadioFilterProps> = ({ type }: RadioFilterPro
       /*******************************
       * Radio filters for event page *
       ********************************/
-      <div className="type-filters">
+      <div className="radio-filter  row">
         <label>
           <LocText
-            en="Event type"
-            cz="Typ akce"
+            en="Event type:"
+            cz="Typ akce:"
           />
         </label>
         <input type="radio" id="kids" name="event-type" />

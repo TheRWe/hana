@@ -1,11 +1,29 @@
 /* ---------------------------------
-COLORS
+  COLORS
 --------------------------------- */
+
 $COLOR-ORANGE: rgb(209, 148, 83);
 $COLOR-PINK: rgb(206, 165, 161);
+$COLOR-BLUE: rgb(133, 165, 204);
+$COLOR-YELLOW: rgb(223, 209, 115);
+$COLOR-WHITE: #fff;
 
 /* ---------------------------------
-PRIMARY STYLES
+  CONTENT
+
+  1. PRIMARY STYLES
+  2. CONTAINERS 
+  3. SCROLLER
+  4. SECTIONS (custom style)
+  5. NAVBAR / SECTION MENU
+  6. CARDS
+  7. FILTER MENU
+  8. MODAL BOX
+
+--------------------------------- */
+
+/* ---------------------------------
+  1. PRIMARY STYLES
 --------------------------------- */
 
 *,
@@ -43,7 +61,7 @@ body {
   line-height: 1.5;
   color: #495057;
   text-align: left;
-  background-color: #fff;
+  background-color: $COLOR-WHITE;
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -57,7 +75,7 @@ hr {
   margin-bottom: 1rem;
   margin-top: 0;
   border: 0;
-  border-top: 1px solid rgb(133, 165, 204);
+  border-top: 1px solid$COLOR-BLUE;
   opacity: 30%;
 }
 
@@ -68,21 +86,6 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
   margin-bottom: 0.5rem;
   font-weight: 330;
   line-height: 1.2;
@@ -99,24 +102,20 @@ h2,
   font-size: 2rem;
 }
 
-h3,
-.h3 {
+h3 {
   font-size: 1.75rem;
   color: $COLOR-ORANGE;
 }
 
-h4,
-.h4 {
+h4 {
   font-size: 1.5rem;
 }
 
-h5,
-.h5 {
+h5 {
   font-size: 1.25rem;
 }
 
-h6,
-.h6 {
+h6 {
   font-size: 1rem;
 }
 
@@ -190,7 +189,7 @@ button:focus,
 
 button.btn-white,
 .button .btn-white {
-  background-color: #fff;
+  background-color: $COLOR-WHITE;
   color: $COLOR-ORANGE;
   border-color: $COLOR-ORANGE;
 }
@@ -199,28 +198,28 @@ button.btn-white:hover,
 button.btn-white:focus,
 .button .btn-white:hover,
 .button .btn-white:focus {
-  color: #fff;
+  color: $COLOR-WHITE;
   background-color: $COLOR-ORANGE;
 }
 
 button.btn-blue,
-.button .btn-blue {
+.btn-blue .btn-blue {
   background-color: rgba(133, 165, 204, 0.41);
-  color: #495057;
-  border-color: rgb(133, 165, 204);
+  color: $COLOR-WHITE;
+  border-color: $COLOR-BLUE;
 }
 
 button.btn-blue:hover,
 button.btn-blue:focus,
 .button.btn-blue:hover,
 .button.btn-blue:focus {
-  background-color: rgb(133, 165, 204);
+  background-color: $COLOR-BLUE;
 }
 
 button.btn-orange,
 .button.btn-orange {
-  background-color: rgba(209, 148, 83, 0.77);
-  color: #fff;
+  background-color: rgba(209, 148, 83, 0.74);
+  color: $COLOR-WHITE;
   border-color: $COLOR-ORANGE;
 }
 
@@ -229,6 +228,13 @@ button.btn-orange:focus,
 .button.btn-orange:hover,
 .button.btn-orange:focus {
   background-color: $COLOR-ORANGE;
+}
+
+button .svg-inline--fa {
+  color: #fff;
+  margin-left: 0.3em;
+  font-size: 1em;
+  padding-top: 0.1em;
 }
 
 input,
@@ -247,6 +253,21 @@ textarea {
 button,
 input {
   overflow: visible;
+}
+
+input {
+  outline: none !important;
+  background: transparent;
+  overflow: hidden;
+  border: none;
+  border-bottom: 1px solid $COLOR-BLUE;
+  color: $COLOR-ORANGE;
+  font-size: 1.1em;
+}
+
+input:focus {
+  outline: none !important;
+  background: transparent;
 }
 
 select {
@@ -269,10 +290,10 @@ header {
 }
 
 footer {
-  color: rgb(133, 165, 204);
+  color: $COLOR-BLUE;
   text-align: center;
-  border-top: 1px solid rgb(133, 165, 204);
-  opacity: 30%;
+  border-top: 1px solid$COLOR-BLUE;
+  opacity: 61%;
 }
 
 .icon {
@@ -281,7 +302,7 @@ footer {
 }
 
 .icon-lg {
-  color: rgba(209, 148, 83, 0.77);
+  color: $COLOR-ORANGE;
   margin-bottom: 15px;
 }
 
@@ -291,26 +312,38 @@ footer {
   margin-right: 1px;
 }
 
-.space {
-  padding-top: 3em;
-  padding-bottom: 3em;
-}
-
 .center {
   text-align: center;
 }
 
+.left {
+  float: left;
+  margin-right: auto;
+}
+
+.right {
+  float: right;
+  margin-left: auto;
+}
+
 /* ---------------------------------
-CONTAINERS 
+  2. CONTAINERS 
 --------------------------------- */
+
 .container {
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  padding-top: 0.8em;
+  padding-bottom: 0.8em;
+}
+
+.container-center {
   padding-top: 3em;
   padding-bottom: 3em;
+  text-align: center;
 }
 
 @media (min-width: 576px) {
@@ -342,10 +375,10 @@ CONTAINERS
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-  margin-top: 1.5em;
-  margin-bottom: 1.5em;
+  /*margin-right: -15px;
+  margin-left: -15px;*/
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
 }
 
 .col-1,
@@ -440,34 +473,33 @@ CONTAINERS
 }
 
 /* ---------------------------------
-SCROLLER
+  3. SCROLLER
 --------------------------------- */
-.color-white {
-  color: #fff !important;
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+  border-radius: 10px;
 }
 
-#scrollUp {
-  width: 60px;
-  height: 60px;
-  background-color: rgb(59, 161, 96);
-  opacity: 0.9;
-  position: fixed;
-  right: 30px;
-  bottom: 30px;
-  border-radius: 30px;
-  text-align: center;
-  color: white;
-  display: none;
-  cursor: pointer;
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(133, 165, 204, 0.41);
 }
 
-#scrollUp svg {
-  width: 40px;
-  margin-top: 10px;
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: $COLOR-BLUE;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: $COLOR-BLUE;
 }
 
 /* ---------------------------------
-SECTIONS (custom style)
+  4. SECTIONS (custom style)
 --------------------------------- */
 
 .section-about {
@@ -482,8 +514,42 @@ SECTIONS (custom style)
   text-align: center;
 }
 
+.section-sort {
+  color: #85a5cc;
+  align-content: right;
+  flex-wrap: wrap;
+  margin-top: 0.2em;
+  margin-bottom: 0.2em;
+  align-items: right;
+  display: flex;
+}
+
+.section-sort .container {
+  padding-top: 0em;
+  padding-bottom: 0em;
+}
+
+.section-sort .sort-option {
+  margin: 0;
+  float: right;
+  color: $COLOR-BLUE;
+  display: flex;
+}
+
+.section-sort .sort-option .svg-inline--fa {
+  color: $COLOR-BLUE;
+  margin-left: 0.5em;
+  font-size: 1em;
+  margin-top: 0.22em;
+  margin-right: 0.2em;
+}
+
+.section-sort .sort-option p {
+  margin: 0;
+}
+
 /* ---------------------------------
-NAVBAR / SECTION MENU
+  5. NAVBAR / SECTION MENU
 --------------------------------- */
 
 .section-menu {
@@ -665,7 +731,7 @@ NAVBAR / SECTION MENU
 }
 
 /* ---------------------------------
-CARD
+  6. CARDS
 --------------------------------- */
 
 .card-section-goto {
@@ -675,12 +741,88 @@ CARD
   box-shadow: 3px 3px 12px 3px #ccc;
 }
 
-.card-orange {
-  background-color: rgba(206, 165, 161, 0.12);
+.cards {
+  display: flex;
 }
 
-.card > img {
+.card {
+  padding: 0.2em;
+  flex-wrap: wrap;
+  display: block;
+  overflow: auto;
+}
+
+.card p {
+  margin: 0.2em 0.8em 0.2em 0em;
+}
+
+.card .card-pink {
+  background-color: $COLOR-PINK;
+}
+
+.card .card-title {
+  opacity: 1;
+  color: $COLOR-ORANGE;
+  font-size: 21px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-bottom: 0.1em;
+}
+
+.card .card-rating {
+  opacity: 1;
+  color: $COLOR-YELLOW;
+  font-size: 12px;
+  letter-spacing: 0px;
+  text-align: left;
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.card .card-description {
+  opacity: 1;
+  mix-blend-mode: normal;
+  color: $COLOR-PINK;
+  font-size: 1rem;
+  letter-spacing: 0px;
+  text-align: left;
+  text-transform: none;
+  max-height: 100px;
+  overflow: auto;
+}
+
+.card .card-information {
+  opacity: 1;
+  mix-blend-mode: normal;
+  color: $COLOR-ORANGE;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: normal;
+  text-align: left;
+  text-transform: none;
+  font-size: 1rem;
+  border-top: 1px solid rgba(209, 148, 83, 0.24);
+  border-bottom: 1px solid rgba(209, 148, 83, 0.24);
+}
+
+.card .card-information .card-info-row {
+  display: flex;
+  mix-blend-mode: normal;
+  color: $COLOR-ORANGE;
+  font-size: 16px;
+}
+
+.card .card-more-info {
+  color: $COLOR-PINK;
+  font-weight: bold;
+}
+
+.card img {
+  object-fit: cover;
   width: 100%;
+  height: 170px;
 }
 
 .card > icon {
@@ -690,4 +832,137 @@ CARD
   width: 52px;
   height: 52px;
   transform: rotate(0deg) translate(381px, 735px);
+}
+
+/* ---------------------------------
+  7. FILTER MENU
+--------------------------------- */
+
+.section-filter-menu {
+  border-bottom: 1px solid rgba(218, 218, 218, 0.4);
+  border-top: 2px solid rgba(209, 148, 83, 0.23);
+  box-shadow: 42px 1px 7px -2px rgba(218, 218, 218, 0.4);
+}
+
+.section-filter-menu .section-filter-menu__filters {
+  opacity: 1;
+  mix-blend-mode: normal;
+  color: $COLOR-BLUE;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: normal;
+  letter-spacing: 0px;
+  line-height: normal;
+  text-align: left;
+}
+
+.section-filter-menu__filters .menu-filter {
+  margin-right: 0.75em;
+}
+
+.section-filter-menu__filters .menu-filter label {
+  margin-right: 0.4em;
+}
+
+.section-filter-menu__filters .menu-filter input {
+  max-width: 8em;
+}
+
+.section-filter-menu__filters .menu-filter FontAwesomeIcon {
+  color: $COLOR-BLUE;
+  margin-left: 0.3em;
+  font-size: 1.2em;
+  padding-top: 0.1em;
+}
+
+.section-filter-menu__filters .radio-filter {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid rgba(218, 218, 218, 0.4);
+  box-shadow: 0px 0px 4px -2px rgba(218, 218, 218, 0.4);
+}
+
+.section-filter-menu__filters .radio-filter label {
+  margin-right: 0.75em;
+}
+
+.section-filter-menu__filters .radio-filter input {
+  margin-top: 0.1em;
+  margin-right: 0.2em;
+}
+.section-filter-menu__filters .input-filters {
+  margin-bottom: 1.2em;
+  margin-top: 1.2em;
+}
+
+/* toggle menu properties */
+.section-filter-menu__filters {
+  transition: max-height 150ms ease-in-out;
+  overflow: hidden;
+
+  &-expanded {
+    max-height: 200px;
+  }
+
+  &-collapsed {
+    max-height: 0;
+  }
+}
+
+/* ---------------------------------
+  8. MODAL BOX
+--------------------------------- */
+
+.modal {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 60%;
+  display: block;
+  border-radius: 10px;
+}
+
+.modal .modal-content .modal-header {
+  display: flex;
+  width: 100%;
+  padding-bottom: 0.2em;
+  border-bottom: 1px solid rgba(218, 218, 218, 0.4);
+}
+
+.modal .modal-content .modal-header .modal-title {
+  font-size: 1.6em;
+  color: $COLOR-BLUE;
+}
+
+.modal .modal-content .modal-body {
+  color: #aaa;
+  width: 100%;
+}
+
+.modal .hide {
+  display: none;
+}
+
+.close {
+  color: $COLOR-BLUE;
+  margin-left: auto;
+}
+
+.close:hover,
+.close:focus {
+  color: rgba(113, 150, 195, 1);
+  text-decoration: none;
+  cursor: pointer;
 }

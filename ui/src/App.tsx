@@ -13,7 +13,7 @@ import "./App.scss";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGlobe, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faDoorOpen, faGlobe, faUser } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import { ELanguages, LanguageContext, LocText } from "./components/LocText";
@@ -97,12 +97,12 @@ const App: React.FC<Props> = () => {
               </ul>
               {/* RIGHT SIDE */}
               <ul className="navbar-nav user-menu">
-                <li className="nav-item">
+                <li className="nav-item nav-link">
                   <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
-                  {/* <a href="/">Roman buk</a> */}
-                  <Link to="/ProfilePage">
-                    Roman Buk
-                  </Link>
+                  <a href="/ProfilePage">Roman buk</a>
+                </li>
+                <li className="nav-item nav-link">
+                  <FontAwesomeIcon icon={faDoorOpen} className="icon" size="1x" />
                 </li>
               </ul>
             </div>

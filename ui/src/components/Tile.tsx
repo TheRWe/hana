@@ -1,3 +1,5 @@
+import { faMapMarkedAlt, faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { LocText } from "../components/LocText";
 
@@ -22,35 +24,34 @@ type TileProps = {
   jobAdType?: EJobAdType
 };
 
-
 export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, heading, text, price, jobAdType }: TileProps) => <>
-  <article className="card">
+  <article className="col-4 card card-pink">
     <header>
       {
         imagePath ? <img src={imagePath} alt="ntg" /> : undefined
       }
-      <h3>{heading}</h3>
+      <h3 className="card-title">{heading}</h3>
       {
         eventRating ?
-          <div className="rating event-rating">
+          <div className="card-rating">
             {eventRating}
           </div>
           :
           undefined
       }
     </header>
-    <p>
+    <p className="card-description">
       {text}
     </p>
-    <footer className="tile-footer">
-      <div className="tile-footer__info">
+    <div className="tile-footer">
+      <div className="card-information">
         {
           pay ?
-            <div className="tile-footer-info-row">
+            <div className="card-info-row">
               <p>
                 <LocText
-                  en="Pay"
-                  cz="Plat"
+                  en="Pay:"
+                  cz="Plat:"
                 />
               </p>
               <p>{pay}</p>
@@ -60,11 +61,11 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         }
         {
           jobType ?
-            <div className="tile-footer-info-row">
+            <div className="card-info-row">
               <p>
                 <LocText
-                  en="Job type"
-                  cz="Druh"
+                  en="Job type:"
+                  cz="Druh:"
                 />
               </p>
               <p>{jobType}</p>
@@ -74,7 +75,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         }
         {
           email ?
-            <div className="tile-footer-info-row">
+            <div className="card-info-row">
               <p>Email</p>
               <p>{email}</p>
             </div>
@@ -83,11 +84,11 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         }
         {
           userName ?
-            <div className="tile-footer-info-row">
+            <div className="card-info-row">
               <p>
                 <LocText
-                  en="Name"
-                  cz="Jméno"
+                  en="Name:"
+                  cz="Jméno:"
                 />
               </p>
               <p>
@@ -95,8 +96,10 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
               </p>
               {
                 userRating ?
-                  <div className="rating user-rating">
+                  <div className="card-rating">
                     {userRating}
+                    <FontAwesomeIcon icon={faStar} />
+                    <FontAwesomeIcon icon={faStarHalf} />
                   </div>
                   :
                   undefined
@@ -107,25 +110,26 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         }
         {
           place ?
-            <div className="tile-footer-row">
+            <div className="card-info-row">
               <p>
                 <LocText
-                  en="Place"
-                  cz="Místo"
+                  en="Place:"
+                  cz="Místo:"
                 />
               </p>
               <p>{place}</p>
+              <FontAwesomeIcon icon={faMapMarkedAlt} />
             </div>
             :
             undefined
         }
         {
           date ?
-            <div className="tile-footer-row">
+            <div className="card-info-row">
               <p>
                 <LocText
-                  en="Date"
-                  cz="Datum"
+                  en="Date:"
+                  cz="Datum:"
                 />
               </p>
               <p>
@@ -136,26 +140,26 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
             undefined
         }
       </div>
-      <div className="tile-footer__price">
-        <p>
+      <div className="card-more-info">
+        <p className="right">
           <LocText
-            en="more info"
-            cz="více informací"
+            en="MORE INFO"
+            cz="VÍCE INFORMACÍ"
           />
         </p>
         {
           price ?
-            <p>{price}</p>
+            <p className="left">{price}</p>
             :
             undefined
         }
         {
           jobAdType ?
-            <p>{jobAdType}</p>
+            <p className="left">{jobAdType}</p>
             :
             undefined
         }
       </div>
-    </footer>
+    </div>
   </article>
 </>;

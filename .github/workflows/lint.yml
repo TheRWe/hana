@@ -6,6 +6,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -27,6 +28,7 @@ jobs:
   spring-tests:
     name: Spring tests
     runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -43,4 +45,4 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Run server tests
-        run: mvn -T 1C -B verify -pl server -am --file pom.xml -Dkotlin.compiler.incremental=false
+        run: mvn -T 1C -B verify -pl server,!assembly -am -amd --file pom.xml -Dkotlin.compiler.incremental=false

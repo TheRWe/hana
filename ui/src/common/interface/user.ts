@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Report, ResourceInfo, User, UserCreateUpdate, Users, UserFilters, Pagination } from "./shared";
+import { Report, ResourceInfo, User, UserCreateReplace, Users, UserFilters, Pagination } from "./shared";
 
 // 1. get user by id
 export type TUserGetByIdGetRequest = {};
@@ -7,12 +7,12 @@ export type TUserGetByIdGetResponse = User;
 export type TUserGetByIdGetAction = TAction<TUserGetByIdGetRequest, TUserGetByIdGetResponse>;
 
 // 2. new user
-export type TUserPostRequest = UserCreateUpdate;
-export type TUserPostResponse = ResourceInfo;
+export type TUserPostRequest = UserCreateReplace;
+export type TUserPostResponse = ResourceInfo<number>;
 export type TUserPostAction = TAction<TUserPostRequest, TUserPostResponse>;
 
 // 3. update user
-export type TUserUpdatePutRequest = UserCreateUpdate;
+export type TUserUpdatePutRequest = UserCreateReplace;
 export type TUserUpdatePutResponse = {};
 export type TUserUpdatePutAction = TAction<TUserUpdatePutRequest, TUserUpdatePutResponse>;
 
@@ -28,5 +28,5 @@ export type TUserGetListGetAction = TAction<TUserGetListGetRequest, TUserGetList
 
 // 6. report user
 export type TUserReportPostRequest = Report;
-export type TUserReportPostResponse = ResourceInfo;
+export type TUserReportPostResponse = ResourceInfo<number>;
 export type TUserReportPostAction = TAction<TUserReportPostRequest, TUserReportPostResponse>;

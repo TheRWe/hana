@@ -1,5 +1,5 @@
 import { TAction } from "./common";
-import { Ad, AdCreateUpdate, Ads, AdFilters, Rate, Report, ResourceInfo, Pagination } from "./shared";
+import { Ad, AdCreateReplace, Ads, AdFilters, Rate, Report, ResourceInfo, Pagination } from "./shared";
 
 // 1. get ad by id
 export type TAdGetByIdGetRequest = {};
@@ -7,12 +7,12 @@ export type TAdGetByIdGetResponse = Ad;
 export type TAdGetByIdGetAction = TAction<TAdGetByIdGetRequest, TAdGetByIdGetResponse>;
 
 // 2. new ad
-export type TAdPostRequest = AdCreateUpdate;
-export type TAdPostResponse = ResourceInfo;
+export type TAdPostRequest = AdCreateReplace;
+export type TAdPostResponse = ResourceInfo<number>;
 export type TAdPostAction = TAction<TAdPostRequest, TAdPostResponse>;
 
 // 3. update ad
-export type TAdUpdatePutRequest = AdCreateUpdate;
+export type TAdUpdatePutRequest = AdCreateReplace;
 export type TAdUpdatePutResponse = {};
 export type TAdUpdatePutAction = TAction<TAdUpdatePutRequest, TAdUpdatePutResponse>;
 
@@ -23,7 +23,7 @@ export type TAdDeleteAction = TAction<TAdDeleteRequest, TAdDeleteResponse>;
 
 // 5. rate ad
 export type TAdRatePostRequest = Rate;
-export type TAdRatePostResponse = ResourceInfo;
+export type TAdRatePostResponse = ResourceInfo<number>;
 export type TAdRatePostAction = TAction<TAdRatePostRequest, TAdRatePostResponse>;
 
 // 6. get more ads
@@ -33,5 +33,5 @@ export type TAdGetListGetAction = TAction<TAdGetListGetRequest, TAdGetListGetRes
 
 // 7. report ad
 export type TAdReportPostRequest = Report;
-export type TAdReportPostResponse = ResourceInfo;
+export type TAdReportPostResponse = ResourceInfo<number>;
 export type TAdReportPostAction = TAction<TAdReportPostRequest, TAdReportPostResponse>;
