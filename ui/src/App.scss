@@ -230,7 +230,8 @@ button.btn-orange:focus,
   background-color: $COLOR-ORANGE;
 }
 
-button .svg-inline--fa {
+button .svg-inline--fa,
+a .svg-inline--fa {
   color: #fff;
   margin-left: 0.3em;
   font-size: 1em;

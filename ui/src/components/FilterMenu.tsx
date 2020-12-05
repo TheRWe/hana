@@ -6,6 +6,7 @@ import { ModalBox } from "../components/ModalBox";
 import { LocText } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { ButtonLink } from "./ButtonLink";
 
 export enum EFilterMenuType {
   events,
@@ -39,13 +40,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 />
                 <FontAwesomeIcon icon={faCaretDown} />
               </button>
-              <button className="button btn-orange right">
+              {/* <button className="button btn-orange right">
                 <LocText
                   en="Add an item"
                   cz="Přidat položku"
                 />
                 <FontAwesomeIcon icon={faPlus} />
-              </button>
+              </button> */}
+              <ButtonLink
+                label = {{en:"Add an item", cz:"Přidat položku"}}
+                linkTo="/AddTradePage"
+              >
+                  <FontAwesomeIcon icon={faPlus} />
+              </ButtonLink>
 
               <ModalBox
                 isHidden={true}
@@ -119,13 +126,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 />
                 <FontAwesomeIcon icon={faCaretDown} />
               </button>
-              <button className="button  btn-orange right">
+              <ButtonLink
+                label = {{en:"Add an event", cz:"Přidat akci"}}
+                linkTo="/AddEventPage"
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+              </ButtonLink>
+              {/* <button className="button  btn-orange right">
                 <LocText
                   en="Add an event"
                   cz="Přidat akci"
                 />
                 <FontAwesomeIcon icon={faPlus} />
-              </button>
+              </button> */}
             </header>
             <div className={
               ["section-filter-menu__filters"]
@@ -194,13 +207,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                 />
                 <FontAwesomeIcon icon={faCaretDown} />
               </button>
-              <button className="button  btn-orange right">
+              {/* <button className="button  btn-orange right">
                 <LocText
                   en="Add an advertisement"
                   cz="Vytvořit inzerát"
                 />
                 <FontAwesomeIcon icon={faPlus} />
-              </button>
+              </button> */}
+              <ButtonLink
+                label = {{en:"Add an advertisement", cz:"Vytvořit inzerát"}}
+                linkTo="/AddJobAdPage"
+                >
+                  <FontAwesomeIcon icon={faPlus} />
+              </ButtonLink>
             </header>
             <div className={["section-filter-menu__filters"]
               .concat(`section-filter-menu__filters-${searchVisibleClassName}`)
