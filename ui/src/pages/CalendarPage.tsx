@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
+import { EFilterMenuType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { LocText } from "../components/LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
@@ -13,23 +13,38 @@ type TCalendarPageProps = {
 
 };
 
-type Events = PromiseType<ReturnType<TEventGetListGetAction>>["events"];
+type Action = TEventGetListGetAction;
+type FieldName = "events";
+const responseSelector = (resp: PromiseType<ReturnType<Action>>) => resp.events;
+const route = "events";
+// todo: place
+// todo: category
+const getFilterFetchParams = (filter: TFilter): Request => ({
+  pageSize: 24, pageStart: 0,
+  entryFeeStart: filter.priceFrom,
+  entryFeeEndInclusive: filter.priceTo,
+});
+
+type Response = PromiseType<ReturnType<Action>>[FieldName];
+type Request = Parameters<Action>[0];
 
 export const CalendarPage: React.FC<TCalendarPageProps> = () => {
-  const [events, setEvents] = useState<Events>([]);
+  const [response, setResponse] = useState<Response>([]);
+  const [filter, setFilter] = useState<TFilter>({});
 
   useEffect(() => {
-    const fetch = withFetch<TEventGetListGetAction>({ method: EHttpMethod.GET, route: "events" });
+    const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
 
     (async () => {
-      const ev = await fetch({});
-      setEvents(ev.events);
+      const res = await fetch(getFilterFetchParams(filter));
+      setResponse(responseSelector(res));
     })();
-  }, []);
+  }, [filter]);
 
   return <>
     <FilterMenu
       filterType={EFilterMenuType.events}
+      {...{ filter, setFilter }}
     />
 
     <section className="section-sort">
@@ -57,7 +72,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
 
     <section className="container cards">
       {
-        events.map(({
+        response.map(({
           authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
         }) =>
           <Tile
@@ -70,8 +85,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
               dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
             text={description}
             price={entryFee.toString(10) + " Kč"}
-          >
-          </Tile>
+          />
         )
       }
     </section>

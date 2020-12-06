@@ -14,7 +14,7 @@ export enum EFilterMenuType {
   jobAd,
 }
 
-type TFilter = {
+export type TFilter = {
   dateFrom?: Date,
   dateTo?: Date,
   // todo: place
@@ -29,12 +29,14 @@ type TFilter = {
 
 type FilterMenuProps = {
   filterType: EFilterMenuType,
+  filter: TFilter,
+  setFilter: React.Dispatch<React.SetStateAction<TFilter>>,
 };
 
-export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenuProps) => {
+export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setFilter }: FilterMenuProps) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [addModalVysible, setAddModalVysible] = useState(false);
-  const [filter, setFilter] = useState<TFilter>({});
+
   const setFilterProp = (fnc: (filter: TFilter) => void) => {
     const cpy = { ...filter }; fnc(cpy); setFilter(cpy);
   };

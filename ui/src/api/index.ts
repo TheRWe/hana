@@ -42,12 +42,13 @@ export const withFetch = <TA extends TAction<any, any>>({
     const restParams = (method !== EHttpMethod.GET || !req?.[0]) ? ""
       : "?" + Object.keys(req[0])
         .sort()
+        .filter(x => req[0][x] !== undefined && req[0][x] !== "")
         .map(x => {
           return `${encodeURIComponent(x)}=${encodeURIComponent(req[0][x])}`;
         })
         .join("&")
       ;
-    const uri = `api/${route}${restParams}`;
+    const uri = `api/${route}${restParams !== "?" ? restParams : ""}`;
 
     log("start", debugID, method, uri);
 

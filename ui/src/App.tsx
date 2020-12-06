@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Link
 } from "react-router-dom";
 
 // Styles
@@ -60,9 +61,9 @@ const App: React.FC<Props> = () => {
         {/* BEGIN MAIN MENU */}
         <section className="section-menu">
           <nav className="navbar navbar-expand-lg">
-            <a className="navbar-brand" href="/">
+            <Link className="navbar-brand" to="/">
               <img src="./images/logo.png" alt="logo" />
-            </a>
+            </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
               <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
                 <path stroke="rgba(0, 0, 0, 0.5)" stroke-linecap="round" stroke-miterlimit="10" stroke-width="2"
@@ -73,35 +74,37 @@ const App: React.FC<Props> = () => {
               {/* LEFT SIDE */}
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <a className="nav-link" href="/CalendarPage">
+                  <Link className="nav-link" to={"/CalendarPage"}>
                     <LocText
                       en="Calendar Of Events"
                       cz="Události"
                     />
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/StockExchangePage">
+                  <Link className="nav-link" to={"/StockExchangePage"}>
                     <LocText
                       en="Stock Exchange"
                       cz="Burza"
                     />
-                  </a>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/JobAdsPage">
+                  <Link className="nav-link" to={"/JobAdsPage"}>
                     <LocText
                       en="Job Ads"
                       cz="Pracovné Inzeráty"
                     />
-                  </a>
+                  </Link>
                 </li>
               </ul>
               {/* RIGHT SIDE */}
               <ul className="navbar-nav user-menu">
                 <li className="nav-item nav-link">
                   <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
-                  <a href="/ProfilePage">Roman buk</a>
+                  <Link to="/ProfilePage">
+                    Roman buk
+                  </Link>
                 </li>
                 <li className="nav-item nav-link">
                   <FontAwesomeIcon icon={faDoorOpen} className="icon" size="1x" />

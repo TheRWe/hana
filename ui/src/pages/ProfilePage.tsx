@@ -1,6 +1,4 @@
 import React from "react";
-import { Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 import { EInputType, Input } from "../components/Input";
 
 type TProfilePageProps = {
