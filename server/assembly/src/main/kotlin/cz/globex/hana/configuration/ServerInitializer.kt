@@ -47,6 +47,7 @@ class ServerInitializer protected constructor(
 			val firstName: String = faker.name().firstName()
 			val lastName: String = faker.name().lastName()
 			users += User(
+				id = (it + 1).toLong(),
 				firstName = firstName,
 				lastName = lastName,
 				email = faker.internet().emailAddress("$firstName.$lastName".toLowerCase()),
@@ -122,13 +123,18 @@ class ServerInitializer protected constructor(
 
 	private fun initializeRatings() {
 		val adRatings = mutableSetOf<AdRating>()
-		(USERS_COUNT + 1..USERS_COUNT + ADS_COUNT).forEach {
+//		(USERS_COUNT + 1..USERS_COUNT + ADS_COUNT).forEach {
+		(1..ADS_COUNT).forEach {
 			val ad = adsRepository.getOne(it.toLong())
 			val raters: MutableSet<Long> = mutableSetOf()
 			repeat(faker.number().numberBetween(0, 6)) {
 				val rater = usersRepository.getOne(faker.number().numberBetween(1L, USERS_COUNT.toLong() + 1))
-				if (rater.id_safe !in raters) {
-					raters += rater.id_safe
+//				if (rater.id_safe !in raters) {
+//					raters += rater.id_safe
+//					adRatings += AdRating(rater, ad, RatingScore.values().random(random))
+//				}
+				if (rater.id !in raters) {
+					raters += rater.id
 					adRatings += AdRating(rater, ad, RatingScore.values().random(random))
 				}
 			}
@@ -136,13 +142,18 @@ class ServerInitializer protected constructor(
 		adRatingsRepository.saveAll(adRatings)
 
 		val eventRatings = mutableSetOf<EventRating>()
-		(USERS_COUNT + ADS_COUNT + 1..USERS_COUNT + ADS_COUNT + EVENTS_COUNT).forEach {
+//		(USERS_COUNT + ADS_COUNT + 1..USERS_COUNT + ADS_COUNT + EVENTS_COUNT).forEach {
+		(ADS_COUNT + 1..ADS_COUNT + EVENTS_COUNT).forEach {
 			val event = eventsRepository.getOne(it.toLong())
 			val raters: MutableSet<Long> = mutableSetOf()
 			repeat(faker.number().numberBetween(0, 16)) {
 				val rater = usersRepository.getOne(faker.number().numberBetween(1L, USERS_COUNT.toLong() + 1))
-				if (rater.id_safe !in raters) {
-					raters += rater.id_safe
+//				if (rater.id_safe !in raters) {
+//					raters += rater.id_safe
+//					eventRatings += EventRating(rater, event, RatingScore.values().random(random))
+//				}
+				if (rater.id !in raters) {
+					raters += rater.id
 					eventRatings += EventRating(rater, event, RatingScore.values().random(random))
 				}
 			}
@@ -150,7 +161,8 @@ class ServerInitializer protected constructor(
 		eventRatingsRepository.saveAll(eventRatings)
 
 		val stockExchangeRatings = mutableSetOf<StockExchangeRating>()
-		(USERS_COUNT + ADS_COUNT + EVENTS_COUNT + 1..USERS_COUNT + ADS_COUNT + EVENTS_COUNT + STOCK_EXCHANGES_COUNT).forEach {
+//		(USERS_COUNT + ADS_COUNT + EVENTS_COUNT + 1..USERS_COUNT + ADS_COUNT + EVENTS_COUNT + STOCK_EXCHANGES_COUNT).forEach {
+		(ADS_COUNT + EVENTS_COUNT + 1..ADS_COUNT + EVENTS_COUNT + STOCK_EXCHANGES_COUNT).forEach {
 			val stockExchange = stockExchangesRepository.getOne(it.toLong())
 			repeat(faker.number().numberBetween(0, 2)) {
 				val rater = usersRepository.getOne(faker.number().numberBetween(1L, USERS_COUNT.toLong() + 1))

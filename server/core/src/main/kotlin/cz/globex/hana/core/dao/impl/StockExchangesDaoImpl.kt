@@ -6,10 +6,15 @@ import cz.globex.hana.core.dto.*
 import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.impl.*
 import org.springframework.data.domain.*
+import org.springframework.http.*
 import org.springframework.stereotype.*
 import org.springframework.transaction.annotation.*
+import org.springframework.web.server.*
+import java.time.*
+import java.time.format.*
 import java.util.stream.*
 import javax.persistence.*
+import kotlin.streams.*
 
 @Component
 internal class StockExchangesDaoImpl protected constructor(
@@ -23,12 +28,43 @@ internal class StockExchangesDaoImpl protected constructor(
 		filters: StockExchangeFiltersDto,
 		pageable: Pageable,
 	): StockExchangesDto {
-		val stockExchanges: Set<StockExchangeDto> = stockExchangesRepository
-			.findAllByIsDeletedFalse(pageable)
-			.get()
-			.map(StockExchange::toDto)
-			.collect(Collectors.toSet())
-		return StockExchangesDto(stockExchanges)
+//		val stockExchanges: Set<StockExchangeDto> = stockExchangesRepository
+//			.findAllByIsDeletedFalse(pageable)
+//			.get()
+//			.map(StockExchange::toDto)
+//			.collect(Collectors.toSet())
+//		return StockExchangesDto(stockExchanges)
+
+		val createdStartUtc = filters.createdStartUtc?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
+		val createdEndInclusiveUtc = filters.createdEndInclusiveUtc?.let { LocalDateTime.parse(it, DateTimeFormatter.ISO_LOCAL_DATE_TIME) }
+		if (createdStartUtc != null && createdEndInclusiveUtc != null && createdStartUtc.isAfter(createdEndInclusiveUtc)) {
+			throw ResponseStatusException(HttpStatus.BAD_REQUEST)
+		}
+
+		var stockExchangesStream: Stream<StockExchange> = stockExchangesRepository.stream().filter { !it.isDeleted }
+
+		// TODO: these operations should be done on the db level
+		with(filters) {
+			if (authorId != null) stockExchangesStream	= stockExchangesStream.filter { authorId == it.author_safe.id }
+			if (isActual != null) stockExchangesStream = stockExchangesStream.filter { isActual == it.isActual }
+			if (costStart != null) stockExchangesStream = stockExchangesStream.filter { costStart!! <= it.price }
+			if (costEndInclusive != null) stockExchangesStream = stockExchangesStream.filter { costEndInclusive!! >= it.price }
+			if (tagName != null) stockExchangesStream = stockExchangesStream.filter { tagName!!.map { tag -> tag.toLowerCase() }.union(it.tags.map { tag -> tag.name.toLowerCase() }).size == tagName!!.size }
+			if (type != null) stockExchangesStream = stockExchangesStream.filter { type == it.type }
+			if (createdStartUtc != null) stockExchangesStream = stockExchangesStream.filter { it.createdUtc_safe.isAfter(createdStartUtc) || it.createdUtc_safe.isEqual(createdStartUtc) }
+			if (createdEndInclusiveUtc != null) stockExchangesStream = stockExchangesStream.filter { it.createdUtc_safe.isBefore(createdEndInclusiveUtc) || it.createdUtc_safe.isEqual(createdEndInclusiveUtc) }
+		}
+		val stockExchanges: List<StockExchange> = with(pageable) {
+			if (isPaged) {
+				stockExchangesStream
+					.limit((pageNumber * pageSize).toLong())
+					.toList()
+					.drop((pageNumber - 1) * pageSize)
+			} else {
+				stockExchangesStream.toList()
+			}
+		}
+		return StockExchangesDto(stockExchanges.mapTo(mutableSetOf(), StockExchange::toDto))
 	}
 
 	@Transactional
@@ -38,7 +74,8 @@ internal class StockExchangesDaoImpl protected constructor(
 	): Long {
 		val stockExchange = with(advertisableDto) {
 			StockExchange(
-				author = usersRepository.getByIdAndIsDeletedFalse(authorId),
+//				author = usersRepository.getByIdAndIsDeletedFalse(authorId),
+				author = usersRepository.getOne(authorId),
 				name = name,
 				description = description,
 				type = type,
@@ -83,7 +120,8 @@ internal class StockExchangesDaoImpl protected constructor(
 	): Long {
 		val rating =
 			StockExchangeRating(
-				usersRepository.getByIdAndIsDeletedFalse(authorId),
+//				usersRepository.getByIdAndIsDeletedFalse(authorId),
+				usersRepository.getOne(authorId),
 				stockExchangesRepository.getByIdAndIsDeletedFalse(advertisableId),
 				ratingDto.score
 			)

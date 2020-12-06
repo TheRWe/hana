@@ -1,7 +1,6 @@
 package cz.globex.hana.database.entity.impl
 
 import cz.globex.hana.common.dto.*
-import cz.globex.hana.database.entity.*
 import cz.globex.hana.database.util.*
 import org.hibernate.annotations.*
 import java.time.*
@@ -10,12 +9,20 @@ import javax.persistence.Entity
 
 @Entity
 class User(
+	id: Long,
 	firstName: String,
 	lastName: String,
 	email: String,
-	@Enumerated(EnumType.STRING) var type: UserType,
+	@Enumerated var type: UserType,
 	photoUri: String? = null,
-) : Archivable() {
+)
+//	: Archivable()
+{
+	@Id
+	@Column(unique = true, nullable = false, updatable = false)
+	var id: Long = id
+		private set
+
 	@Column(nullable = false)
 	var firstName: String = firstName.also { validateFirstName(it) }
 		set(value) {

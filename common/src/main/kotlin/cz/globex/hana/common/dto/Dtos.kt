@@ -19,16 +19,16 @@ class ArticleFiltersDto : EntityFiltersDto
 
 data class UserFiltersDto(
 	val type: UserType?,
-	val registeredStartUtc: LocalDateTime?,
-	val registeredEndInclusiveUtc: LocalDateTime?,
-	val ratingAsSupplierScoreStart: Double?,
-	val ratingAsSupplierScoreEndInclusive: Double?,
-	val ratingAsSupplierVotesCountStart: Double?,
-	val ratingAsSupplierVotesCountEndInclusive: Double?,
-	val ratingAsSellerScoreStart: Double?,
-	val ratingAsSellerScoreEndInclusive: Double?,
-	val ratingAsSellerVotesCountStart: Double?,
-	val ratingAsSellerVotesCountEndInclusive: Double?,
+	val registeredStartUtc: String?,
+	val registeredEndInclusiveUtc: String?,
+	val ratingAsSupplierScoreStart: Float?,
+	val ratingAsSupplierScoreEndInclusive: Float?,
+	val ratingAsSupplierVotesCountStart: Int?,
+	val ratingAsSupplierVotesCountEndInclusive: Int?,
+	val ratingAsSellerScoreStart: Float?,
+	val ratingAsSellerScoreEndInclusive: Float?,
+	val ratingAsSellerVotesCountStart: Int?,
+	val ratingAsSellerVotesCountEndInclusive: Int?,
 ) : EntityFiltersDto
 
 data class AdFiltersDto(
@@ -36,8 +36,8 @@ data class AdFiltersDto(
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
-	val createdStartUtc: LocalDateTime?,
-	val createdEndInclusiveUtc: LocalDateTime?,
+	val createdStartUtc: String?,
+	val createdEndInclusiveUtc: String?,
 	val tagName: Set<String>?,
 	val isActual: Boolean?,
 	val type: AdType?,
@@ -50,15 +50,15 @@ data class EventFiltersDto(
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
-	val createdStartUtc: LocalDateTime?,
-	val createdEndInclusiveUtc: LocalDateTime?,
+	val createdStartUtc: String?,
+	val createdEndInclusiveUtc: String?,
 	val tagName: Set<String>?,
-	val ratingScoreStart: Double?,
-	val ratingScoreEndInclusive: Double?,
-	val ratingVotesCountStart: Double?,
-	val ratingVotesCountEndInclusive: Double?,
-	val dateStart: LocalDateTime?,
-	val dateEndInclusive: LocalDateTime?,
+	val ratingScoreStart: Float?,
+	val ratingScoreEndInclusive: Float?,
+	val ratingVotesCountStart: Int?,
+	val ratingVotesCountEndInclusive: Int?,
+	val dateStart: String?,
+	val dateEndInclusive: String?,
 	val entryFeeStart: Int?,
 	val entryFeeEndInclusive: Int?,
 ) : EntityFiltersDto
@@ -68,8 +68,8 @@ data class StockExchangeFiltersDto(
 	val placeLatitude: Double?,
 	val placeLongitude: Double?,
 	val placeRangeMeters: Int?,
-	val createdStart: LocalDateTime?,
-	val createdEndInclusive: LocalDateTime?,
+	val createdStartUtc: String?,
+	val createdEndInclusiveUtc: String?,
 	val tagName: Set<String>?,
 	val isActual: Boolean?,
 	val type: StockExchangeType?,
@@ -114,7 +114,7 @@ data class UserCreateReplaceDto(
 	val photoUri: String?,
 ) : EntityCreateReplaceDto
 
-enum class UserType { PERSON, COMPANY, CERTIFIED_COMPANY, MODERATOR, ADMINISTRATOR, }
+enum class UserType { ADMINISTRATOR, MODERATOR, CERTIFIED_COMPANY, COMPANY, PERSON, }
 
 data class UserRatingSummariesDto(
 	val asSupplier: RatingSummaryDto?,
@@ -176,7 +176,7 @@ data class EventCreateReplaceDto(
 	val place: PlaceCreateReplaceDto?,
 	val photoUri: String?,
 	val tags: Set<String>,
-	val date: RangeDto<LocalDateTime>,
+	val date: RangeDto<String>,
 	val entryFee: Int,
 ) : EntityCreateReplaceDto
 

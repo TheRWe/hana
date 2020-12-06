@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(path = [StockExchangesApiController.PATH])
 internal class StockExchangesApiControllerImpl private constructor(
+	private val requestUtils: RequestUtils,
 	daoProvider: DaoProvider,
 ) : StockExchangesApiController {
 	private val stockExchangesDao = daoProvider.stockExchangesDao
@@ -18,7 +19,8 @@ internal class StockExchangesApiControllerImpl private constructor(
 	override fun createStockExchange(
 		@RequestBody stockExchange: StockExchangeCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(stockExchangesDao.createAdvertisable(stockExchange, 1)) // TODO read current user from servletContext
+		val resourceInfo = stockExchangesDao.createAdvertisable(stockExchange, requestUtils.getActualUserId())
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(path = [PathNodes.ID])
@@ -54,7 +56,8 @@ internal class StockExchangesApiControllerImpl private constructor(
 		@PathVariable(PathVariables.ID) stockExchangeId: Long,
 		@RequestBody rating: RatingCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(stockExchangesDao.createRating(rating, (1..100).random().toLong(), stockExchangeId)) // TODO read current user from servletContext
+		val resourceInfo = stockExchangesDao.createRating(rating, requestUtils.getActualUserId(), stockExchangeId)
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(PathNodes.ID + PathNodes.RATINGS + PathNodes.RATE_ID)

@@ -9,7 +9,8 @@ internal fun User.toDto(): UserDto {
 		?.let { RatingSummaryDto(it, ratingVotesAsSupplier) }
 	val ratingAsSeller = ratingScoreAsSeller?.let { RatingSummaryDto(it, ratingVotesAsSeller) }
 	return UserDto(
-		id = id_safe,
+//		id = id_safe,
+		id = id,
 		firstName = firstName,
 		lastName = lastName,
 		email = email,
@@ -23,7 +24,8 @@ internal fun User.toDto(): UserDto {
 internal fun Ad.toDto(): AdDto =
 	AdDto(
 		id = id_safe,
-		authorId = author_safe.id_safe,
+//		authorId = author_safe.id_safe,
+		authorId = author_safe.id,
 		name = name,
 		description = description,
 		place = place?.toDto(),
@@ -38,7 +40,8 @@ internal fun Ad.toDto(): AdDto =
 internal fun Event.toDto(): EventDto =
 	EventDto(
 		id = id_safe,
-		authorId = author_safe.id_safe,
+//		authorId = author_safe.id_safe,
+		authorId = author_safe.id,
 		name = name,
 		description = description,
 		place = place?.toDto(),
@@ -53,7 +56,8 @@ internal fun Event.toDto(): EventDto =
 internal fun StockExchange.toDto(): StockExchangeDto =
 	StockExchangeDto(
 		id = id_safe,
-		authorId = author_safe.id_safe,
+//		authorId = author_safe.id_safe,
+		authorId = author_safe.id,
 		name = name,
 		description = description,
 		place = place?.toDto(),
@@ -75,6 +79,7 @@ internal fun Place.toDto(): PlaceDto =
 internal fun Rating.toDto(): RatingDto =
 	RatingDto(
 		id = id_safe,
-		authorId = author_safe.id_safe,
+//		authorId = author_safe.id_safe,
+		authorId = author_safe.id,
 		score = RatingScore.values()[score_safe - 1]
 	)

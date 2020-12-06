@@ -5,5 +5,5 @@ import javax.persistence.*
 @MappedSuperclass
 abstract class Archivable protected constructor() : LongIdentifiable() {
 	@Column(nullable = false)
-	protected open var isDeleted: Boolean = false
+	open var isDeleted: Boolean = false
 }

@@ -14,12 +14,12 @@ internal class UsersApiControllerImpl private constructor(
 ) : UsersApiController {
 	private val usersDao = daoProvider.usersDao
 
-	@PostMapping
-	override fun createUser(
-		@RequestBody user: UserCreateReplaceDto,
-	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(usersDao.createUser(user))
-	}
+//	@PostMapping
+//	override fun createUser(
+//		@RequestBody user: UserCreateReplaceDto,
+//	): ResponseEntity<ResourceInfoDto<Long>> {
+//		return ResponseEntities.created(usersDao.createUser(user))
+//	}
 
 	@GetMapping(path = [PathNodes.ID])
 	override fun getUser(@PathVariable(PathVariables.ID) id: Long) = usersDao.getUser(id)
@@ -29,16 +29,16 @@ internal class UsersApiControllerImpl private constructor(
 		return usersDao.getUsers(filters, pagination.toPageable())
 	}
 
-	@PutMapping(path = [PathNodes.ID])
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	override fun replaceUser(
-		@PathVariable(PathVariables.ID) id: Long,
-		@RequestBody user: UserCreateReplaceDto,
-	) {
-		usersDao.replaceUser(id, user)
-	}
+//	@PutMapping(path = [PathNodes.ID])
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	override fun replaceUser(
+//		@PathVariable(PathVariables.ID) id: Long,
+//		@RequestBody user: UserCreateReplaceDto,
+//	) {
+//		usersDao.replaceUser(id, user)
+//	}
 
-	@DeleteMapping(path = [PathNodes.ID])
-	@ResponseStatus(HttpStatus.NO_CONTENT)
-	override fun deleteUser(@PathVariable(PathVariables.ID) id: Long) = usersDao.deleteUser(id)
+//	@DeleteMapping(path = [PathNodes.ID])
+//	@ResponseStatus(HttpStatus.NO_CONTENT)
+//	override fun deleteUser(@PathVariable(PathVariables.ID) id: Long) = usersDao.deleteUser(id)
 }

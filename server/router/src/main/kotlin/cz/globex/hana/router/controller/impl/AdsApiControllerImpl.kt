@@ -6,10 +6,12 @@ import cz.globex.hana.router.controller.*
 import cz.globex.hana.router.util.*
 import org.springframework.http.*
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.context.request.*
 
 @RestController
 @RequestMapping(path = [AdsApiController.PATH])
 internal class AdsApiControllerImpl private constructor(
+	private val requestUtils: RequestUtils,
 	daoProvider: DaoProvider,
 ) : AdsApiController {
 	private val adsDao = daoProvider.adsDao
@@ -18,7 +20,8 @@ internal class AdsApiControllerImpl private constructor(
 	override fun createAd(
 		@RequestBody ad: AdCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(adsDao.createAdvertisable(ad, (1..100).random().toLong())) // TODO read current user from servletContext
+		val resourceInfo = adsDao.createAdvertisable(ad, requestUtils.getActualUserId())
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(PathNodes.ID)
@@ -47,7 +50,8 @@ internal class AdsApiControllerImpl private constructor(
 		@PathVariable(PathVariables.ID) adId: Long,
 		@RequestBody rating: RatingCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(adsDao.createRating(rating, (1..100).random().toLong(), adId)) // TODO read current user from servletContext
+		val resourceInfo = adsDao.createRating(rating, requestUtils.getActualUserId(), adId)
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(PathNodes.ID + PathNodes.RATINGS + PathNodes.RATE_ID)

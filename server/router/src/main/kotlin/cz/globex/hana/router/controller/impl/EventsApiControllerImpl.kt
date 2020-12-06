@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping(path = [EventsApiController.PATH])
 internal class EventsApiControllerImpl private constructor(
+	private val requestUtils: RequestUtils,
 	daoProvider: DaoProvider,
 ) : EventsApiController {
 	private val eventsDao = daoProvider.eventsDao
@@ -18,7 +19,8 @@ internal class EventsApiControllerImpl private constructor(
 	override fun createEvent(
 		@RequestBody event: EventCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(eventsDao.createAdvertisable(event, (1..100).random().toLong())) // TODO read current user from servletContext
+		val resourceInfo = eventsDao.createAdvertisable(event, requestUtils.getActualUserId())
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(path = [PathNodes.ID])
@@ -49,7 +51,8 @@ internal class EventsApiControllerImpl private constructor(
 		@PathVariable(PathVariables.ID) eventId: Long,
 		@RequestBody rating: RatingCreateReplaceDto,
 	): ResponseEntity<ResourceInfoDto<Long>> {
-		return ResponseEntities.created(eventsDao.createRating(rating, (1..100).random().toLong(), eventId)) // TODO read current user from servletContext
+		val resourceInfo = eventsDao.createRating(rating, requestUtils.getActualUserId(), eventId)
+		return ResponseEntities.created(resourceInfo)
 	}
 
 	@GetMapping(PathNodes.ID + PathNodes.RATINGS + PathNodes.RATE_ID)
