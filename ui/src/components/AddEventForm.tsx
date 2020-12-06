@@ -9,7 +9,7 @@ import { SelectBox } from "./SelectBox";
 type AddEventFormProps = {
   imagePath?: string
   place?: string
-  date?: string
+  date?: Date
   email?: string
   heading?: string
   text?: string
@@ -45,7 +45,15 @@ export const AddEventForm: React.FC<AddEventFormProps> = ({ imagePath = "../imag
     ></Input>
     <SelectBox
       label={{ en: "Type", cz: "Typ" }}
-      options={[{ en: "Offer", cz: "Nabídka" }, { en: "Inquiry", cz: "Poptávka" }]}></SelectBox>
+      options={[
+        { value: "offer", text: { en: "Offer", cz: "Nabídka" } },
+        { value: "inquiry", text: { en: "Inquiry", cz: "Poptávka" } },
+      ]}
+      value={
+        // todo:
+        ""}
+      onValueChange={()=>{}}
+      ></SelectBox>
     <Input
       type={EInputType.text}
       label={{ en: "Place", cz: "Místo konání" }}

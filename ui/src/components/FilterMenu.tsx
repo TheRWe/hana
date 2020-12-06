@@ -15,15 +15,16 @@ export enum EFilterMenuType {
 }
 
 type TFilter = {
-  timeFrom?: Date,
-  timeTo?: Date,
+  dateFrom?: Date,
+  dateTo?: Date,
   // todo: place
   place?: string,
   distance?: number,
   priceFrom?: number,
   priceTo?: number,
   type?: string,
-  // todo: job types
+  typeOfEmployment?: string,
+  typeOfJob?: string,
 };
 
 type FilterMenuProps = {
@@ -58,7 +59,6 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
   })();
 
   return (<>
-  {JSON.stringify(filter)}
     <section className="section-filter-menu">
       <div className="container">
 
@@ -100,17 +100,17 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                       label={{
                         en: "Price:   from", cz: "Cena:   od",
                       }}
-                      onValueChange={(val) => setFilterProp(x => x.priceFrom = val)}
                       value={filter.priceFrom || 0}
-                    ></Input>
+                      onValueChange={(val) => setFilterProp(x => x.priceFrom = val)}
+                    />
                     <Input
                       type={EInputType.number}
                       label={{
                         en: "- to", cz: "- do",
                       }}
-                      onValueChange={(val) => setFilterProp(x => x.priceFrom = val)}
-                      value={filter.priceFrom || 0}
-                    ></Input>
+                      value={filter.priceTo || 0}
+                      onValueChange={(val) => setFilterProp(x => x.priceTo = val)}
+                    />
                   </div>
                   <div className="menu-filter">
                     <Input
@@ -118,16 +118,18 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                       label={{
                         en: "Place:", cz: "Místo:",
                       }}
-                    ></Input>
+                    />
                     <FontAwesomeIcon icon={faMapMarkedAlt} />
                   </div>
                   <div className="menu-filter">
                     <Input
-                      type={EInputType.text}
+                      type={EInputType.number}
                       label={{
                         en: "Area:", cz: "Okolí:",
                       }}
-                    ></Input>
+                      value={filter.distance}
+                      onValueChange={(val) => setFilterProp(x => x.distance = val)}
+                    />
                     km
                   </div>
                 </div>
@@ -141,7 +143,6 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
               undefined
           }
 
-
           {
             (filterType as EFilterMenuType) === EFilterMenuType.events ? <>
               <div className="section-filter-menu__filters">
@@ -153,7 +154,9 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "From:",
                         cz: "Od:",
                       }}
-                    ></Input>
+                      value={filter.dateFrom}
+                      onValueChange={(val) => setFilterProp(x => x.dateFrom = val)}
+                    />
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter date-filter">
@@ -163,7 +166,9 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "To:",
                         cz: "Do:",
                       }}
-                    ></Input>
+                      value={filter.dateTo}
+                      onValueChange={(val) => setFilterProp(x => x.dateTo = val)}
+                    />
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter">
@@ -173,7 +178,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "Place:",
                         cz: "Místo:",
                       }}
-                    ></Input>
+                    />
                     <FontAwesomeIcon icon={faMapMarkedAlt} />
                   </div>
                 </div>
@@ -187,7 +192,6 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
               undefined
           }
 
-
           {
             (filterType as EFilterMenuType) === EFilterMenuType.jobAd ? <>
               <div className="section-filter-menu__filters">
@@ -199,7 +203,9 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "From",
                         cz: "Od",
                       }}
-                    ></Input>
+                      value={filter.dateFrom}
+                      onValueChange={(val) => setFilterProp(x => x.dateFrom = val)}
+                    />
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter date-filter">
@@ -209,7 +215,9 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "To:",
                         cz: "Do:",
                       }}
-                    ></Input>
+                      value={filter.dateTo}
+                      onValueChange={(val) => setFilterProp(x => x.dateTo = val)}
+                    />
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter">
@@ -219,15 +227,17 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "Place:",
                         cz: "Obec/Okres:",
                       }}
-                    ></Input>
+                    />
                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                     <Input
-                      type={EInputType.text}
+                      type={EInputType.number}
                       label={{
                         en: "  +",
                         cz: "  +",
                       }}
-                    ></Input>
+                      value={filter.distance}
+                      onValueChange={(val) => setFilterProp(x => x.distance = val)}
+                    />
                       km
                   </div>
                 </div>
@@ -238,7 +248,13 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "Type",
                         cz: "Typ",
                       }}
-                      options={[{ en: "Offer", cz: "Nabídka" }, { en: "Inquiry", cz: "Poptávka" }]}></SelectBox>
+                      options={[
+                        { value: "offer", text: { en: "Offer", cz: "Nabídka" } },
+                        { value: "inquiry", text: { en: "Inquiry", cz: "Poptávka" } },
+                      ]}
+                      value={filter.type || ""}
+                      onValueChange={(val) => setFilterProp(x => x.type = val)}
+                    />
                   </div>
                   <div className="menu-filter select-filter">
                     <SelectBox
@@ -246,7 +262,16 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "Type of employment",
                         cz: "Druhy pracovního poměru",
                       }}
-                      options={[{ en: "Full time", cz: "Plný úvazek" }, { en: "???", cz: "Živnost" }, { en: "Summer job", cz: "Brigáda" }, { en: "Part time", cz: "Zkrácený úvazek" }, { en: "Internship", cz: "Stáž" }]}></SelectBox>
+                      options={[
+                        { value: "fulltime", text: { en: "Full time", cz: "Plný úvazek" } },
+                        { value: "???", text: { en: "???", cz: "Živnost" } },
+                        { value: "summerjob", text: { en: "Summer job", cz: "Brigáda" } },
+                        { value: "parttime", text: { en: "Part time", cz: "Zkrácený úvazek" } },
+                        { value: "internship", text: { en: "Internship", cz: "Stáž" } },
+                      ]}
+                      value={filter.typeOfEmployment || ""}
+                      onValueChange={(val) => setFilterProp(x => x.typeOfEmployment = val)}
+                    />
                   </div>
                   <div className="menu-filter select-filter">
                     <SelectBox
@@ -254,7 +279,13 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
                         en: "Job",
                         cz: "Pracovní pozice",
                       }}
-                      options={[{ en: "IT Analyst", cz: "IT Analytik" }, { en: "Idk", cz: "Idk" }]}></SelectBox>
+                      options={[
+                        { value: "itnalyst", text: { en: "IT Analyst", cz: "IT Analytik" } },
+                        { value: "idk", text: { en: "Idk", cz: "Idk" } },
+                      ]}
+                      value={filter.typeOfJob || ""}
+                      onValueChange={(val) => setFilterProp(x => x.typeOfJob = val)}
+                    />
                   </div>
                 </div>
               </div>
@@ -262,7 +293,6 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType }: FilterMenu
               :
               undefined
           }
-
 
         </div>
       </div>

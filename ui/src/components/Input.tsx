@@ -21,8 +21,8 @@ type InputProps = {
     } | {
       // todo: date format
       type: EInputType.date
-      value?: string,
-      onValueChange?: (val: string) => void,
+      value?: Date,
+      onValueChange?: (val: Date) => void,
     }
   );
 
@@ -47,16 +47,34 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
         onValueChange(value as never);
         break;
       case EInputType.date:
-        // todo: implement
-        console.error("not implemeted");
+        console.info({ value });
+        onValueChange(new Date(value) as never);
         break;
     }
   };
+
+  const textValue = (() => {
+    switch (typeof value) {
+      case "number":
+        return value.toLocaleString();
+      case "string":
+        return value;
+      case "undefined":
+        return "";
+      case "object":
+        // todo: not stable
+        if (value instanceof Date) {
+          return `${value.getFullYear()}-${(value.getMonth() + 1).toString().padStart(2, "0")}-${(value.getDate()).toString().padStart(2, "0")}`;
+        }
+      default:
+        console.error(`Invalid type of value ${JSON.stringify(value)}`);
+    }
+  })();
 
   return (<>
     <label htmlFor={name}>
       {useLocalized(label)}
     </label>
-    <input type={type} id={name} name={name} value={value?.toString()} onChange={handleInputChange} />
+    <input type={type} id={name} name={name} value={textValue} onChange={handleInputChange} />
   </>);
 };
