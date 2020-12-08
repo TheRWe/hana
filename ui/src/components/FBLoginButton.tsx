@@ -61,7 +61,7 @@ export const FBLoginButton: React.FC<TFBLoginButtonProps> = ({ setLogin: sl }) =
       setName("");
       sl({});
     }
-  }, [response]);
+  }, [response, sl]);
 
   return <>
     <ul className="navbar-nav user-menu">

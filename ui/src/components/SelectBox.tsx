@@ -1,5 +1,5 @@
 import React from "react";
-import { LocText, TLocalizedText, useLocalized } from "./LocText";
+import { TLocalizedText, useLocalized } from "./LocText";
 
 type Option = { value: string, text: TLocalizedText };
 type SelectBoxProps = {

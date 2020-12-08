@@ -13,7 +13,7 @@ import "./App.scss";
 
 // Icons
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDoorOpen, faGlobe, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 // Components
 import { ELanguages, LanguageContext, LocText } from "./components/LocText";

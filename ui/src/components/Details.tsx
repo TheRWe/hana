@@ -1,7 +1,5 @@
 import React from "react";
 import { LocText } from "./LocText";
-import { EInputType, Input } from "./Input";
-import { TextArea } from "./TextArea";
 
 
 type DetailsProps = {
@@ -21,7 +19,7 @@ type DetailsProps = {
 
 
 export const Details: React.FC<DetailsProps> = (props: DetailsProps) => <>
-  {/* 
+  {/*
   fotka
 
   haeding
@@ -37,7 +35,7 @@ export const Details: React.FC<DetailsProps> = (props: DetailsProps) => <>
   Plat
   */}
   {(props.imagePath)
-    ? <img src={props.imagePath} alt="Photo of article" />
+    ? <img src={props.imagePath} alt="Article" />
     : undefined}
 
   <h2>{props.heading}</h2>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TFilter } from "./FilterMenu";
 import { LocText, TLocalizedText } from "./LocText";
 
@@ -14,7 +14,7 @@ type RadioFilterProps = {
 };
 
 
-export const RadioFilter: React.FC<RadioFilterProps> = ({ type, filter, setFilterProp }) => {
+export const RadioFilter: React.FC<RadioFilterProps> = ({ type, setFilterProp }) => {
   return (<>
     <div className="radio-filter">
       <label>

@@ -1,5 +1,5 @@
 import React from "react";
-import { LocText, TLocalizedText, useLocalized } from "./LocText";
+import { TLocalizedText, useLocalized } from "./LocText";
 // Routing
 import { Link } from "react-router-dom";
 

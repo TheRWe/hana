@@ -1,6 +1,5 @@
 import React from "react";
 import { LocText } from "./LocText";
-import { EJobAdType } from "./Tile";
 import { EInputType, Input } from "./Input";
 import { TextArea } from "./TextArea";
 import { SelectBox } from "./SelectBox";
@@ -26,7 +25,7 @@ export enum EvenType {
 
 export const AddEventForm: React.FC<AddEventFormProps> = ({ imagePath = "../images/no_image.png", place, date, email, heading, text, price, telephoneNumber }: AddEventFormProps) => <>
   <form>
-    <img className="event-picture" src={imagePath} alt="event-picture" />
+    <img className="event-picture" src={imagePath} alt="Event" />
     <button>
       <LocText
         en="Change picture"

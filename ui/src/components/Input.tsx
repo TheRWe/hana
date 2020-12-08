@@ -1,5 +1,5 @@
 import React from "react";
-import { LocText, TLocalizedText, useLocalized } from "./LocText";
+import { TLocalizedText, useLocalized } from "./LocText";
 
 export enum EInputType {
   date = "date",
@@ -38,6 +38,7 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
       case EInputType.number:
         const float = parseFloat(value);
         if ((!float && float !== 0) || Number.isNaN(float) || !Number.isFinite(float)) {
+          // tslint:disable-next-line: no-console
           console.warn(`cannot parse float value: ${value}`);
           break;
         }
@@ -47,7 +48,6 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
         onValueChange(value as never);
         break;
       case EInputType.date:
-        console.info({ value });
         onValueChange(new Date(value) as never);
         break;
     }
@@ -66,7 +66,11 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
         if (value instanceof Date) {
           return `${value.getFullYear()}-${(value.getMonth() + 1).toString().padStart(2, "0")}-${(value.getDate()).toString().padStart(2, "0")}`;
         }
+        // tslint:disable-next-line: no-console
+        console.error(`Invalid type of value ${JSON.stringify(value)}`);
+        break;
       default:
+        // tslint:disable-next-line: no-console
         console.error(`Invalid type of value ${JSON.stringify(value)}`);
     }
   })();

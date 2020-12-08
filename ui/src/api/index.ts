@@ -1,5 +1,4 @@
 import { TAction } from "../common/interface/common";
-import { useLogin } from "../components/FBLoginButton";
 
 const HTTP_MULTIPLE_CHOICES = 300;
 
@@ -29,6 +28,7 @@ const debugging = true;
 let debugFetchID = 0;
 const log = (state: string, id: number, method: string, uri: string) => {
   if (debugging)
+    // tslint:disable-next-line: no-console
     console.debug(`${method.padEnd(7, " ")} ${id.toString(10).padStart(4, " ")} ${state.padEnd(10, " ")} ${uri}`);
 };
 

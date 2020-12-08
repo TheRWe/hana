@@ -6,7 +6,7 @@ import { LocText } from "../components/LocText";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 import { TStockExchangeGetListGetAction } from "../common/interface/stockExchange";
 import { EHttpMethod, withFetch } from "../api";
-import { PromiseType, randInt, sleep } from "../common/utils";
+import { PromiseType } from "../common/utils";
 import { useProvideUsersForIds } from "../utils/useProvideUser";
 
 type TStockExchangePageProps = {
@@ -76,7 +76,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
         response
           .map(x => ({ ...x, user: users[x.authorId] }))
           .map(({
-            user, actual, authorId, cost, createdUtc, description, id, name, tags, type, photoUri, place,
+            user, cost, description, name, photoUri,
           }) => <Tile
               heading={name}
               imagePath={photoUri || "../images/no_image.png"}

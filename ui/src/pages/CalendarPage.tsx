@@ -8,7 +8,6 @@ import { EHttpMethod, withFetch } from "../api";
 import { TEventGetListGetAction } from "../common/interface/event";
 import { PromiseType } from "../common/utils/types";
 import { dateFromApi } from "../common/interface";
-import { FBLoginButton } from "../components/FBLoginButton";
 
 type TCalendarPageProps = {
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ERadioFilterType, RadioFilter } from "../components/RadioFilter";
 import { EInputType, Input } from "../components/Input";
 import { SelectBox } from "../components/SelectBox";

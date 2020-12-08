@@ -35,7 +35,7 @@ export const InputPlaceAutocomplete: React.FC<TInputPlaceAutocompleteProps> = ({
           onValueChange({ name, lat, lng });
       });
     })();
-  }, []);
+  }, [onValueChange]);
 
   useEffect(() => {
     parentRef.current.value = value?.name || "";
