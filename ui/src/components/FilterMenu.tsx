@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ERadioFilterType, RadioFilter } from "../components/RadioFilter";
 import { EInputType, Input } from "../components/Input";
 import { SelectBox } from "../components/SelectBox";
@@ -7,6 +7,9 @@ import { LocText, useLocalized } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { InputPlaceAutocomplete, Place } from "./InputPlaceAutocomplete";
+import { AddTradeForm } from "./AddTradeForm";
+import { AddEventForm } from "./AddEventForm";
+import { AddJobAdForm } from "./AddJobAdForm";
 
 export enum EFilterMenuType {
   events,
@@ -60,6 +63,14 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
     }
   })();
 
+  const modalContent = (()=>{
+    switch (filterType) {
+      case EFilterMenuType.stock: return <AddTradeForm />;
+      case EFilterMenuType.events: return <AddEventForm />;
+      case EFilterMenuType.jobAd: return <AddJobAdForm />;
+    }
+  })();
+
   return (<>
     <section className="section-filter-menu">
       <div className="container">
@@ -82,7 +93,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
             onClose={() => setAddModalVysible(false)}
             label={labelAdd}
           >
-            TODO: add form
+            {modalContent}
           </ModalBox>
         </header>
 

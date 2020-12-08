@@ -18,9 +18,15 @@ type FieldName = "stockExchanges";
 const responseSelector = (resp: PromiseType<ReturnType<Action>>) => resp.stockExchanges;
 const route = "stock-exchanges";
 const getFilterFetchParams = (filter: TFilter): Request => ({
-  pageSize: 24, pageStart: 0,
+  pageSize: 24, pageStart: 1,
   costStart: filter.priceFrom,
   costEndInclusive: filter.priceTo,
+  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
+  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  placeLatitude: filter.place?.lat,
+  placeLongitude: filter.place?.lng,
+  placeRangeMeters: filter.distance || 10,
+  type: filter.type as any,
 });
 
 type Response = PromiseType<ReturnType<Action>>[FieldName];
@@ -47,7 +53,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
   return <>
     <FilterMenu
       filterType={EFilterMenuType.stock}
-      {...{filter, setFilter}}
+      {...{ filter, setFilter }}
     >
     </FilterMenu>
 

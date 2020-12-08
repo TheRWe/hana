@@ -1,4 +1,5 @@
 import { TAction } from "../common/interface/common";
+import { useLogin } from "../components/FBLoginButton";
 
 const HTTP_MULTIPLE_CHOICES = 300;
 
@@ -11,7 +12,8 @@ export enum EHttpMethod {
 
 type TFetchOptions = {
   route: string,
-  method: EHttpMethod
+  method: EHttpMethod,
+  token?: string,
 };
 
 export class ErrorCode extends Error {
@@ -35,6 +37,7 @@ const log = (state: string, id: number, method: string, uri: string) => {
 export const withFetch = <TA extends TAction<any, any>>({
   route,
   method,
+  token,
 }: TFetchOptions) =>
   (async (...req: Parameters<TA>) => {
     const debugID = debugFetchID++;
@@ -52,10 +55,13 @@ export const withFetch = <TA extends TAction<any, any>>({
 
     log("start", debugID, method, uri);
 
+    const auth = token ? { "Authorization": "Bearer " + token } : {};
+
     const resAwaiter = fetch(uri, {
       method,
       headers: {
         "Content-Type": "application/json",
+        ...(auth as any),
       },
       ...((req && method !== EHttpMethod.GET) ? { body: JSON.stringify(req) } : {}),
     });

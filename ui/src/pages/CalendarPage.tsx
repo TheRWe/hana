@@ -8,6 +8,7 @@ import { EHttpMethod, withFetch } from "../api";
 import { TEventGetListGetAction } from "../common/interface/event";
 import { PromiseType } from "../common/utils/types";
 import { dateFromApi } from "../common/interface";
+import { FBLoginButton } from "../components/FBLoginButton";
 
 type TCalendarPageProps = {
 
@@ -17,12 +18,16 @@ type Action = TEventGetListGetAction;
 type FieldName = "events";
 const responseSelector = (resp: PromiseType<ReturnType<Action>>) => resp.events;
 const route = "events";
-// todo: place
-// todo: category
+const placeRangeMeters = 10_000;
 const getFilterFetchParams = (filter: TFilter): Request => ({
-  pageSize: 24, pageStart: 0,
+  pageSize: 24, pageStart: 1,
   entryFeeStart: filter.priceFrom,
   entryFeeEndInclusive: filter.priceTo,
+  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
+  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  placeLatitude: filter.place?.lat,
+  placeLongitude: filter.place?.lng,
+  placeRangeMeters,
 });
 
 type Response = PromiseType<ReturnType<Action>>[FieldName];
@@ -36,6 +41,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
 
     (async () => {
+      setResponse([]);
       const res = await fetch(getFilterFetchParams(filter));
       setResponse(responseSelector(res));
     })();

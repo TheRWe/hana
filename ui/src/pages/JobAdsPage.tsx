@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LocText } from "../components/LocText";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 import { withFetch, EHttpMethod } from "../api";
-import { TStockExchangeGetListGetAction } from "../common/interface/stockExchange";
 import { useProvideUsersForIds } from "../utils/useProvideUser";
 import { TAdGetListGetAction } from "../common/interface/ad";
 import { PromiseType } from "../common/utils";
+import { AdType } from "../common/interface/shared";
 
 type TJobAdsPageProps = {
 
@@ -19,9 +19,15 @@ type FieldName = "ads";
 const responseSelector = (resp: PromiseType<ReturnType<Action>>) => resp.ads;
 const route = "ads";
 const getFilterFetchParams = (filter: TFilter): Request => ({
-  pageSize: 24, pageStart: 0,
+  pageSize: 24, pageStart: 1,
   salaryStart: filter.priceFrom,
   salaryEndInclusive: filter.priceTo,
+  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
+  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  placeLatitude: filter.place?.lat,
+  placeLongitude: filter.place?.lng,
+  placeRangeMeters: filter.distance || 10,
+  type: filter.type as AdType,
 });
 
 type Response = PromiseType<ReturnType<Action>>[FieldName];
