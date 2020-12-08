@@ -6,7 +6,7 @@ import { ModalBox } from "../components/ModalBox";
 import { LocText, useLocalized } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
-import { ButtonLink } from "./ButtonLink";
+import { InputPlaceAutocomplete, Place } from "./InputPlaceAutocomplete";
 
 export enum EFilterMenuType {
   events,
@@ -17,8 +17,7 @@ export enum EFilterMenuType {
 export type TFilter = {
   dateFrom?: Date,
   dateTo?: Date,
-  // todo: place
-  place?: string,
+  place?: Place,
   distance?: number,
   priceFrom?: number,
   priceTo?: number,
@@ -115,11 +114,12 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
                     />
                   </div>
                   <div className="menu-filter">
-                    <Input
-                      type={EInputType.text}
+                    <InputPlaceAutocomplete
                       label={{
                         en: "Place:", cz: "Místo:",
                       }}
+                      value={filter.place}
+                      onValueChange={(val) => setFilterProp(x => x.place = val)}
                     />
                     <FontAwesomeIcon icon={faMapMarkedAlt} />
                   </div>
@@ -137,6 +137,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
                 </div>
                 <RadioFilter
                   type={ERadioFilterType.stock}
+                  {...{ filter, setFilterProp }}
                 >
                 </RadioFilter>
               </div>
@@ -174,18 +175,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter">
-                    <Input
-                      type={EInputType.text}
+                    <InputPlaceAutocomplete
                       label={{
-                        en: "Place:",
-                        cz: "Místo:",
+                        en: "Place:", cz: "Místo:",
                       }}
+                      value={filter.place}
+                      onValueChange={(val) => setFilterProp(x => x.place = val)}
                     />
                     <FontAwesomeIcon icon={faMapMarkedAlt} />
                   </div>
                 </div>
                 <RadioFilter
                   type={ERadioFilterType.events}
+                  {...{ filter, setFilterProp }}
                 >
                 </RadioFilter>
               </div>
@@ -223,12 +225,12 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
                     <FontAwesomeIcon icon={faCalendar} />
                   </div>
                   <div className="menu-filter">
-                    <Input
-                      type={EInputType.text}
+                    <InputPlaceAutocomplete
                       label={{
-                        en: "Place:",
-                        cz: "Obec/Okres:",
+                        en: "Place:", cz: "Místo:",
                       }}
+                      value={filter.place}
+                      onValueChange={(val) => setFilterProp(x => x.place = val)}
                     />
                     <FontAwesomeIcon icon={faMapMarkerAlt} />
                     <Input
