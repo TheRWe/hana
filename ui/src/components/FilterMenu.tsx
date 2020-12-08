@@ -24,6 +24,7 @@ export type TFilter = {
   type?: string,
   typeOfEmployment?: string,
   typeOfJob?: string,
+  category?: string,
 };
 
 type FilterMenuProps = {

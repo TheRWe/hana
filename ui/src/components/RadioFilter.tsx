@@ -1,101 +1,95 @@
 import React, { useState } from "react";
-import { LocText } from "./LocText";
+import { TFilter } from "./FilterMenu";
+import { LocText, TLocalizedText } from "./LocText";
 
 export enum ERadioFilterType {
   events,
   stock,
 }
 
-type TFilterRadio = {
-
-};
-
 type RadioFilterProps = {
-  type: ERadioFilterType
+  type: ERadioFilterType,
+  filter: TFilter,
+  setFilterProp: (fnc: (filter: TFilter) => void) => void,
 };
 
 
-export const RadioFilter: React.FC<RadioFilterProps> = ({ type }: RadioFilterProps) => {
-  const [filter, setFilter] = useState<TFilterRadio>({});
-  const setFilterProp = (fnc: (filter: TFilterRadio) => void) => {
-    const cpy = { ...filter }; fnc(cpy); setFilter(cpy);
-  };
-
+export const RadioFilter: React.FC<RadioFilterProps> = ({ type, filter, setFilterProp }) => {
   return (<>
-    {
-      type && (type as ERadioFilterType) === ERadioFilterType.stock ?
-        /********************************
-        * Radio filters for stocks page *
-        *********************************/
-        <div className="radio-filter">
-          <label>
-            <LocText
-              en="Category:"
-              cz="Kategorie:"
-            />
-          </label>
-          <input type="radio" id="toys" name="event-type" />
-          <label htmlFor="toys">
-            <LocText
-              en="Toys"
-              cz="Hračky"
-            />
-          </label>
-          <input type="radio" id="clothes" name="event-type" />
-          <label htmlFor="clothes">
-            <LocText
-              en="Clothes"
-              cz="Oblečení"
-            />
-          </label>
-          <input type="radio" id="books" name="event-type" />
-          <label htmlFor="books">
-            <LocText
-              en="Books"
-              cz="Knihy"
-            />
-          </label>
-          <input type="radio" id="machines" name="event-type" />
-          <label htmlFor="machines">
-            <LocText
-              en="Machines"
-              cz="Stroje"
-            />
-          </label>
-        </div>
-        :
-        /*******************************
-        * Radio filters for event page *
-        ********************************/
-        <div className="radio-filter">
-          <label>
-            <LocText
-              en="Event type:"
-              cz="Typ akce:"
-            />
-          </label>
-          <input type="radio" id="kids" name="event-type" />
-          <label htmlFor="kids">
-            <LocText
-              en="For kids"
-              cz="Pro děti"
-            />
-          </label>
-          <input type="radio" id="culture" name="event-type" />
-          <label htmlFor="culture">
-            <LocText
-              en="Culture"
-              cz="Kulturní"
-            />
-          </label>
-          <input type="radio" id="music" name="event-type" />
-          <label htmlFor="music">
-            <LocText
-              en="Music"
-              cz="Hudební"
-            />
-          </label>
-        </div>
-    }
+    <div className="radio-filter">
+      <label>
+        {type && (type as ERadioFilterType) === ERadioFilterType.stock
+          ? <LocText
+            en="Category:"
+            cz="Kategorie:"
+          />
+          : <LocText
+            en="Event type:"
+            cz="Typ akce:"
+          />}
+      </label>
+      {(type && (type as ERadioFilterType) === ERadioFilterType.stock ?
+        [
+          {
+            id: "toys",
+            label: {
+              en: "Toys",
+              cz: "Hračky",
+            },
+          },
+          {
+            id: "clothes",
+            label: {
+              en: "Clothes",
+              cz: "Oblečení",
+            },
+          },
+          {
+            id: "books",
+            label: {
+              en: "Books",
+              cz: "Knihy",
+            },
+          },
+          {
+            id: "machines",
+            label: {
+              en: "Machines",
+              cz: "Stroje",
+            },
+          },
+        ] : [
+          {
+            id: "kids",
+            label: {
+              en: "For kids",
+              cz: "Pro děti",
+            },
+          },
+          {
+            id: "culture",
+            label: {
+              en: "Culture",
+              cz: "Kulturní",
+            },
+          },
+          {
+            id: "music",
+            label: {
+              en: "Music",
+              cz: "Hudební",
+            },
+          },
+        ] as { id: string, label: TLocalizedText }[]).map(({ id, label }) =>
+          <>
+            <input type="radio" id={id} name="event-type" onChange={() => setFilterProp(x => x.category = id)} />
+            <label htmlFor={id}>
+              <LocText
+                {...label}
+              />
+            </label>
+          </>
+        )}
+    </div>
   </>);
 };
