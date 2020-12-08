@@ -16,7 +16,7 @@ type AddTradeFormProps = {
 
 export const AddTradeForm: React.FC<AddTradeFormProps> = ({ imagePath = "../images/no_image.png", email, heading, text, price, telephoneNumber }: AddTradeFormProps) => <>
   <form>
-    <img className="event-picture" src={imagePath} alt="event-picture" />
+    <img className="event-picture" src={imagePath} alt="Event" />
     <button>
       <LocText
         en="Change picture"

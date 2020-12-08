@@ -1,6 +1,5 @@
 import React from "react";
 import { LocText } from "./LocText";
-import { EJobAdType } from "./Tile";
 import { EInputType, Input } from "./Input";
 import { TextArea } from "./TextArea";
 import { SelectBox } from "./SelectBox";
@@ -9,7 +8,7 @@ import { SelectBox } from "./SelectBox";
 type AddEventFormProps = {
   imagePath?: string
   place?: string
-  date?: string
+  date?: Date
   email?: string
   heading?: string
   text?: string
@@ -26,7 +25,7 @@ export enum EvenType {
 
 export const AddEventForm: React.FC<AddEventFormProps> = ({ imagePath = "../images/no_image.png", place, date, email, heading, text, price, telephoneNumber }: AddEventFormProps) => <>
   <form>
-    <img className="event-picture" src={imagePath} alt="event-picture" />
+    <img className="event-picture" src={imagePath} alt="Event" />
     <button>
       <LocText
         en="Change picture"
@@ -45,7 +44,15 @@ export const AddEventForm: React.FC<AddEventFormProps> = ({ imagePath = "../imag
     ></Input>
     <SelectBox
       label={{ en: "Type", cz: "Typ" }}
-      options={[{ en: "Offer", cz: "Nabídka" }, { en: "Inquiry", cz: "Poptávka" }]}></SelectBox>
+      options={[
+        { value: "offer", text: { en: "Offer", cz: "Nabídka" } },
+        { value: "inquiry", text: { en: "Inquiry", cz: "Poptávka" } },
+      ]}
+      value={
+        // todo:
+        ""}
+      onValueChange={()=>{}}
+      ></SelectBox>
     <Input
       type={EInputType.text}
       label={{ en: "Place", cz: "Místo konání" }}

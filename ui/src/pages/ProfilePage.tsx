@@ -1,6 +1,4 @@
 import React from "react";
-import { Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
 import { EInputType, Input } from "../components/Input";
 
 type TProfilePageProps = {
@@ -14,7 +12,7 @@ export const ProfilePage: React.FC<TProfilePageProps> = () => {
     {/* BEGIN SECTION PROFILE */}
 
     <section>
-      <img className="profile-photo" src="../images/no_image.png" alt="profile-image" />
+      <img className="profile-photo" src="../images/no_image.png" alt="Profile" />
       <form>
         <Input
           type={EInputType.text}

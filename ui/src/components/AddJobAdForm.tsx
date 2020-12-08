@@ -44,7 +44,18 @@ export const AddJobAdForm: React.FC<AddJobAdFormProps> = ({ place, date, email, 
     ></Input>
     <SelectBox
       label = {{en: "Type of employment", cz: "Typ pracovního poměru"}}
-      options={[{en:"Full time", cz:"Plný úvazek"}, {en:"???", cz:"Živnost"}, {en:"Summer job", cz:"Brigáda"}, {en:"Part time", cz:"Zkrácený úvazek"}, {en:"Internship", cz:"Stáž"}]}></SelectBox>
+      options={[
+        { value: "fulltime", text: { en: "Full time", cz: "Plný úvazek" } },
+        { value: "???", text: { en: "???", cz: "Živnost" } },
+        { value: "summerjob", text: { en: "Summer job", cz: "Brigáda" } },
+        { value: "parttime", text: { en: "Part time", cz: "Zkrácený úvazek" } },
+        { value: "internship", text: { en: "Internship", cz: "Stáž" } },
+      ]}
+      value={
+        // todo:
+        ""}
+      onValueChange={()=>{}}
+      ></SelectBox>
     <Input
       type={EInputType.text}
       label = {{en: "Telephone number", cz: "Telefonní číslo"}}

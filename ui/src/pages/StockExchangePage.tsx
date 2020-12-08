@@ -1,45 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu } from "../components/FilterMenu";
+import { EFilterMenuType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LocText } from "../components/LocText";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 import { TStockExchangeGetListGetAction } from "../common/interface/stockExchange";
 import { EHttpMethod, withFetch } from "../api";
-import { PromiseType, randInt, sleep } from "../common/utils";
-import { TUserGetByIdGetAction } from "../common/interface/user";
-import { StockExchangeType } from "../common/interface/shared";
+import { PromiseType } from "../common/utils";
 import { useProvideUsersForIds } from "../utils/useProvideUser";
 
 type TStockExchangePageProps = {
 
 };
 
-type TExchanges = PromiseType<ReturnType<TStockExchangeGetListGetAction>>["stockExchanges"];
-type TUser = PromiseType<ReturnType<TUserGetByIdGetAction>>;
+type Action = TStockExchangeGetListGetAction;
+type FieldName = "stockExchanges";
+const responseSelector = (resp: PromiseType<ReturnType<Action>>) => resp.stockExchanges;
+const route = "stock-exchanges";
+const getFilterFetchParams = (filter: TFilter): Request => ({
+  pageSize: 24, pageStart: 1,
+  costStart: filter.priceFrom,
+  costEndInclusive: filter.priceTo,
+  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
+  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  placeLatitude: filter.place?.lat,
+  placeLongitude: filter.place?.lng,
+  placeRangeMeters: filter.distance || 10,
+  type: filter.type as any,
+});
+
+type Response = PromiseType<ReturnType<Action>>[FieldName];
+type Request = Parameters<Action>[0];
 
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
-  const [exchanges, setExchanges] = useState<TExchanges>([]);
-
-  const [usersIds, setUsersIds] = useState<number[]>([]);
-  useEffect(() => { setUsersIds(exchanges.map(x => x.authorId)); }, [exchanges]);
-  const users = useProvideUsersForIds(usersIds);
-
-
+  const [response, setResponse] = useState<Response>([]);
+  const [filter, setFilter] = useState<TFilter>({});
 
   useEffect(() => {
-    const fetch = withFetch<TStockExchangeGetListGetAction>({ method: EHttpMethod.GET, route: "stock-exchanges" });
+    const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
 
     (async () => {
-      const res = await fetch({ pageSize: 24, pageStart: 0 });
-      setExchanges(res.stockExchanges);
+      const res = await fetch(getFilterFetchParams(filter));
+      setResponse(responseSelector(res));
     })();
-  }, []);
+  }, [filter]);
 
+
+  const [usersIds, setUsersIds] = useState<number[]>([]);
+  useEffect(() => { setUsersIds(response.map(x => x.authorId)); }, [response]);
+  const users = useProvideUsersForIds(usersIds);
 
   return <>
     <FilterMenu
       filterType={EFilterMenuType.stock}
+      {...{ filter, setFilter }}
     >
     </FilterMenu>
 
@@ -59,10 +73,10 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
 
     <section className="container cards">
       {
-        exchanges
+        response
           .map(x => ({ ...x, user: users[x.authorId] }))
           .map(({
-            user, actual, authorId, cost, createdUtc, description, id, name, tags, type, photoUri, place,
+            user, cost, description, name, photoUri,
           }) => <Tile
               heading={name}
               imagePath={photoUri || "../images/no_image.png"}
