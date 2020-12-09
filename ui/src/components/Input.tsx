@@ -76,9 +76,11 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
   })();
 
   return (<>
-    <label htmlFor={name}>
-      {useLocalized(label)}
-    </label>
-    <input type={type} id={name} name={name} value={textValue} onChange={handleInputChange} />
+    <div className="row">
+      <label htmlFor={name}>
+        {useLocalized(label)}
+      </label>
+      <input type={type} id={name} name={name} value={textValue} onChange={handleInputChange} />
+    </div>
   </>);
 };

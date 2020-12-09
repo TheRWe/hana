@@ -78,13 +78,13 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
+    <section className="container row cards">
       {
         response.map(({
           authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
         }) =>
           <Tile
-            heading={name}
+            name={name}
             imagePath={photoUri || "../images/no_image.png"}
             eventRating={rating}
             place={place?.name}

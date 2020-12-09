@@ -43,9 +43,11 @@ export const InputPlaceAutocomplete: React.FC<TInputPlaceAutocompleteProps> = ({
 
 
   return <>
-    <label htmlFor={name}>
-      {useLocalized(label)}
-    </label>
-    <input id={name} name={name} ref={parentRef}></input>
+    <div className="row">
+      <label htmlFor={name}>
+        {useLocalized(label)}
+      </label>
+        <input id={name} name={name} ref={parentRef}></input>
+    </div>
   </>;
 };

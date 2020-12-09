@@ -75,14 +75,14 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
+    <section className="container row cards">
       {
         response
           .map(x => ({ ...x, user: users[x.authorId] }))
           .map(({
             user, cost, description, name, photoUri, id,
           }) => <Tile
-              heading={name}
+              name={name}
               imagePath={photoUri || "../images/no_image.png"}
               text={description}
               email={user?.email || ""}

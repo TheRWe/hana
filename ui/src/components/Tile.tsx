@@ -20,20 +20,20 @@ type TileProps = {
   jobType?: string
   userName?: string
   userRating?: RatingSummary | undefined
-  heading: string
+  name: string
   text: string
   price?: string
   jobAdType?: EJobAdType
   onEdit?: () => void
 };
 
-export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, heading, text, price, jobAdType, onEdit }: TileProps) => <>
+export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, text, price, jobAdType,name, onEdit }: TileProps) => <>
   <article className="col-4 card card-pink">
     <header>
       {
-        imagePath ? <img src={imagePath} alt="ntg" /> : undefined
+        imagePath ? <img src={imagePath} alt="ntg" /> : <img src="../images/no_image.png" alt="ntg" />
       }
-      <h3 className="card-title">{heading}</h3>
+      <h3 className="card-title">{name}</h3>
       <Rating rating={eventRating} />
     </header>
     <p className="card-description">
@@ -72,7 +72,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         {
           email ?
             <div className="card-info-row">
-              <p>Email</p>
+              <p>Email:</p>
               <p>{email}</p>
             </div>
             :
@@ -132,8 +132,8 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
       <div className="card-more-info">
         <p className="right" onClick={onEdit} style={{ userSelect: "none", cursor: "pointer" }}>
           <LocText
-            en="Edit"
-            cz="Upravit"
+            en="EDIT"
+            cz="UPRAVIT"
           />
         </p>
         {

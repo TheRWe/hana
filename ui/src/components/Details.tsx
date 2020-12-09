@@ -4,7 +4,7 @@ import { LocText } from "./LocText";
 
 type DetailsProps = {
   imagePath?: string
-  heading: string
+  name: string
   text: string
   price?: string
   pay?: string
@@ -22,7 +22,7 @@ export const Details: React.FC<DetailsProps> = (props: DetailsProps) => <>
   {/*
   fotka
 
-  haeding
+  name
 
   popis
 
@@ -38,7 +38,7 @@ export const Details: React.FC<DetailsProps> = (props: DetailsProps) => <>
     ? <img src={props.imagePath} alt="Article" />
     : undefined}
 
-  <h2>{props.heading}</h2>
+  <h2>{props.name}</h2>
 
   <p>{props.text}</p>
 
