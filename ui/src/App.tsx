@@ -24,9 +24,6 @@ import { StockExchangePage } from "./pages/StockExchangePage";
 import { CalendarPage } from "./pages/CalendarPage";
 import { JobAdsPage } from "./pages/JobAdsPage";
 import { ProfilePage } from "./pages/ProfilePage";
-import { AddEventPage } from "./pages/AddEventPage";
-import { AddJobAdPage } from "./pages/AddJobAdPage";
-import { AddTradePage } from "./pages/AddTradePage";
 import { EventDetails } from "./pages/EventDetails";
 import { JobAdDetails } from "./pages/JobAdDetails";
 import { TradeDetails } from "./pages/TradeDetails";
@@ -133,15 +130,6 @@ const App: React.FC<Props> = () => {
               </Route>
               <Route path="/ProfilePage">
                 <ProfilePage />
-              </Route>
-              <Route path="/AddEventPage">
-                <AddEventPage />
-              </Route>
-              <Route path="/AddJobAdPage">
-                <AddJobAdPage />
-              </Route>
-              <Route path="/AddTradePage">
-                <AddTradePage />
               </Route>
               <Route path="/EventDetails">
                 <EventDetails />

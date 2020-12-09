@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu, TFilter } from "../components/FilterMenu";
+import { EContentType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { LocText } from "../components/LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
@@ -48,7 +48,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
 
   return <>
     <FilterMenu
-      filterType={EFilterMenuType.events}
+      filterType={EContentType.events}
       {...{ filter, setFilter }}
     />
 

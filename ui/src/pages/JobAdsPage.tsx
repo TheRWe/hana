@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { EJobAdType, Tile } from "../components/Tile";
-import { EFilterMenuType, FilterMenu, TFilter } from "../components/FilterMenu";
+import { EContentType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { LocText } from "../components/LocText";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
@@ -55,7 +55,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
     {/* BEGIN SECTION JOBS ADS */}
 
     <FilterMenu
-      filterType={EFilterMenuType.jobAd}
+      filterType={EContentType.jobAd}
       {...{ filter, setFilter }}
     >
     </FilterMenu>

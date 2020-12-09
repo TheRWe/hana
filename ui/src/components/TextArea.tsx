@@ -7,16 +7,17 @@ type TextAreaProps = {
   numRows?: number
   numCols?: number
   value?: string
+  onValueChange?: (val: string) => void,
 };
 
 
-export const TextArea: React.FC<TextAreaProps> = ({ label, numRows, numCols, value }: TextAreaProps) => {
+export const TextArea: React.FC<TextAreaProps> = ({ label, numRows, numCols, value, onValueChange = () => { } }: TextAreaProps) => {
   const name = label.en.replace(" ", "-").toLowerCase();
 
   return (<>
     <label htmlFor={name}>
       {useLocalized(label)}
     </label>
-    <textarea id={name} name={name} rows={numRows} cols={numCols}>{value}</textarea>
+    <textarea id={name} name={name} rows={numRows} cols={numCols} value={value} onChange={(e) => onValueChange(e.target.value)}>{value}</textarea>
   </>);
 };

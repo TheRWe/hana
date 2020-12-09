@@ -7,11 +7,9 @@ import { LocText, useLocalized } from "./LocText";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar, faCaretDown, faMapMarkedAlt, faMapMarkerAlt, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { InputPlaceAutocomplete, Place } from "./InputPlaceAutocomplete";
-import { AddTradeForm } from "./AddTradeForm";
-import { AddEventForm } from "./AddEventForm";
-import { AddJobAdForm } from "./AddJobAdForm";
+import { FormEdit } from "./FormEdit";
 
-export enum EFilterMenuType {
+export enum EContentType {
   events,
   stock,
   jobAd,
@@ -31,7 +29,7 @@ export type TFilter = {
 };
 
 type FilterMenuProps = {
-  filterType: EFilterMenuType,
+  filterType: EContentType,
   filter: TFilter,
   setFilter: React.Dispatch<React.SetStateAction<TFilter>>,
 };
@@ -48,26 +46,18 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
 
   const labelAdd = (() => {
     switch (filterType) {
-      case EFilterMenuType.stock: return {
+      case EContentType.stock: return {
         en: "Add an item",
         cz: "Přidat položku",
       };
-      case EFilterMenuType.events: return {
+      case EContentType.events: return {
         en: "Add an event",
         cz: "Přidat akci",
       };
-      case EFilterMenuType.jobAd: return {
+      case EContentType.jobAd: return {
         en: "Add an advertisement",
         cz: "Vytvořit inzerát",
       };
-    }
-  })();
-
-  const modalContent = (()=>{
-    switch (filterType) {
-      case EFilterMenuType.stock: return <AddTradeForm />;
-      case EFilterMenuType.events: return <AddEventForm />;
-      case EFilterMenuType.jobAd: return <AddJobAdForm />;
     }
   })();
 
@@ -93,7 +83,9 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
             onClose={() => setAddModalVysible(false)}
             label={labelAdd}
           >
-            {modalContent}
+            <FormEdit
+              formType={filterType}
+            />
           </ModalBox>
         </header>
 
@@ -104,7 +96,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
         }>
 
           {
-            (filterType as EFilterMenuType) === EFilterMenuType.stock ? <>
+            (filterType as EContentType) === EContentType.stock ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
@@ -159,7 +151,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
           }
 
           {
-            (filterType as EFilterMenuType) === EFilterMenuType.events ? <>
+            (filterType as EContentType) === EContentType.events ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
@@ -209,7 +201,7 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
           }
 
           {
-            (filterType as EFilterMenuType) === EFilterMenuType.jobAd ? <>
+            (filterType as EContentType) === EContentType.jobAd ? <>
               <div className="section-filter-menu__filters">
                 <div className="input-filters row">
                   <div className="menu-filter date-filter">
