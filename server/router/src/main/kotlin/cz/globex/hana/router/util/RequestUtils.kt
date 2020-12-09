@@ -17,7 +17,9 @@ internal class RequestUtils protected constructor(
 	}
 
 	private fun getTokenOrNull(): String? {
-		val reqAttrs = RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes
-		return reqAttrs.request.getHeader(HttpHeaders.AUTHORIZATION)?.substringAfter("Bearer ")
+		return ""
+
+//		val reqAttrs = RequestContextHolder.currentRequestAttributes() as ServletRequestAttributes
+//		return reqAttrs.request.getHeader(HttpHeaders.AUTHORIZATION)?.substringAfter("Bearer ")
 	}
 }

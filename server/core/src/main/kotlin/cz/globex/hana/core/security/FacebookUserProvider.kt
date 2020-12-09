@@ -8,6 +8,7 @@ import cz.globex.hana.database.entity.impl.*
 import cz.globex.hana.database.repository.impl.*
 import org.springframework.stereotype.*
 import java.util.concurrent.*
+import kotlin.random.*
 
 @Component
 class FacebookUserProvider protected constructor(
@@ -16,31 +17,35 @@ class FacebookUserProvider protected constructor(
 	private val loggedInUsers = ConcurrentHashMap<String, Long>()
 
 	fun getUserIdOrNull(token: String): Long? {
-		val userId = loggedInUsers[token]
-		if (userId != null) return userId
+//		val userId = loggedInUsers[token]
+//		if (userId != null) return userId
+//
+//		val data = FacebookApiClient.getDataOrNull(token) ?: return null
+//		val oldUser = usersRepository.findById(data.id)
+//		val user = if (oldUser.isPresent) {
+//			val (firstName, lastName) = getSplitName(data.name)
+//			oldUser.get().apply {
+//				email = data.email
+//				this.firstName = firstName
+//				this.lastName = lastName
+//			}
+//		} else {
+//			val (firstName, lastName) = getSplitName(data.name)
+//			with(data) {
+//				User(
+//					id = id,
+//					email = email,
+//					firstName = firstName,
+//					lastName = lastName,
+//					type = UserType.PERSON,
+//				)
+//			}
+//		}
+//		return usersRepository.save(user).id
 
-		val data = FacebookApiClient.getDataOrNull(token) ?: return null
-		val oldUser = usersRepository.findById(data.id)
-		val user = if (oldUser.isPresent) {
-			val (firstName, lastName) = getSplitName(data.name)
-			oldUser.get().apply {
-				email = data.email
-				this.firstName = firstName
-				this.lastName = lastName
-			}
-		} else {
-			val (firstName, lastName) = getSplitName(data.name)
-			with(data) {
-				User(
-					id = id,
-					email = email,
-					firstName = firstName,
-					lastName = lastName,
-					type = UserType.PERSON,
-				)
-			}
-		}
-		return usersRepository.save(user).id
+		val usersCount = usersRepository.count()
+		val mockUser = usersRepository.getOne(Random.nextLong(1, usersCount))
+		return mockUser.id
 	}
 
 	private fun getSplitName(fullName: String): Pair<String, String> {
