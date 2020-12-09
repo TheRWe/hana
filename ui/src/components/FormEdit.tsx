@@ -1,19 +1,16 @@
-import { text } from "@fortawesome/fontawesome-svg-core";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EHttpMethod, withFetch } from "../api";
-import { dateToApi } from "../common/interface";
-import { TAdPostAction } from "../common/interface/ad";
-import { TEventPostAction } from "../common/interface/event";
-import { AdType, StockExchangeType } from "../common/interface/shared";
-import { TStockExchangePostAction } from "../common/interface/stockExchange";
+import { dateFromApi, dateToApi } from "../common/interface";
+import { TAdGetByIdGetAction, TAdPostAction } from "../common/interface/ad";
+import { TEventGetByIdGetAction, TEventPostAction } from "../common/interface/event";
+import { TStockExchangeGetByIdGetAction, TStockExchangePostAction } from "../common/interface/stockExchange";
+import { PromiseType } from "../common/utils";
 import { EContentType } from "./FilterMenu";
 import { Input, EInputType } from "./Input";
 import { InputPlaceAutocomplete, Place } from "./InputPlaceAutocomplete";
 import { LocText, TLocalizedText } from "./LocText";
 import { SelectBox } from "./SelectBox";
 import { TextArea } from "./TextArea";
-
-const imagePath = "images/no_image.png";
 
 export enum EEventType {
   kids,
@@ -87,6 +84,7 @@ const mapping = (state: State, type: EContentType) => {
   const jobMapping = (state: Required<TStateJob>): Parameters<TAdPostAction>[0] => ({
     actual: true,
     payout: state.price,
+    // todo: add to both mappings
     type: "DEMAND" as any,
     description: state.text, photoUri: "", place: placeApi(state.place),
     tags: [], name: "",
@@ -97,7 +95,52 @@ const mapping = (state: State, type: EContentType) => {
     tags: [], name: "",
     actual: true,
     cost: state.price,
+    // todo: add to both mappings
     type: "BUY" as any,
+  });
+
+  return (() => {
+    switch (type) {
+      case EContentType.events: return eventMapping;
+      case EContentType.jobAd: return jobMapping;
+      case EContentType.stock: return stockMapping;
+    }
+  })()(state as any);
+};
+
+const placeFromApi = (place: ({
+  name: string;
+  latitude: number;
+  longitude: number;
+} | undefined)): Place | undefined => {
+  if (!place) return;
+  const { latitude, longitude, name } = place;
+  return ({
+    lat: latitude,
+    lng: longitude,
+    name,
+  });
+};
+
+const mappingInverse = (state: any, type: EContentType) => {
+  const eventMapping = (res: PromiseType<ReturnType<TEventGetByIdGetAction>>): TStateEvent => ({
+    date: res.date && dateFromApi(res.date.start),
+    text: res.description,
+    price: res.entryFee,
+    place: placeFromApi(res.place),
+
+  });
+
+  const jobMapping = (res: PromiseType<ReturnType<TAdGetByIdGetAction>>): TStateJob => ({
+    price: res.payout,
+    text: res.description,
+    place: placeFromApi(res.place),
+  });
+
+  const stockMapping = (res: PromiseType<ReturnType<TStockExchangeGetByIdGetAction>>): TStateTrade => ({
+    text: res.description,
+    place: placeFromApi(res.place),
+    price: res.cost,
   });
 
   return (() => {
@@ -128,7 +171,13 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
       const fetch = withFetch({ method: EHttpMethod.POST, route });
       fetch(mapping(state, formType));
     } else {
-
+      const route =
+        formType === EContentType.events ? `events/${id}`
+          : formType === EContentType.stock ? `stock-exchanges/${id}`
+            : `ads/${id}`
+        ;
+      const fetch = withFetch({ method: EHttpMethod.PUT, route });
+      fetch(mapping(state, formType));
     }
     onSubmit?.();
   };
@@ -143,6 +192,21 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
         break;
     }
   })();
+
+  useEffect(() => {
+    if (!id) return;
+    (async () => {
+      const route =
+        formType === EContentType.events ? `events/${id}`
+          : formType === EContentType.stock ? `stock-exchanges/${id}`
+            : `ads/${id}`
+        ;
+      const fetch = withFetch({ method: EHttpMethod.GET, route });
+      const res = await fetch({});
+      setState(mappingInverse(res, formType));
+    })();
+  }, [id, setState, formType]);
+
 
 
   const makeField = (field: TField) => {
@@ -251,7 +315,7 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
 
       <div style={{ color: "lightgray" }}>Obrázky nejsou dostupné, FB api nenalezeno</div>
       {/*
-      <img className="form-picture" src={imagePath} alt="Preview" />
+      <img className="form-picture" src={"images/no_image.png"} alt="Preview" />
       <button>
         <LocText
           en="Change picture"

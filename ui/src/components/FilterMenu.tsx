@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ERadioFilterType, RadioFilter } from "../components/RadioFilter";
 import { EInputType, Input } from "../components/Input";
 import { SelectBox } from "../components/SelectBox";
@@ -32,9 +32,11 @@ type FilterMenuProps = {
   filterType: EContentType,
   filter: TFilter,
   setFilter: React.Dispatch<React.SetStateAction<TFilter>>,
+  editID: number | undefined,
+  exitEdit: () => void,
 };
 
-export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setFilter }: FilterMenuProps) => {
+export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setFilter, editID, exitEdit }: FilterMenuProps) => {
   const [searchVisible, setSearchVisible] = useState(false);
   const [editModalVisible, setEditModalVisible] = useState(false);
 
@@ -61,6 +63,17 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
     }
   })();
 
+  useEffect(() => {
+    setEditModalVisible(typeof editID !== "undefined");
+  }, [editID]);
+
+  const endEdit = () => {
+    // refresh
+    setFilterProp(() => { });
+    setEditModalVisible(false);
+    exitEdit();
+  };
+
   return (<>
     <section className="section-filter-menu">
       <div className="container">
@@ -80,12 +93,13 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
 
           <ModalBox
             visible={editModalVisible}
-            onClose={() => setEditModalVisible(false)}
+            onClose={endEdit}
             label={labelAdd}
           >
             <FormEdit
               formType={filterType}
-              onSubmit={() => setEditModalVisible(false)}
+              onSubmit={endEdit}
+              id={editID}
             />
           </ModalBox>
         </header>

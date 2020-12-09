@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
 import { EContentType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { LocText } from "../components/LocText";
@@ -35,6 +35,8 @@ type Request = Parameters<Action>[0];
 export const CalendarPage: React.FC<TCalendarPageProps> = () => {
   const [response, setResponse] = useState<Response>([]);
   const [filter, setFilter] = useState<TFilter>({});
+  const [editID, setEditID] = useState<undefined | number>(undefined);
+  const exitEdit = useCallback(() => { setEditID(undefined); }, [setEditID]);
 
   useEffect(() => {
     const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
@@ -50,6 +52,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     <FilterMenu
       filterType={EContentType.events}
       {...{ filter, setFilter }}
+      {...{ editID, exitEdit }}
     />
 
     <section className="section-sort">
@@ -90,6 +93,8 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
               dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
             text={description}
             price={entryFee.toString(10) + " Kč"}
+            onEdit={() => setEditID(id)
+            }
           />
         )
       }

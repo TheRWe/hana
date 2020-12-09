@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { EJobAdType, Tile } from "../components/Tile";
 import { EContentType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -37,6 +37,8 @@ type Request = Parameters<Action>[0];
 export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
   const [response, setResponse] = useState<Response>([]);
   const [filter, setFilter] = useState<TFilter>({});
+  const [editID, setEditID] = useState<undefined | number>(undefined);
+  const exitEdit = useCallback(() => { setEditID(undefined); }, [setEditID]);
 
   useEffect(() => {
     const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
@@ -58,6 +60,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
     <FilterMenu
       filterType={EContentType.jobAd}
       {...{ filter, setFilter }}
+      {...{ editID, exitEdit }}
     >
     </FilterMenu>
 
@@ -90,6 +93,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
               userName={(user && (user.firstName + " " + user.lastName)) || ""}
               userRating={user?.ratings?.asSeller}
               jobAdType={EJobAdType.inq}
+              onEdit={() => setEditID(id)}
             />
           )
       }

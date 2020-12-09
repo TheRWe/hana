@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Tile } from "../components/Tile";
 import { EContentType, FilterMenu, TFilter } from "../components/FilterMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,6 +36,8 @@ type Request = Parameters<Action>[0];
 export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
   const [response, setResponse] = useState<Response>([]);
   const [filter, setFilter] = useState<TFilter>({});
+  const [editID, setEditID] = useState<undefined | number>(undefined);
+  const exitEdit = useCallback(() => { setEditID(undefined); }, [setEditID]);
 
   useEffect(() => {
     const fetch = withFetch<Action>({ method: EHttpMethod.GET, route });
@@ -55,6 +57,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
     <FilterMenu
       filterType={EContentType.stock}
       {...{ filter, setFilter }}
+      {...{ editID, exitEdit }}
     >
     </FilterMenu>
 
@@ -77,7 +80,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
         response
           .map(x => ({ ...x, user: users[x.authorId] }))
           .map(({
-            user, cost, description, name, photoUri,
+            user, cost, description, name, photoUri, id,
           }) => <Tile
               heading={name}
               imagePath={photoUri || "../images/no_image.png"}
@@ -86,6 +89,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
               userName={(user && (user.firstName + " " + user.lastName)) || ""}
               userRating={user?.ratings?.asSeller}
               price={`${cost.toLocaleString()} Kč`}
+              onEdit={() => setEditID(id)}
             />
           )
       }

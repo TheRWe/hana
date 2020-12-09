@@ -66,7 +66,7 @@ export const withFetch = <TA extends TAction<any, any>>({
       ...((req && method !== EHttpMethod.GET) ? { body: JSON.stringify(req[0]) } : {}),
     });
 
-    let resJson: ReturnType<TA>;
+    let resJson: ReturnType<TA> = undefined as any;
 
     const res = (await resAwaiter);
 
@@ -75,7 +75,13 @@ export const withFetch = <TA extends TAction<any, any>>({
       log("error", debugID, method, uri);
       throw new ErrorCode(`${res.status} ${text}`, res.status);
     }
-    resJson = await res.json();
+
+    // todo: fix better
+    try{
+      resJson = await res.json();
+    }catch(e){
+      console.error(e);
+    }
 
     log("done", debugID, method, uri);
     return resJson;

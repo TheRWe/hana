@@ -24,9 +24,10 @@ type TileProps = {
   text: string
   price?: string
   jobAdType?: EJobAdType
+  onEdit?: () => void
 };
 
-export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, heading, text, price, jobAdType }: TileProps) => <>
+export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, heading, text, price, jobAdType, onEdit }: TileProps) => <>
   <article className="col-4 card card-pink">
     <header>
       {
@@ -129,10 +130,10 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         }
       </div>
       <div className="card-more-info">
-        <p className="right">
+        <p className="right" onClick={onEdit} style={{ userSelect: "none", cursor: "pointer" }}>
           <LocText
-            en="MORE INFO"
-            cz="VÍCE INFORMACÍ"
+            en="Edit"
+            cz="Upravit"
           />
         </p>
         {
