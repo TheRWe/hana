@@ -36,7 +36,7 @@ type FilterMenuProps = {
 
 export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setFilter }: FilterMenuProps) => {
   const [searchVisible, setSearchVisible] = useState(false);
-  const [addModalVysible, setAddModalVysible] = useState(false);
+  const [editModalVisible, setEditModalVisible] = useState(false);
 
   const setFilterProp = (fnc: (filter: TFilter) => void) => {
     const cpy = { ...filter }; fnc(cpy); setFilter(cpy);
@@ -73,18 +73,19 @@ export const FilterMenu: React.FC<FilterMenuProps> = ({ filterType, filter, setF
             />
             <FontAwesomeIcon icon={faCaretDown} />
           </button>
-          <button className="button btn-orange right" onClick={() => setAddModalVysible(true)}>
+          <button className="button btn-orange right" onClick={() => setEditModalVisible(true)}>
             {useLocalized(labelAdd)}
             <FontAwesomeIcon icon={faPlus} />
           </button>
 
           <ModalBox
-            visible={addModalVysible}
-            onClose={() => setAddModalVysible(false)}
+            visible={editModalVisible}
+            onClose={() => setEditModalVisible(false)}
             label={labelAdd}
           >
             <FormEdit
               formType={filterType}
+              onSubmit={() => setEditModalVisible(false)}
             />
           </ModalBox>
         </header>

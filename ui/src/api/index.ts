@@ -63,7 +63,7 @@ export const withFetch = <TA extends TAction<any, any>>({
         "Content-Type": "application/json",
         ...(auth as any),
       },
-      ...((req && method !== EHttpMethod.GET) ? { body: JSON.stringify(req) } : {}),
+      ...((req && method !== EHttpMethod.GET) ? { body: JSON.stringify(req[0]) } : {}),
     });
 
     let resJson: ReturnType<TA>;

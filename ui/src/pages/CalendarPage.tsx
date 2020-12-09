@@ -7,7 +7,7 @@ import { faSort } from "@fortawesome/free-solid-svg-icons";
 import { EHttpMethod, withFetch } from "../api";
 import { TEventGetListGetAction } from "../common/interface/event";
 import { PromiseType } from "../common/utils/types";
-import { dateFromApi } from "../common/interface";
+import { dateFromApi, dateToApi } from "../common/interface";
 
 type TCalendarPageProps = {
 
@@ -22,8 +22,8 @@ const getFilterFetchParams = (filter: TFilter): Request => ({
   pageSize: 24, pageStart: 1,
   entryFeeStart: filter.priceFrom,
   entryFeeEndInclusive: filter.priceTo,
-  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
-  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  createdStartUtc: dateToApi(filter.dateFrom),
+  createdEndInclusiveUtc: dateToApi(filter.dateTo),
   placeLatitude: filter.place?.lat,
   placeLongitude: filter.place?.lng,
   placeRangeMeters,

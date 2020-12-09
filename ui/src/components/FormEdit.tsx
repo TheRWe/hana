@@ -1,8 +1,14 @@
 import { text } from "@fortawesome/fontawesome-svg-core";
 import React, { useState } from "react";
+import { EHttpMethod, withFetch } from "../api";
+import { dateToApi } from "../common/interface";
+import { TAdPostAction } from "../common/interface/ad";
+import { TEventPostAction } from "../common/interface/event";
+import { AdType, StockExchangeType } from "../common/interface/shared";
+import { TStockExchangePostAction } from "../common/interface/stockExchange";
 import { EContentType } from "./FilterMenu";
 import { Input, EInputType } from "./Input";
-import { InputPlaceAutocomplete } from "./InputPlaceAutocomplete";
+import { InputPlaceAutocomplete, Place } from "./InputPlaceAutocomplete";
 import { LocText, TLocalizedText } from "./LocText";
 import { SelectBox } from "./SelectBox";
 import { TextArea } from "./TextArea";
@@ -15,38 +21,39 @@ export enum EEventType {
   musical,
 }
 
-type TAddEvent = {
+type TStateEvent = {
   imagePath?: string
-  place?: string
+  place?: Place
   date?: Date
   email?: string
   heading?: string
   text?: string
-  price?: string
+  price?: number
   telephoneNumber?: string
 };
 
-type TAddTrade = {
+type TStateTrade = {
   imagePath?: string
   email?: string
   heading?: string
   text?: string
-  price?: string
+  price?: number
   telephoneNumber?: string
+  place?: Place
 };
 
-type TAddJob = {
-  place?: string
-  date?: string
+type TStateJob = {
+  place?: Place
+  date?: Date
   email?: string
   heading?: string
   text?: string
-  price?: string
+  price?: number
   telephoneNumber?: string
 };
 
-type State = TAddEvent | TAddTrade | TAddJob;
-type StateAll = TAddEvent & TAddTrade & TAddJob;
+type State = TStateEvent | TStateTrade | TStateJob;
+type StateAll = TStateEvent & TStateTrade & TStateJob;
 type StateAllKeys = keyof StateAll;
 
 type TFormAddProps = {
@@ -65,6 +72,44 @@ type TField = {
   selectOptions?: { value: string, text: TLocalizedText }[],
 };
 
+/** returns place for api */
+const placeApi = (place: Place | undefined) => ({
+  latitude: place?.lat || 0,
+  longitude: place?.lng || 0,
+});
+
+const mapping = (state: State, type: EContentType) => {
+  const eventMapping = (state: Required<TStateEvent>): Parameters<TEventPostAction>[0] => ({
+    date: { start: dateToApi(state.date), endInclusive: dateToApi(state.date) }, description: state.text, entryFee: state.price, photoUri: "", place: placeApi(state.place),
+    tags: [], name: "",
+  });
+
+  const jobMapping = (state: Required<TStateJob>): Parameters<TAdPostAction>[0] => ({
+    actual: true,
+    payout: state.price,
+    type: "DEMAND" as any,
+    description: state.text, photoUri: "", place: placeApi(state.place),
+    tags: [], name: "",
+  });
+
+  const stockMapping = (state: Required<TStateTrade>): Parameters<TStockExchangePostAction>[0] => ({
+    description: state.text, photoUri: "", place: placeApi(state.place),
+    tags: [], name: "",
+    actual: true,
+    cost: state.price,
+    type: "BUY" as any,
+  });
+
+  return (() => {
+    switch (type) {
+      case EContentType.events: return eventMapping;
+      case EContentType.jobAd: return jobMapping;
+      case EContentType.stock: return stockMapping;
+    }
+  })()(state as any);
+};
+
+
 export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) => {
   const [state, setState] = useState<State>({});
   const setStateProps = (stateChange: (state: any) => void) => {
@@ -72,11 +117,19 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
     stateChange(cpy);
     setState(cpy);
   };
-  const { email, heading, price, telephoneNumber, text, date, place } = state as StateAll;
-
 
   const submit = () => {
+    if (!id) {
+      const route =
+        formType === EContentType.events ? `events`
+          : formType === EContentType.stock ? `stock-exchanges`
+            : `ads`
+        ;
+      const fetch = withFetch({ method: EHttpMethod.POST, route });
+      fetch(mapping(state, formType));
+    } else {
 
+    }
     onSubmit?.();
   };
 
@@ -195,13 +248,17 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
     <div className="form">
       {JSON.stringify(state)}
 
-      {/* <img className="form-picture" src={imagePath} alt="Preview" />
+
+      <div style={{ color: "lightgray" }}>Obrázky nejsou dostupné, FB api nenalezeno</div>
+      {/*
+      <img className="form-picture" src={imagePath} alt="Preview" />
       <button>
         <LocText
           en="Change picture"
           cz="Změnit obrázek"
         />
-      </button> */}
+      </button>
+      */}
       {form}
       <button onClick={submit}>
         <LocText

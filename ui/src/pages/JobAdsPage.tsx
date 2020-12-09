@@ -9,6 +9,7 @@ import { useProvideUsersForIds } from "../utils/useProvideUser";
 import { TAdGetListGetAction } from "../common/interface/ad";
 import { PromiseType } from "../common/utils";
 import { AdType } from "../common/interface/shared";
+import { dateToApi } from "../common/interface";
 
 type TJobAdsPageProps = {
 
@@ -22,8 +23,8 @@ const getFilterFetchParams = (filter: TFilter): Request => ({
   pageSize: 24, pageStart: 1,
   salaryStart: filter.priceFrom,
   salaryEndInclusive: filter.priceTo,
-  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
-  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  createdStartUtc: dateToApi(filter.dateFrom),
+  createdEndInclusiveUtc: dateToApi(filter.dateTo),
   placeLatitude: filter.place?.lat,
   placeLongitude: filter.place?.lng,
   placeRangeMeters: filter.distance || 10,

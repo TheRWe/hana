@@ -8,6 +8,7 @@ import { TStockExchangeGetListGetAction } from "../common/interface/stockExchang
 import { EHttpMethod, withFetch } from "../api";
 import { PromiseType } from "../common/utils";
 import { useProvideUsersForIds } from "../utils/useProvideUser";
+import { dateToApi } from "../common/interface";
 
 type TStockExchangePageProps = {
 
@@ -21,8 +22,8 @@ const getFilterFetchParams = (filter: TFilter): Request => ({
   pageSize: 24, pageStart: 1,
   costStart: filter.priceFrom,
   costEndInclusive: filter.priceTo,
-  createdStartUtc: filter.dateFrom?.toISOString().split("Z")[0],
-  createdEndInclusiveUtc: filter.dateTo?.toISOString().split("Z")[0],
+  createdStartUtc: dateToApi(filter.dateFrom),
+  createdEndInclusiveUtc: dateToApi(filter.dateTo),
   placeLatitude: filter.place?.lat,
   placeLongitude: filter.place?.lng,
   placeRangeMeters: filter.distance || 10,
