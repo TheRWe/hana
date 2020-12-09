@@ -85,7 +85,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
           .map(({
             user, actual, authorId, createdUtc, description, id, name, tags, type, photoUri, place, payout,
           }) => <Tile
-              heading={name}
+              name={name}
               text={description}
               jobType={type}
               place={place?.name}

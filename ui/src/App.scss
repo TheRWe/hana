@@ -270,7 +270,7 @@ form label {
 
 form input,
 form textarea,
-form select  {
+form select {
   width: 60%;
 }
 
@@ -785,8 +785,10 @@ footer {
   margin: 0.2em 0.8em 0.2em 0em;
 }
 
-.card .card-pink {
-  background-color: $COLOR-PINK;
+.card-pink {
+  background-color: rgba(207, 165, 161, 0.02);
+  margin-bottom: 0.4em;
+  box-shadow: 0px 0px 2px 1px rgba(209, 148, 83, 0.11);
 }
 
 .card .card-title {

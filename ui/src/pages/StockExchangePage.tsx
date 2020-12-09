@@ -82,7 +82,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
           .map(({
             user, cost, description, name, photoUri, id,
           }) => <Tile
-              heading={name}
+              name={name}
               imagePath={photoUri || "../images/no_image.png"}
               text={description}
               email={user?.email || ""}

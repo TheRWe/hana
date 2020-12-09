@@ -23,7 +23,7 @@ type TStateEvent = {
   place?: Place
   date?: Date
   email?: string
-  heading?: string
+  name?: string
   text?: string
   price?: number
   telephoneNumber?: string
@@ -32,7 +32,7 @@ type TStateEvent = {
 type TStateTrade = {
   imagePath?: string
   email?: string
-  heading?: string
+  name?: string
   text?: string
   price?: number
   telephoneNumber?: string
@@ -43,7 +43,7 @@ type TStateJob = {
   place?: Place
   date?: Date
   email?: string
-  heading?: string
+  name?: string
   text?: string
   price?: number
   telephoneNumber?: string
@@ -76,9 +76,18 @@ const placeApi = (place: Place | undefined) => ({
 });
 
 const mapping = (state: State, type: EContentType) => {
+
   const eventMapping = (state: Required<TStateEvent>): Parameters<TEventPostAction>[0] => ({
-    date: { start: dateToApi(state.date), endInclusive: dateToApi(state.date) }, description: state.text, entryFee: state.price, photoUri: "", place: placeApi(state.place),
-    tags: [], name: "",
+    date: {
+      start: dateToApi(state.date),
+      endInclusive: dateToApi(state.date)
+    },
+    description: state.text,
+    entryFee: state.price,
+    photoUri: "",
+    place: placeApi(state.place),
+    tags: [],
+    name: state.name
   });
 
   const jobMapping = (state: Required<TStateJob>): Parameters<TAdPostAction>[0] => ({
@@ -86,17 +95,23 @@ const mapping = (state: State, type: EContentType) => {
     payout: state.price,
     // todo: add to both mappings
     type: "DEMAND" as any,
-    description: state.text, photoUri: "", place: placeApi(state.place),
-    tags: [], name: "",
+    description: state.text,
+    photoUri: "",
+    place: placeApi(state.place),
+    tags: [],
+    name: state.name
   });
 
   const stockMapping = (state: Required<TStateTrade>): Parameters<TStockExchangePostAction>[0] => ({
-    description: state.text, photoUri: "", place: placeApi(state.place),
-    tags: [], name: "",
+    description: state.text,
+    photoUri: "",
+    place: placeApi(state.place),
+    tags: [],
     actual: true,
     cost: state.price,
     // todo: add to both mappings
     type: "BUY" as any,
+    name: state.name
   });
 
   return (() => {
@@ -250,7 +265,7 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
   };
 
   const tradeFields: TField[] = [
-    { name: "heading", type: EFieldType.text, label: { en: "Item name", cz: "Prodávaný předmět" }, },
+    { name: "name", type: EFieldType.text, label: { en: "Item name", cz: "Prodávaný předmět" }, },
     { name: "text", type: EFieldType.textArea, label: { en: "Event description", cz: "Popis předmětu" }, },
     { name: "price", type: EFieldType.number, label: { en: "Price", cz: "Cena" }, },
     { name: "telephoneNumber", type: EFieldType.text, label: { en: "Telephone number", cz: "Telefonní číslo" }, },
@@ -258,7 +273,7 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
   ];
 
   const jobFields: TField[] = [
-    { name: "heading", type: EFieldType.text, label: { en: "Job advert name", cz: "Název pracovního inzerátu" }, },
+    { name: "name", type: EFieldType.text, label: { en: "Job advert name", cz: "Název pracovního inzerátu" }, },
     { name: "text", type: EFieldType.textArea, label: { en: "Job advert description", cz: "Popis práce" }, },
     { name: "price", type: EFieldType.number, label: { en: "Pay", cz: "Plat" }, },
     { name: "place", type: EFieldType.place, label: { en: "Place", cz: "Místo vykonávání" }, },
@@ -278,7 +293,7 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
 
 
   const eventFields: TField[] = [
-    { name: "heading", type: EFieldType.text, label: { en: "Event name", cz: "Název akce" }, },
+    { name: "name", type: EFieldType.text, label: { en: "Event name", cz: "Název akce" }, },
     { name: "date", type: EFieldType.date, label: { en: "Date", cz: "Datum akce" }, },
     {
       name: "todoType" as any, type: EFieldType.select, label: { en: "Type", cz: "Typ" },
@@ -308,8 +323,8 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
 
   return <>
     <form>
-      {/*JSON.stringify(state)*/}
 
+      {/*JSON.stringify(state)*/}
 
       <p>Obrázky nejsou dostupné, FB api nenalezeno</p>
       {/*
