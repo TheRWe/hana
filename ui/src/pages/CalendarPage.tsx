@@ -78,7 +78,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
+    <section className="container row cards">
       {
         response.map(({
           authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,

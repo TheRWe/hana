@@ -75,7 +75,7 @@ export const StockExchangePage: React.FC<TStockExchangePageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
+    <section className="container row cards">
       {
         response
           .map(x => ({ ...x, user: users[x.authorId] }))

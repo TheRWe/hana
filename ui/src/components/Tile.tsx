@@ -31,7 +31,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
   <article className="col-4 card card-pink">
     <header>
       {
-        imagePath ? <img src={imagePath} alt="ntg" /> : undefined
+        imagePath ? <img src={imagePath} alt="ntg" /> : <img src="../images/no_image.png" alt="ntg" />
       }
       <h3 className="card-title">{heading}</h3>
       <Rating rating={eventRating} />
@@ -72,7 +72,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
         {
           email ?
             <div className="card-info-row">
-              <p>Email</p>
+              <p>Email:</p>
               <p>{email}</p>
             </div>
             :
@@ -132,8 +132,8 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
       <div className="card-more-info">
         <p className="right" onClick={onEdit} style={{ userSelect: "none", cursor: "pointer" }}>
           <LocText
-            en="Edit"
-            cz="Upravit"
+            en="EDIT"
+            cz="UPRAVIT"
           />
         </p>
         {

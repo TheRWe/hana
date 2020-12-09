@@ -207,8 +207,6 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
     })();
   }, [id, setState, formType]);
 
-
-
   const makeField = (field: TField) => {
     const { label, name, type, selectOptions } = field;
     switch (type) {
@@ -309,11 +307,11 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
   })().map(makeField);
 
   return <>
-    <div className="form">
-      {JSON.stringify(state)}
+    <form>
+      {/*JSON.stringify(state)*/}
 
 
-      <div style={{ color: "lightgray" }}>Obrázky nejsou dostupné, FB api nenalezeno</div>
+      <p>Obrázky nejsou dostupné, FB api nenalezeno</p>
       {/*
       <img className="form-picture" src={"images/no_image.png"} alt="Preview" />
       <button>
@@ -324,12 +322,14 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
       </button>
       */}
       {form}
-      <button onClick={submit}>
-        <LocText
-          en="Apply"
-          cz="Aplikovat změny"
-        />
-      </button>
-    </div>
+      <div className="form-bottom">
+        <button className="btn btn-orange" onClick={submit}>
+          <LocText
+            en="Apply"
+            cz="Aplikovat změny"
+          />
+        </button>
+      </div>
+    </form>
   </>;
 };

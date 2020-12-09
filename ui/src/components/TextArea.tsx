@@ -15,9 +15,12 @@ export const TextArea: React.FC<TextAreaProps> = ({ label, numRows, numCols, val
   const name = label.en.replace(" ", "-").toLowerCase();
 
   return (<>
-    <label htmlFor={name}>
-      {useLocalized(label)}
-    </label>
-    <textarea id={name} name={name} rows={numRows} cols={numCols} value={value} onChange={(e) => onValueChange(e.target.value)}>{value}</textarea>
+    <div className="row">
+      <label htmlFor={name}>
+        {useLocalized(label)}
+      </label>
+      <textarea id={name} name={name} rows={numRows} cols={numCols} value={value} onChange={(e) => onValueChange(e.target.value)}>{value}</textarea>
+
+    </div>
   </>);
 };

@@ -78,7 +78,7 @@ export const JobAdsPage: React.FC<TJobAdsPageProps> = () => {
       </div>
     </section>
 
-    <section className="container cards">
+    <section className="container row cards">
       {
         response
           .map(x => ({ ...x, user: users[x.authorId] }))

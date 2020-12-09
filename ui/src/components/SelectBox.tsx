@@ -21,11 +21,13 @@ export const SelectBox: React.FC<SelectBoxProps> = ({ label, options, onValueCha
     ;
 
   return (<>
-    <label htmlFor={name}>
-      {useLocalized(label)}
-    </label>
-    <select name={name} id={name} onChange={e => onValueChange(e.target.value)}>
-      {[emptyOption].concat(options).map(LocalizedOption)}
-    </select>
+    <div className="row">
+      <label htmlFor={name}>
+        {useLocalized(label)}
+      </label>
+      <select name={name} id={name} onChange={e => onValueChange(e.target.value)}>
+        {[emptyOption].concat(options).map(LocalizedOption)}
+      </select>
+    </div>
   </>);
 };
