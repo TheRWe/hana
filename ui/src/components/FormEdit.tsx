@@ -138,11 +138,13 @@ const placeFromApi = (place: ({
 };
 
 const mappingInverse = (state: any, type: EContentType) => {
+
   const eventMapping = (res: PromiseType<ReturnType<TEventGetByIdGetAction>>): TStateEvent => ({
     date: res.date && dateFromApi(res.date.start),
     text: res.description,
     price: res.entryFee,
     place: placeFromApi(res.place),
+    name: res.name
 
   });
 
@@ -150,12 +152,14 @@ const mappingInverse = (state: any, type: EContentType) => {
     price: res.payout,
     text: res.description,
     place: placeFromApi(res.place),
+    name: res.name,
   });
 
   const stockMapping = (res: PromiseType<ReturnType<TStockExchangeGetByIdGetAction>>): TStateTrade => ({
     text: res.description,
     place: placeFromApi(res.place),
     price: res.cost,
+    name: res.name
   });
 
   return (() => {
