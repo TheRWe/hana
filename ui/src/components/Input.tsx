@@ -60,7 +60,7 @@ export const Input: React.FC<InputProps> = ({ type, label, value, onValueChange 
       case "string":
         return value;
       case "undefined":
-        return "dd";
+        return "";
       case "object":
         // todo: not stable
         if (value instanceof Date) {
