@@ -80,14 +80,14 @@ const mapping = (state: State, type: EContentType) => {
   const eventMapping = (state: Required<TStateEvent>): Parameters<TEventPostAction>[0] => ({
     date: {
       start: dateToApi(state.date),
-      endInclusive: dateToApi(state.date)
+      endInclusive: dateToApi(state.date),
     },
     description: state.text,
     entryFee: state.price,
     photoUri: "",
     place: placeApi(state.place),
     tags: [],
-    name: state.name
+    name: state.name,
   });
 
   const jobMapping = (state: Required<TStateJob>): Parameters<TAdPostAction>[0] => ({
@@ -99,7 +99,7 @@ const mapping = (state: State, type: EContentType) => {
     photoUri: "",
     place: placeApi(state.place),
     tags: [],
-    name: state.name
+    name: state.name,
   });
 
   const stockMapping = (state: Required<TStateTrade>): Parameters<TStockExchangePostAction>[0] => ({
@@ -111,7 +111,7 @@ const mapping = (state: State, type: EContentType) => {
     cost: state.price,
     // todo: add to both mappings
     type: "BUY" as any,
-    name: state.name
+    name: state.name,
   });
 
   return (() => {
@@ -144,7 +144,7 @@ const mappingInverse = (state: any, type: EContentType) => {
     text: res.description,
     price: res.entryFee,
     place: placeFromApi(res.place),
-    name: res.name
+    name: res.name,
 
   });
 
@@ -159,7 +159,7 @@ const mappingInverse = (state: any, type: EContentType) => {
     text: res.description,
     place: placeFromApi(res.place),
     price: res.cost,
-    name: res.name
+    name: res.name,
   });
 
   return (() => {
