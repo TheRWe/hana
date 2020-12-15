@@ -1,6 +1,7 @@
 import { faUser, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 // import { useEffect, useState } from "react";
 
 export type TLogin = { token?: string };
@@ -85,8 +86,10 @@ export const FBLoginButton: React.FC<TFBLoginButtonProps> = ({ setLogin: sl }) =
         isLogged
           ?
           <>
-            <li className="nav-item nav-link" >
-              ROMAN NOVY
+            <li className="nav-item" >
+              <Link className="nav-link" to={"/ProfilePage"}>
+                ROMAN NOVY
+              </Link>
             </li>
             <li className="nav-item nav-link" onClick={() => setIsLogged(false)}>
               <FontAwesomeIcon icon={faDoorOpen} className="icon" size="1x" />
