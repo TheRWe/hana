@@ -32,7 +32,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
     <header>
       {
         // imagePath ? <img src={imagePath} alt="ntg" /> : <img src="../images/no_image.png" alt="ntg" />
-        imagePath ? <img src="../images/tile_no_image.svg" alt="ntg" /> : <img src="../images/no_image.png" alt="ntg" />
+        imagePath ? <img src="../images/tile_no_image.svg" alt="ntg" /> : ""
       }
       <h3 className="card-title">{name}</h3>
       <Rating rating={eventRating} />
