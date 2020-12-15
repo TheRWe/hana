@@ -1,6 +1,6 @@
 import { faUser, faDoorOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 // import { useEffect, useState } from "react";
 
 export type TLogin = { token?: string };
@@ -29,6 +29,9 @@ type TFBLoginButtonProps = {
 };
 
 export const FBLoginButton: React.FC<TFBLoginButtonProps> = ({ setLogin: sl }) => {
+
+  const [isLogged, setIsLogged] = useState(false);
+
   // const [refreshToken, setRefreshToken] = useState(0);
   // const refresh = () => setRefreshToken(refreshToken + 1);
   // const [name, setName] = useState("");
@@ -64,17 +67,40 @@ export const FBLoginButton: React.FC<TFBLoginButtonProps> = ({ setLogin: sl }) =
   // }, [response, sl]);
 
   return <>
-    <ul className="navbar-nav user-menu">
+    {/*<ul className="navbar-nav user-menu">
       <li className="nav-item nav-link">
         <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
         <button style={{ color: "#d19453" }} >
-          {/* {response?.status === "connected" ? name : "LOGIN"} */}
+          {response?.status === "connected" ? name : "LOGIN"}
           LOGIN
         </button>
       </li>
       <li className="nav-item nav-link" >
         <FontAwesomeIcon icon={faDoorOpen} className="icon" size="1x" />
       </li>
+    </ul> */}
+
+    <ul className="navbar-nav user-menu">
+      {
+        isLogged
+          ?
+          <>
+            <li className="nav-item nav-link" >
+              ROMAN NOVY
+            </li>
+            <li className="nav-item nav-link" onClick={() => setIsLogged(false)}>
+              <FontAwesomeIcon icon={faDoorOpen} className="icon" size="1x" />
+            </li>
+          </>
+          :
+          <li className="nav-item nav-link">
+            <FontAwesomeIcon icon={faUser} className="icon" size="1x" />
+            <button style={{ color: "#d19453" }} onClick={() => setIsLogged(true)}>
+              LOGIN
+        </button>
+          </li>
+      }
     </ul>
+
   </>;
 };
