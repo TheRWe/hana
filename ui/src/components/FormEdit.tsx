@@ -22,11 +22,9 @@ type TStateEvent = {
   imagePath?: string
   place?: Place
   date?: Date
-  email?: string
   name?: string
   text?: string
   price?: number
-  telephoneNumber?: string
 };
 
 type TStateTrade = {
@@ -35,7 +33,6 @@ type TStateTrade = {
   name?: string
   text?: string
   price?: number
-  telephoneNumber?: string
   place?: Place
 };
 
@@ -46,7 +43,6 @@ type TStateJob = {
   name?: string
   text?: string
   price?: number
-  telephoneNumber?: string
 };
 
 type State = TStateEvent | TStateTrade | TStateJob;
@@ -272,8 +268,6 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
     { name: "name", type: EFieldType.text, label: { en: "Item name", cz: "Prodávaný předmět" }, },
     { name: "text", type: EFieldType.textArea, label: { en: "Event description", cz: "Popis předmětu" }, },
     { name: "price", type: EFieldType.number, label: { en: "Price", cz: "Cena" }, },
-    { name: "telephoneNumber", type: EFieldType.text, label: { en: "Telephone number", cz: "Telefonní číslo" }, },
-    { name: "email", type: EFieldType.text, label: { en: "E-mail", cz: "E-mail" }, },
   ];
 
   const jobFields: TField[] = [
@@ -282,37 +276,35 @@ export const FormEdit: React.FC<TFormAddProps> = ({ formType, id, onSubmit }) =>
     { name: "price", type: EFieldType.number, label: { en: "Pay", cz: "Plat" }, },
     { name: "place", type: EFieldType.place, label: { en: "Place", cz: "Místo vykonávání" }, },
     {
-      name: "todo" as any, type: EFieldType.select, label: { en: "Type of employment", cz: "Typ pracovního poměru" },
+      name: "type" as any, type: EFieldType.select, label: { en: "Type of employment", cz: "Typ pracovního poměru" },
       selectOptions: [
         { value: "fulltime", text: { en: "Full time", cz: "Plný úvazek" } },
-        { value: "???", text: { en: "???", cz: "Živnost" } },
+        { value: "trade", text: { en: "Trade", cz: "Živnost" } },
         { value: "summerjob", text: { en: "Summer job", cz: "Brigáda" } },
         { value: "parttime", text: { en: "Part time", cz: "Zkrácený úvazek" } },
         { value: "internship", text: { en: "Internship", cz: "Stáž" } },
       ],
     },
-    { name: "telephoneNumber", type: EFieldType.text, label: { en: "Telephone number", cz: "Telefonní číslo" }, },
-    { name: "email", type: EFieldType.text, label: { en: "E-mail", cz: "E-mail" }, },
   ];
 
 
   const eventFields: TField[] = [
     { name: "name", type: EFieldType.text, label: { en: "Event name", cz: "Název akce" }, },
+    /* TODO start and end */
+    { name: "date",  type: EFieldType.date, label: { en: "Date", cz: "Datum akce" }, },
     { name: "date", type: EFieldType.date, label: { en: "Date", cz: "Datum akce" }, },
     {
-      name: "todoType" as any, type: EFieldType.select, label: { en: "Type", cz: "Typ" },
+      name: "type" as any, type: EFieldType.select, label: { en: "Type", cz: "Typ" },
       selectOptions: [
-        { value: "offer", text: { en: "Offer", cz: "Nabídka" } },
-        { value: "inquiry", text: { en: "Inquiry", cz: "Poptávka" } },
+        { value: "cultural", text: { en: "Cultural", cz: "Kulturní" } },
+        { value: "music", text: { en: "Music", cz: "Hudební" } },
+        { value: "kids", text: { en: "For kids", cz: "Pro děti" } },
       ],
     },
     { name: "place", type: EFieldType.place, label: { en: "Place", cz: "Místo konání" }, },
     { name: "text", type: EFieldType.textArea, label: { en: "Event description", cz: "Popis akce" }, },
     { name: "price", type: EFieldType.number, label: { en: "Entry fee", cz: "Vstupné" }, },
-    { name: "telephoneNumber", type: EFieldType.text, label: { en: "Telephone number", cz: "Telefonní číslo" }, },
-    { name: "email", type: EFieldType.text, label: { en: "E-mail", cz: "E-mail" }, },
   ];
-
 
   const form = (() => {
     switch (formType) {

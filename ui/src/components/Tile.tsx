@@ -27,7 +27,7 @@ type TileProps = {
   onEdit?: () => void
 };
 
-export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, text, price, jobAdType,name, onEdit }: TileProps) => <>
+export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, jobType, userName, userRating, eventRating, text, price, jobAdType, name, onEdit }: TileProps) => <>
   <article className="col-4 card card-pink">
     <header>
       {
@@ -99,6 +99,7 @@ export const Tile: React.FC<TileProps> = ({ imagePath, place, date, email, pay, 
             undefined
         }
         {
+
           place ?
             <div className="card-info-row">
               <p>

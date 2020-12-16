@@ -81,7 +81,7 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
     <section className="container row cards">
       {
         response.map(({
-          authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating,
+          authorId, createdUtc, date, description, entryFee, id, name, tags, photoUri, place, rating, email
         }) =>
           <Tile
             name={name}
@@ -93,8 +93,10 @@ export const CalendarPage: React.FC<TCalendarPageProps> = () => {
               dateFromApi(date.start).toLocaleDateString() + " - " + dateFromApi(date.endInclusive).toLocaleDateString()}
             text={description}
             price={entryFee.toString(10) + " Kč"}
-            onEdit={() => setEditID(id)
-            }
+
+            email={email}
+
+            onEdit={() => setEditID(id)}
           />
         )
       }
