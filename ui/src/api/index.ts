@@ -75,6 +75,9 @@ export const withFetch = <TA extends TAction<any, any>>({
       log("error", debugID, method, uri);
       throw new ErrorCode(`${res.status} ${text}`, res.status);
     }
+    if (res.status === 204) {
+        return res;
+    }
 
     // todo: fix better
     try{

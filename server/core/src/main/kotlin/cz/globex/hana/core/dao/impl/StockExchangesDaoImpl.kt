@@ -105,6 +105,7 @@ internal class StockExchangesDaoImpl protected constructor(
 			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toSet()
 			isActual = advertisableDto.isActual
 		}
+		stockExchangesRepository.save(stockExchange)
 	}
 
 	@Transactional
