@@ -112,7 +112,7 @@ internal class EventsDaoImpl protected constructor(
 			price = advertisableDto.entryFee
 			photoUri = advertisableDto.photoUri
 			place = null // TODO
-			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toSet()
+			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toMutableSet()
 		}
 		eventsRepository.save(event)
 	}

@@ -96,7 +96,7 @@ internal class AdsDaoImpl protected constructor(
 			type = advertisableDto.type
 			photoUri = advertisableDto.photoUri
 			place = null // TODO
-			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toSet()
+			tags = tagsRepository.saveAll(advertisableDto.tags.map { Tag(it) }).toMutableSet()
 			isActual = advertisableDto.isActual
 		}
 		adsRepository.save(ad)

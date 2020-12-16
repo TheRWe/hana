@@ -35,7 +35,7 @@ abstract class Advertisable internal constructor(
 		}
 
 	@ManyToMany
-	open var tags: Set<Tag> = tags.also { validateTags(it) }
+	open var tags: MutableSet<Tag> = tags.also { validateTags(it) }.toMutableSet()
 		set(value) {
 			validateTags(value)
 			field = value
